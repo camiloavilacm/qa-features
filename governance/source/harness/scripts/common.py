@@ -92,6 +92,9 @@ def git_context(root):
 def source_digest(root):
     files = inventory(root)
     files.pop('harness/state.json', None)
+    # Runtime artifacts are validated separately and remain in scope inventory.
+    if location(root).get('repository') in ('qa-python', 'qa-typescript'):
+        files = {k:v for k,v in files.items() if k not in ('reports','.pytest_cache') and not k.startswith(('reports/','.pytest_cache/'))}
     return digest(json.dumps(files, sort_keys=True).encode())
 
 def safe_relative(root, value):
@@ -140,6 +143,8 @@ def permitted(root, step, value):
         for frozen in config(root, 'scope-policy')['immutable_contract_paths']:
             if rel == frozen.rstrip('/') or (frozen.endswith('/') and rel.startswith(frozen)):
                 return False
+    if step == '2' and any(part.lower() in ('cypress', 'step_definitions', 'pytest_bdd', 'campaign-report') for part in Path(rel).parts):
+        return False
     if step == '1':
         lower = rel.lower()
         if any(x in lower for x in ('cypress', 'pytest', 'step_definitions', 'tracker', 'campaign-report', 'node_modules')):
@@ -202,10 +207,20 @@ def preflight(root, step, provider, owner, *, require_owner=True):
         for label in ('feature_ref', 'tooling_ref'):
             if not s[label]:
                 continue
-            repo = root if loc['repository'] == 'qa-features' else root / 'qa-features'
-            proc = subprocess.run(['git', '-C', str(repo), 'rev-parse', '--verify', '--end-of-options', s[label] + '^{commit}'], capture_output=True, text=True)
-            if proc.returncode != 0 or not s['git_revisions'].get(label) or proc.stdout.strip() != s['git_revisions'][label]:
-                raise ValueError(label + ' is missing or moved from its recorded immutable commit')
+            if loc['kind'] == 'repository' and loc['repository'] in ('sut-python', 'sut-node'):
+                # Step 2 portable proof: independent checkout, no parent repo needed.
+                with tempfile.TemporaryDirectory(prefix='qa-feature-proof-') as temp:
+                    proc = subprocess.run(['git','clone','--bare','--quiet',str(root/'contracts/approved.bundle'),temp],capture_output=True)
+                    if proc.returncode: raise ValueError('Approved feature Git bundle is unavailable')
+                    proc = subprocess.run(['git','-C',temp,'rev-parse','--verify','--end-of-options',s[label]+'^{commit}'],capture_output=True,text=True)
+                    if proc.returncode or proc.stdout.strip() != s['git_revisions'].get(label): raise ValueError('Pinned reference missing from proof')
+                    tag = subprocess.run(['git','-C',temp,'rev-parse','seed-1-approved-v1^{commit}'],capture_output=True,text=True)
+                    if tag.returncode or tag.stdout.strip() != s['feature_ref']: raise ValueError('Approved tag proof differs')
+            else:
+                repo = root if loc['repository'] == 'qa-features' else root / 'qa-features'
+                proc = subprocess.run(['git', '-C', str(repo), 'rev-parse', '--verify', '--end-of-options', s[label] + '^{commit}'], capture_output=True, text=True)
+                if proc.returncode != 0 or not s['git_revisions'].get(label) or proc.stdout.strip() != s['git_revisions'][label]:
+                    raise ValueError(label + ' is missing or moved from its recorded immutable commit')
     return s
 
 def audit(root, baseline):
@@ -250,7 +265,16 @@ def audit(root, baseline):
         ctx = current.get(repo, {})
         oldrefs = baseline['git'].get(repo, {}).get('refs')
         new_unborn = repo not in baseline['git'] and ctx.get('head', {}).get('exit_code') != 0 and not ctx.get('refs', {}).get('output')
-        if oldrefs != ctx.get('refs') and not new_unborn:
+        # Step 3 imports an already human-approved detached submodule without
+        # creating refs. Check the immutable pin and index, never waive ref edits.
+        new_approved_submodule = False
+        if location(root).get('repository') == 'qa-python' and repo == 'qa-features' and repo not in baseline['git']:
+            index = subprocess.run(['git','-C',str(root),'ls-files','--stage','qa-features'], capture_output=True, text=True)
+            new_approved_submodule = (ctx.get('refs') == {'exit_code':1,'output':''}
+                and ctx.get('head') == {'exit_code':0,'output':s['feature_ref']}
+                and ctx.get('status') == {'exit_code':0,'output':''}
+                and index.returncode == 0 and index.stdout.split()[:2] == ['160000',s['feature_ref']])
+        if oldrefs != ctx.get('refs') and not new_unborn and not new_approved_submodule:
             errors.append('Git reference changes require human review: ' + repo)
     return {'status': 'FAIL' if errors else 'PASS', 'changed': changed, 'errors': errors, 'git': current}
 

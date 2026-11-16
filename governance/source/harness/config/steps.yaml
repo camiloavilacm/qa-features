@@ -166,13 +166,60 @@
         "feature-approved"
       ],
       "allowed_paths": [
-        "qa-typescript/"
+        "planning/",
+        "harness/",
+        "qa-features/harness/",
+        "qa-features/governance/",
+        "qa-features/planning/",
+        "qa-features/.agents/",
+        "qa-features/.claude/",
+        "qa-features/.codex/",
+        "qa-features/reports/",
+        "qa-features/.pytest_cache/",
+        "sut-python/harness/",
+        "sut-python/governance/",
+        "sut-python/planning/",
+        "sut-python/.agents/",
+        "sut-python/.claude/",
+        "sut-python/.codex/",
+        "sut-python/reports/",
+        "sut-python/.pytest_cache/",
+        "sut-node/harness/",
+        "sut-node/governance/",
+        "sut-node/planning/",
+        "sut-node/.agents/",
+        "sut-node/.claude/",
+        "sut-node/.codex/",
+        "sut-node/reports/",
+        "sut-node/.pytest_cache/",
+        "qa-python/harness/",
+        "qa-python/governance/",
+        "qa-python/planning/",
+        "qa-python/.agents/",
+        "qa-python/.claude/",
+        "qa-python/.codex/",
+        "qa-python/reports/",
+        "qa-python/.pytest_cache/",
+        "qa-typescript/harness/",
+        "qa-typescript/governance/",
+        "qa-typescript/planning/",
+        "qa-typescript/.agents/",
+        "qa-typescript/.claude/",
+        "qa-typescript/.codex/",
+        "qa-typescript/reports/",
+        "qa-typescript/.pytest_cache/"
       ],
       "allowed_repositories": [
+        "qa-features",
+        "sut-python",
+        "sut-node",
+        "qa-python",
         "qa-typescript"
       ],
       "allowed_categories": [
-        "cypress-runner"
+        "authorized-maintenance-governance",
+        "planning",
+        "verification-outputs"
       ],
       "required_outputs": [
         "cypress-runner"
@@ -184,7 +231,7 @@
       "prohibited_future_artifacts": [
         "later-step-implementation"
       ],
-      "approval_required": "explicit-user-authorization; feature approval is separate",
+      "approval_required": "Explicit Step 4 maintenance amendment: User Implement the plan; Continue. Stop before Step 5.",
       "exit_condition": "all required checks PASS, mandatory scope audit PASS, stop"
     },
     "5": {

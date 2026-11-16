@@ -8,6 +8,17 @@ import uuid
 from common import ROOT, state, validate, preflight, now, digest, source_digest, git_context, write, read, safe_relative, cli_error, audit, sign_evidence, verify_signature, config, location
 
 def command(root, check_id):
+    # One fixed registration table; arbitrary commands are never accepted.
+    registrations = {
+        '2': (('sut-python','sut-node'), ('hurl','seeds','ui-parity','digests')),
+        '3': (('qa-python',), ('12-passes','observer-complete')),
+        '4': (('qa-typescript',), ('6-passes','result-schema')),
+    }
+    step = state(root)['authorized_step']
+    if step in registrations and check_id in registrations[step][1]:
+        if location(root).get('repository') not in registrations[step][0]:
+            raise ValueError('Check requires its registered repository')
+        return [sys.executable, str(root/'tools/verify.py'), '--check', check_id]
     spec = root if location(root).get('repository') == 'qa-features' else root / 'qa-features'
     if check_id in config(root, 'steps')['steps']['1']['verification_checks']:
         return [sys.executable, str(spec / 'tools/validate/validate.py'), '--check', check_id]
@@ -27,8 +38,8 @@ def command(root, check_id):
 def run(root, check_id):
     s = state(root)
     preflight(root, s['authorized_step'], s['owner']['provider'], s['owner']['id'])
-    if s['authorized_step'] not in ('0.5', '1'):
-        raise ValueError('Only Phase 0.5 and Step 1 checks are implemented')
+    if s['authorized_step'] not in ('0.5', '1', '2', '3', '4'):
+        raise ValueError('Only registered Phase 0.5 and Steps 1–4 checks are implemented')
     if check_id not in config(root, 'steps')['steps'][s['authorized_step']]['verification_checks']:
         raise ValueError('Check is outside the active step')
     args = command(root, check_id)
@@ -36,7 +47,7 @@ def run(root, check_id):
     before = source_digest(root)
     sign_evidence(root, {})  # Fail before executing if external recorder is unavailable.
     try:
-        proc = subprocess.run(args, cwd=root, capture_output=True, timeout=300 if check_id == 'native-cycle' else 120)
+        proc = subprocess.run(args, cwd=root, capture_output=True, timeout=600 if check_id in ('12-passes','observer-complete','6-passes','result-schema') else 300 if check_id in ('native-cycle','seeds','ui-parity') else 120)
         code, log = proc.returncode, proc.stdout + b'\nSTDERR:\n' + proc.stderr
     except subprocess.TimeoutExpired as e:
         code, log = None, (e.stdout or b'') + (e.stderr or b'') + b'\nTIMEOUT'
@@ -69,12 +80,20 @@ def validate_evidence(root, evidence):
         raise ValueError('Evidence is stale for current source')
     if evidence['cwd'] != str(root) or evidence['step'] != state(root)['authorized_step']:
         raise ValueError('Evidence belongs to a different workspace or step')
+    if evidence['step'] in ('3','4'):
+        import importlib.util
+        module_spec=importlib.util.spec_from_file_location('step3_verifier', root/'tools/verify.py')
+        verifier=importlib.util.module_from_spec(module_spec);module_spec.loader.exec_module(verifier)
+        verifier.verify_saved()
+        receipt_digest=digest((root/'reports/latest.json').read_bytes())
+        if ('RESULT_RECEIPT_SHA256 '+receipt_digest) not in log.read_text():
+            raise ValueError('Execution results differ from the signed receipt')
     return evidence['status']
 
 def gate(root):
     s = state(root)
     preflight(root, s['authorized_step'], s['owner']['provider'], s['owner']['id'])
-    if s['authorized_step'] not in ('0.5', '1'):
+    if s['authorized_step'] not in ('0.5', '1', '2', '3', '4'):
         raise ValueError('No product-step completion implementation')
     latest = {}
     for path in s['evidence']:
@@ -88,6 +107,15 @@ def gate(root):
         for name in config(root, 'steps')['steps']['1']['required_outputs']:
             if not (spec / name).exists():
                 failures.append('Missing required specification output: ' + name)
+    if s['authorized_step'] == '2':
+        for name in ('app.py' if location(root)['repository']=='sut-python' else 'app.js','compose.yaml','Dockerfile','db/schema.sql','frontend/manifest.json','contracts/provenance.json','tools/verify.py'):
+            if not (root/name).is_file(): failures.append('Missing Step 2 output: '+name)
+    if s['authorized_step'] == '4':
+        for name in ('README.md','package-lock.json','cypress.config.ts','cypress/e2e/auth.cy.ts','runner/report.cjs','tools/verify.py'):
+            if not (root/name).is_file(): failures.append('Missing Step 4 output: '+name)
+    if s['authorized_step'] == '3':
+        for name in ('README.md','pyproject.toml','requirements.txt','runner/browser.py','runner/observer.py','runner/results.py','tests/test_auth.py','tools/verify.py'):
+            if not (root/name).is_file(): failures.append('Missing Step 3 output: '+name)
     for name in required:
         try:
             if name not in latest or validate_evidence(root, latest[name]) != 'PASS':
