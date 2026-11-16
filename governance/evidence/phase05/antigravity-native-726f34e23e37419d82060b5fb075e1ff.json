@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "step": "0.5",
+  "provider": "codex",
+  "owner": "phase05-builder",
+  "check_id": "antigravity-native",
+  "command": [
+    "/Users/camiloavila/Documents/qa-workspace/.venv/bin/python",
+    "harness/scripts/native_probe.py",
+    "antigravity"
+  ],
+  "cwd": "/Users/camiloavila/Documents/qa-workspace",
+  "started_at": "2026-11-16T12:26:39.830483+00:00",
+  "finished_at": "2026-11-16T12:26:40.328416+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "log": "harness/evidence/antigravity-native-726f34e23e37419d82060b5fb075e1ff.log",
+  "log_sha256": "3e97bf6f03bfc095b8a99c8e4d4853b842d334273f4237b540ddbbdf9a034eb5",
+  "source_sha256": "7d56ad71094bea4171e58be882019321a562a0dd8fee4ce55caa7d27af99b70b",
+  "git": {},
+  "instrumentation": "subprocess-capture",
+  "signature": "d5b598c5ebaaffc18af783ddd14e31dec73baf91de215080b5d7cba87e0b56a3"
+}

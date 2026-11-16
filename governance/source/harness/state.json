@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "phase": "1",
+  "authorized_step": null,
+  "authorization": {
+    "step": "none",
+    "source": "human",
+    "reference": "Not authorized; operator must supply external approval",
+    "approved_feature_ref": null
+  },
+  "owner": null,
+  "approval_status": "not_requested",
+  "completed_steps": [],
+  "feature_ref": null,
+  "tooling_ref": null,
+  "git_revisions": {},
+  "baseline": "harness/evidence/step1-baseline.json",
+  "prerequisites": {},
+  "evidence": [],
+  "blockers": [
+    "Fresh distribution: human authorization and local verification required"
+  ],
+  "next_action": "Obtain explicit human authorization; no product work"
+}

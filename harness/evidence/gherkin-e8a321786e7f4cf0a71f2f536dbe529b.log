@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "check": "gherkin",
+      "status": "PASS",
+      "details": {
+        "story": "SEED-1",
+        "scenarios": 3,
+        "mapping_status": "draft-unapproved"
+      }
+    }
+  ]
+}
+
+STDERR:

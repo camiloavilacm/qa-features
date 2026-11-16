@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "check": "selectors",
+      "status": "PASS",
+      "details": {
+        "covered_selectors": 10
+      }
+    }
+  ]
+}
+
+STDERR:

@@ -1,0 +1,96 @@
+{
+  "provider": "codex",
+  "static_native_checks": [
+    {
+      "command": [
+        "codex",
+        "-C",
+        "/Users/camiloavila/Documents/qa-workspace",
+        "-c",
+        "projects.\"/Users/camiloavila/Documents/qa-workspace\".trust_level=\"trusted\"",
+        "--strict-config",
+        "app-server",
+        "--print-startup-config"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "codex",
+        "-C",
+        "/Users/camiloavila/Documents/qa-workspace",
+        "-c",
+        "projects.\"/Users/camiloavila/Documents/qa-workspace\".trust_level=\"trusted\"",
+        "debug",
+        "prompt-input",
+        "Read-only harness discovery probe; do not execute any work"
+      ],
+      "exit_code": 0,
+      "four_skills_visible": true,
+      "instructions_visible": true
+    },
+    {
+      "command": [
+        "codex",
+        "execpolicy",
+        "check",
+        "--rules",
+        "/Users/camiloavila/Documents/qa-workspace/.codex/rules/qa-commands.rules",
+        "git",
+        "tag",
+        "fixture"
+      ],
+      "exit_code": 0,
+      "policy": {
+        "matchedRules": [
+          {
+            "prefixRuleMatch": {
+              "matchedPrefix": [
+                "git",
+                "tag"
+              ],
+              "decision": "forbidden",
+              "justification": "Human approval boundary; agents never tag autonomously"
+            }
+          }
+        ],
+        "decision": "forbidden"
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "execpolicy",
+        "check",
+        "--rules",
+        "/Users/camiloavila/Documents/qa-workspace/.codex/rules/qa-commands.rules",
+        "git",
+        "push"
+      ],
+      "exit_code": 0,
+      "policy": {
+        "matchedRules": [
+          {
+            "prefixRuleMatch": {
+              "matchedPrefix": [
+                "git",
+                "push"
+              ],
+              "decision": "prompt",
+              "justification": "Remote changes require explicit authorization"
+            }
+          }
+        ],
+        "decision": "prompt"
+      }
+    }
+  ],
+  "live_discovery": "NOT RUN",
+  "live_enforcement": "NOT RUN",
+  "fresh_session_handoff": "NOT RUN",
+  "prompt_discovery": "PASS",
+  "status": "PASS",
+  "scope": "native parser/discovery checks only; native-cycle separately gates live acceptance"
+}
+
+STDERR:

@@ -1,0 +1,9 @@
+openapi PASS
+hurl PASS
+gherkin PASS
+selectors PASS
+baseline PASS
+json-schemas PASS
+governance PASS
+
+STDERR:

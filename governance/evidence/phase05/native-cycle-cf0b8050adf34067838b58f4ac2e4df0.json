@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "step": "0.5",
+  "provider": "codex",
+  "owner": "phase05-builder",
+  "check_id": "native-cycle",
+  "command": [
+    "/Users/camiloavila/Documents/qa-workspace/.venv/bin/python",
+    "harness/scripts/native_acceptance.py"
+  ],
+  "cwd": "/Users/camiloavila/Documents/qa-workspace",
+  "started_at": "2026-11-16T12:26:40.423704+00:00",
+  "finished_at": "2026-11-16T12:28:01.079713+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "log": "harness/evidence/native-cycle-cf0b8050adf34067838b58f4ac2e4df0.log",
+  "log_sha256": "7f5e8b172f1ea2b8081c106d8e0b58bee618c93edc06d75194b5b0b3278acc0e",
+  "source_sha256": "7d56ad71094bea4171e58be882019321a562a0dd8fee4ce55caa7d27af99b70b",
+  "git": {},
+  "instrumentation": "subprocess-capture",
+  "signature": "5628818eea113d7a55aa9e8e79b5ed569e16eba943907cf38814c401b0f9013e"
+}

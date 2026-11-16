@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "check": "openapi",
+      "status": "PASS",
+      "details": {
+        "operations": 3,
+        "expectations": 5
+      }
+    }
+  ]
+}
+
+STDERR:

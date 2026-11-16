@@ -1,0 +1,238 @@
+[
+  {
+    "command": [
+      "/Users/camiloavila/Documents/qa-workspace/qa-features/.venv/bin/python",
+      "-B",
+      "harness/scripts/preflight.py",
+      "--step",
+      "1",
+      "--provider",
+      "codex",
+      "--owner",
+      "codex-step1"
+    ],
+    "cwd": "/Users/camiloavila/Documents/qa-workspace/qa-features",
+    "exit_code": 0,
+    "log": "/Users/camiloavila/Documents/qa-workspace/qa-features/harness/evidence/step1-final-preflight.log",
+    "timestamp": "2026-11-16T13:35:04.151220+00:00"
+  },
+  {
+    "command": [
+      "/Users/camiloavila/Documents/qa-workspace/qa-features/.venv/bin/python",
+      "-B",
+      "harness/scripts/validate_adapters.py"
+    ],
+    "cwd": "/Users/camiloavila/Documents/qa-workspace/qa-features",
+    "exit_code": 0,
+    "log": "/Users/camiloavila/Documents/qa-workspace/qa-features/harness/evidence/step1-adapters.log",
+    "timestamp": "2026-11-16T13:35:04.252704+00:00"
+  },
+  {
+    "command": [
+      "/Users/camiloavila/Documents/qa-workspace/qa-features/.venv/bin/python",
+      "-B",
+      "harness/scripts/sync_skills.py",
+      "--check"
+    ],
+    "cwd": "/Users/camiloavila/Documents/qa-workspace/qa-features",
+    "exit_code": 0,
+    "log": "/Users/camiloavila/Documents/qa-workspace/qa-features/harness/evidence/step1-skill-sync.log",
+    "timestamp": "2026-11-16T13:35:04.328510+00:00"
+  },
+  {
+    "command": [
+      "/Users/camiloavila/Documents/qa-workspace/qa-features/.venv/bin/python",
+      "-m",
+      "pip",
+      "check"
+    ],
+    "cwd": "/Users/camiloavila/Documents/qa-workspace/qa-features",
+    "exit_code": 0,
+    "log": "/Users/camiloavila/Documents/qa-workspace/qa-features/harness/evidence/step1-dependencies.log",
+    "timestamp": "2026-11-16T13:35:04.521160+00:00"
+  },
+  {
+    "command": [
+      "/Users/camiloavila/Documents/qa-workspace/qa-features/.venv/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "harness/evals",
+      "-p",
+      "test_*.py",
+      "-v"
+    ],
+    "cwd": "/Users/camiloavila/Documents/qa-workspace/qa-features",
+    "exit_code": 0,
+    "log": "/Users/camiloavila/Documents/qa-workspace/qa-features/harness/evidence/step1-harness-tests.log",
+    "timestamp": "2026-11-16T13:35:07.984650+00:00"
+  },
+  {
+    "command": [
+      "/Users/camiloavila/Documents/qa-workspace/qa-features/.venv/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tools/validate",
+      "-p",
+      "test_*.py",
+      "-v"
+    ],
+    "cwd": "/Users/camiloavila/Documents/qa-workspace/qa-features",
+    "exit_code": 0,
+    "log": "/Users/camiloavila/Documents/qa-workspace/qa-features/harness/evidence/step1-spec-tests.log",
+    "timestamp": "2026-11-16T13:35:08.309828+00:00"
+  },
+  {
+    "command": [
+      "/Users/camiloavila/Documents/qa-workspace/qa-features/.venv/bin/python",
+      "-B",
+      "harness/scripts/verify_step.py",
+      "run",
+      "--check",
+      "openapi"
+    ],
+    "cwd": "/Users/camiloavila/Documents/qa-workspace/qa-features",
+    "exit_code": 0,
+    "log": "/Users/camiloavila/Documents/qa-workspace/qa-features/harness/evidence/step1-openapi.log",
+    "timestamp": "2026-11-16T13:35:08.712901+00:00"
+  },
+  {
+    "command": [
+      "/Users/camiloavila/Documents/qa-workspace/qa-features/.venv/bin/python",
+      "-B",
+      "harness/scripts/verify_step.py",
+      "run",
+      "--check",
+      "hurl"
+    ],
+    "cwd": "/Users/camiloavila/Documents/qa-workspace/qa-features",
+    "exit_code": 0,
+    "log": "/Users/camiloavila/Documents/qa-workspace/qa-features/harness/evidence/step1-hurl.log",
+    "timestamp": "2026-11-16T13:35:09.093735+00:00"
+  },
+  {
+    "command": [
+      "/Users/camiloavila/Documents/qa-workspace/qa-features/.venv/bin/python",
+      "-B",
+      "harness/scripts/verify_step.py",
+      "run",
+      "--check",
+      "gherkin"
+    ],
+    "cwd": "/Users/camiloavila/Documents/qa-workspace/qa-features",
+    "exit_code": 0,
+    "log": "/Users/camiloavila/Documents/qa-workspace/qa-features/harness/evidence/step1-gherkin.log",
+    "timestamp": "2026-11-16T13:35:09.479206+00:00"
+  },
+  {
+    "command": [
+      "/Users/camiloavila/Documents/qa-workspace/qa-features/.venv/bin/python",
+      "-B",
+      "harness/scripts/verify_step.py",
+      "run",
+      "--check",
+      "selectors"
+    ],
+    "cwd": "/Users/camiloavila/Documents/qa-workspace/qa-features",
+    "exit_code": 0,
+    "log": "/Users/camiloavila/Documents/qa-workspace/qa-features/harness/evidence/step1-selectors.log",
+    "timestamp": "2026-11-16T13:35:09.855362+00:00"
+  },
+  {
+    "command": [
+      "/Users/camiloavila/Documents/qa-workspace/qa-features/.venv/bin/python",
+      "-B",
+      "harness/scripts/verify_step.py",
+      "run",
+      "--check",
+      "baseline"
+    ],
+    "cwd": "/Users/camiloavila/Documents/qa-workspace/qa-features",
+    "exit_code": 0,
+    "log": "/Users/camiloavila/Documents/qa-workspace/qa-features/harness/evidence/step1-baseline.log",
+    "timestamp": "2026-11-16T13:35:10.284268+00:00"
+  },
+  {
+    "command": [
+      "/Users/camiloavila/Documents/qa-workspace/qa-features/.venv/bin/python",
+      "-B",
+      "harness/scripts/verify_step.py",
+      "run",
+      "--check",
+      "json-schemas"
+    ],
+    "cwd": "/Users/camiloavila/Documents/qa-workspace/qa-features",
+    "exit_code": 0,
+    "log": "/Users/camiloavila/Documents/qa-workspace/qa-features/harness/evidence/step1-json-schemas.log",
+    "timestamp": "2026-11-16T13:35:10.734559+00:00"
+  },
+  {
+    "command": [
+      "/Users/camiloavila/Documents/qa-workspace/qa-features/.venv/bin/python",
+      "-B",
+      "harness/scripts/verify_step.py",
+      "run",
+      "--check",
+      "governance"
+    ],
+    "cwd": "/Users/camiloavila/Documents/qa-workspace/qa-features",
+    "exit_code": 0,
+    "log": "/Users/camiloavila/Documents/qa-workspace/qa-features/harness/evidence/step1-governance.log",
+    "timestamp": "2026-11-16T13:35:11.122289+00:00"
+  },
+  {
+    "command": [
+      "/Users/camiloavila/Documents/qa-workspace/qa-features/.venv/bin/python",
+      "-B",
+      "harness/scripts/verify_step.py",
+      "validate"
+    ],
+    "cwd": "/Users/camiloavila/Documents/qa-workspace/qa-features",
+    "exit_code": 0,
+    "log": "/Users/camiloavila/Documents/qa-workspace/qa-features/harness/evidence/step1-evidence-validation.log",
+    "timestamp": "2026-11-16T13:35:11.360348+00:00"
+  },
+  {
+    "command": [
+      "/Users/camiloavila/Documents/qa-workspace/qa-features/.venv/bin/python",
+      "-B",
+      "harness/scripts/scope_guard.py",
+      "--baseline",
+      "harness/evidence/step1-baseline.json"
+    ],
+    "cwd": "/Users/camiloavila/Documents/qa-workspace/qa-features",
+    "exit_code": 0,
+    "log": "/Users/camiloavila/Documents/qa-workspace/qa-features/harness/evidence/step1-local-scope.log",
+    "timestamp": "2026-11-16T13:35:11.714976+00:00"
+  },
+  {
+    "command": [
+      "/Users/camiloavila/Documents/qa-workspace/qa-features/.venv/bin/python",
+      "-B",
+      "/Users/camiloavila/Documents/qa-workspace/harness/scripts/scope_guard.py",
+      "--baseline",
+      "/Users/camiloavila/Documents/qa-workspace-control/step1-baseline.json"
+    ],
+    "cwd": "/Users/camiloavila/Documents/qa-workspace",
+    "exit_code": 0,
+    "log": "/Users/camiloavila/Documents/qa-workspace/qa-features/harness/evidence/step1-workspace-scope.log",
+    "timestamp": "2026-11-16T13:35:13.407577+00:00"
+  },
+  {
+    "command": [
+      "/Users/camiloavila/Documents/qa-workspace/qa-features/.venv/bin/python",
+      "-B",
+      "harness/scripts/verify_step.py",
+      "gate"
+    ],
+    "cwd": "/Users/camiloavila/Documents/qa-workspace/qa-features",
+    "exit_code": 0,
+    "log": "/Users/camiloavila/Documents/qa-workspace/qa-features/harness/evidence/step1-gate.log",
+    "timestamp": "2026-11-16T13:35:13.990544+00:00"
+  }
+]

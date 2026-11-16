@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "check": "governance",
+      "status": "PASS",
+      "details": {
+        "generated_files": 56,
+        "preserved_files": 72,
+        "claude_live": "NOT RUN (approved exception)"
+      }
+    }
+  ]
+}
+
+STDERR:

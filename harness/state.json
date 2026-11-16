@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "phase": "1-approved",
+  "authorized_step": "1",
+  "authorization": {
+    "step": "1",
+    "source": "human",
+    "reference": "User: continue with the implementation step 1; followed by yes to drafting missing SEED-1 details from v2 as new, unapproved assumptions",
+    "approved_feature_ref": null
+  },
+  "owner": {
+    "provider": "codex",
+    "id": "codex-step1"
+  },
+  "approval_status": "approved",
+  "completed_steps": [
+    "0",
+    "0.5",
+    "1"
+  ],
+  "feature_ref": null,
+  "tooling_ref": null,
+  "git_revisions": {},
+  "baseline": "harness/evidence/step1-baseline.json",
+  "prerequisites": {
+    "hurl": "PASS",
+    "hurlfmt": "PASS",
+    "native-static": "PASS",
+    "native-cycle": "PASS",
+    "phase05": "PASS",
+    "claude-artifacts": "PASS",
+    "claude-live": "NOT RUN",
+    "phase0": "PASS",
+    "contract-inputs": "PASS",
+    "feature-approved": "PASS"
+  },
+  "evidence": [
+    "harness/evidence/openapi-80eabb944fe24854bd82db2c25d4b303.json",
+    "harness/evidence/hurl-7a14b2c8ba1f4638837cb68dd84ad2c3.json",
+    "harness/evidence/gherkin-e8a321786e7f4cf0a71f2f536dbe529b.json",
+    "harness/evidence/selectors-85333cc237704dc0a141b4ad43c88df2.json",
+    "harness/evidence/baseline-f3c2200a00ab4a7ba34813d673d713cb.json",
+    "harness/evidence/json-schemas-d3452c3940b14937842d6ae387358e08.json",
+    "harness/evidence/governance-75e80de9037e47978701c45f2b2f9713.json",
+    "harness/evidence/openapi-5d5e9dd471b84711844e66998c17626f.json",
+    "harness/evidence/hurl-7456d95445de4fea95689f912a42324d.json",
+    "harness/evidence/gherkin-0c5638b6fd654f15aa784f0e329c04a1.json",
+    "harness/evidence/selectors-bc8251f93ef9433987b58c7895452274.json",
+    "harness/evidence/baseline-9d5e5deacdc443d09b9b790dbb6c1664.json",
+    "harness/evidence/json-schemas-6f1c8ad1b77b4e1bb286dbd0aa5edcfb.json",
+    "harness/evidence/governance-bcd5cdfa15a54f149fc5b007c7e38cb7.json"
+  ],
+  "blockers": [],
+  "next_action": "Human approved Step 1 and explicitly authorized initial commit/tag seed-1-approved-v1. This snapshot predates Git-object binding; resolve that tag and consult the external approval receipt. Stop before Step 2 until explicitly authorized."
+}

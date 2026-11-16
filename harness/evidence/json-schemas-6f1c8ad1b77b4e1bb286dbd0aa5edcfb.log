@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "check": "json-schemas",
+      "status": "PASS",
+      "details": {
+        "positive_fixtures": 4,
+        "negative_fixtures": 17,
+        "rejected": [
+          "observer-partial",
+          "observer-unavailable",
+          "observer-error",
+          "observer-invented",
+          "missing-scenario",
+          "duplicate-ac",
+          "missing-artifacts",
+          "unknown-field",
+          "nonmatching-status",
+          "backwards-time",
+          "absolute-artifact",
+          "traversal-artifact",
+          "missing-slot",
+          "duplicate-slot",
+          "nested-slot-mismatch",
+          "nested-campaign-mismatch",
+          "false-campaign-pass"
+        ],
+        "fixtures_are_execution_evidence": false
+      }
+    }
+  ]
+}
+
+STDERR:

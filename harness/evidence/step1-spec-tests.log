@@ -1,0 +1,18 @@
+
+STDERR:
+test_ac3_no_session_check_cannot_be_dropped (test_specification.SpecificationValidationTests.test_ac3_no_session_check_cannot_be_dropped) ... /Users/camiloavila/Documents/qa-workspace/qa-features/.venv/lib/python3.14/site-packages/gherkin/gherkin_line.py:79: DeprecationWarning: 'maxsplit' is passed as positional argument
+  uncommented_line = re.split(r"\s#", self._trimmed_line_text.strip(), 2)[0]
+ok
+test_bearer_authentication_drift_is_rejected (test_specification.SpecificationValidationTests.test_bearer_authentication_drift_is_rejected) ... ok
+test_css_selector_is_rejected (test_specification.SpecificationValidationTests.test_css_selector_is_rejected) ... ok
+test_missing_selector_is_rejected (test_specification.SpecificationValidationTests.test_missing_selector_is_rejected) ... ok
+test_mutable_baseline_is_rejected (test_specification.SpecificationValidationTests.test_mutable_baseline_is_rejected) ... ok
+test_unauthenticated_hurl_status_cannot_be_weakened (test_specification.SpecificationValidationTests.test_unauthenticated_hurl_status_cannot_be_weakened) ... ok
+test_valid_specification_and_schema_adversarial_fixtures (test_specification.SpecificationValidationTests.test_valid_specification_and_schema_adversarial_fixtures) ... /Users/camiloavila/Documents/qa-workspace/qa-features/.venv/lib/python3.14/site-packages/gherkin/gherkin_line.py:79: DeprecationWarning: 'maxsplit' is passed as positional argument
+  uncommented_line = re.split(r"\s#", self._trimmed_line_text.strip(), 2)[0]
+ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.152s
+
+OK

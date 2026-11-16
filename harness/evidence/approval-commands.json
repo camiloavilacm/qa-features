@@ -1,0 +1,160 @@
+[
+  {
+    "command": [
+      "/Users/camiloavila/Documents/qa-workspace/qa-features/.venv/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "harness/evals",
+      "-p",
+      "test_*.py",
+      "-v"
+    ],
+    "cwd": "/Users/camiloavila/Documents/qa-workspace/qa-features",
+    "exit_code": 0,
+    "log": "harness/evidence/approval-harness-tests.log",
+    "timestamp": "2026-11-16T13:50:46.853932+00:00"
+  },
+  {
+    "command": [
+      "/Users/camiloavila/Documents/qa-workspace/qa-features/.venv/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tools/validate",
+      "-p",
+      "test_*.py",
+      "-v"
+    ],
+    "cwd": "/Users/camiloavila/Documents/qa-workspace/qa-features",
+    "exit_code": 0,
+    "log": "harness/evidence/approval-specification-tests.log",
+    "timestamp": "2026-11-16T13:50:47.211341+00:00"
+  },
+  {
+    "command": [
+      "/Users/camiloavila/Documents/qa-workspace/qa-features/.venv/bin/python",
+      "-B",
+      "harness/scripts/verify_step.py",
+      "run",
+      "--check",
+      "openapi"
+    ],
+    "cwd": "/Users/camiloavila/Documents/qa-workspace/qa-features",
+    "exit_code": 0,
+    "log": "harness/evidence/approval-openapi.log",
+    "timestamp": "2026-11-16T13:50:47.622300+00:00"
+  },
+  {
+    "command": [
+      "/Users/camiloavila/Documents/qa-workspace/qa-features/.venv/bin/python",
+      "-B",
+      "harness/scripts/verify_step.py",
+      "run",
+      "--check",
+      "hurl"
+    ],
+    "cwd": "/Users/camiloavila/Documents/qa-workspace/qa-features",
+    "exit_code": 0,
+    "log": "harness/evidence/approval-hurl.log",
+    "timestamp": "2026-11-16T13:50:47.996527+00:00"
+  },
+  {
+    "command": [
+      "/Users/camiloavila/Documents/qa-workspace/qa-features/.venv/bin/python",
+      "-B",
+      "harness/scripts/verify_step.py",
+      "run",
+      "--check",
+      "gherkin"
+    ],
+    "cwd": "/Users/camiloavila/Documents/qa-workspace/qa-features",
+    "exit_code": 0,
+    "log": "harness/evidence/approval-gherkin.log",
+    "timestamp": "2026-11-16T13:50:48.390045+00:00"
+  },
+  {
+    "command": [
+      "/Users/camiloavila/Documents/qa-workspace/qa-features/.venv/bin/python",
+      "-B",
+      "harness/scripts/verify_step.py",
+      "run",
+      "--check",
+      "selectors"
+    ],
+    "cwd": "/Users/camiloavila/Documents/qa-workspace/qa-features",
+    "exit_code": 0,
+    "log": "harness/evidence/approval-selectors.log",
+    "timestamp": "2026-11-16T13:50:48.760947+00:00"
+  },
+  {
+    "command": [
+      "/Users/camiloavila/Documents/qa-workspace/qa-features/.venv/bin/python",
+      "-B",
+      "harness/scripts/verify_step.py",
+      "run",
+      "--check",
+      "baseline"
+    ],
+    "cwd": "/Users/camiloavila/Documents/qa-workspace/qa-features",
+    "exit_code": 0,
+    "log": "harness/evidence/approval-baseline.log",
+    "timestamp": "2026-11-16T13:50:49.139036+00:00"
+  },
+  {
+    "command": [
+      "/Users/camiloavila/Documents/qa-workspace/qa-features/.venv/bin/python",
+      "-B",
+      "harness/scripts/verify_step.py",
+      "run",
+      "--check",
+      "json-schemas"
+    ],
+    "cwd": "/Users/camiloavila/Documents/qa-workspace/qa-features",
+    "exit_code": 0,
+    "log": "harness/evidence/approval-json-schemas.log",
+    "timestamp": "2026-11-16T13:50:49.581390+00:00"
+  },
+  {
+    "command": [
+      "/Users/camiloavila/Documents/qa-workspace/qa-features/.venv/bin/python",
+      "-B",
+      "harness/scripts/verify_step.py",
+      "run",
+      "--check",
+      "governance"
+    ],
+    "cwd": "/Users/camiloavila/Documents/qa-workspace/qa-features",
+    "exit_code": 0,
+    "log": "harness/evidence/approval-governance.log",
+    "timestamp": "2026-11-16T13:50:49.974730+00:00"
+  },
+  {
+    "command": [
+      "/Users/camiloavila/Documents/qa-workspace/qa-features/.venv/bin/python",
+      "-B",
+      "harness/scripts/verify_step.py",
+      "validate"
+    ],
+    "cwd": "/Users/camiloavila/Documents/qa-workspace/qa-features",
+    "exit_code": 0,
+    "log": "harness/evidence/approval-evidence.log",
+    "timestamp": "2026-11-16T13:50:50.195116+00:00"
+  },
+  {
+    "command": [
+      "/Users/camiloavila/Documents/qa-workspace/qa-features/.venv/bin/python",
+      "-B",
+      "harness/scripts/verify_step.py",
+      "gate"
+    ],
+    "cwd": "/Users/camiloavila/Documents/qa-workspace/qa-features",
+    "exit_code": 0,
+    "log": "harness/evidence/approval-gate-before-freeze.log",
+    "timestamp": "2026-11-16T13:50:50.831769+00:00"
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "scope": "static validation only",
+  "skills": [
+    "qa-architecture-reviewer",
+    "qa-contract-author",
+    "qa-step-executor",
+    "qa-verification"
+  ]
+}
+
+STDERR:

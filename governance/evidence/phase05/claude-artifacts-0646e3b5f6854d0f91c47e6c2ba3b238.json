@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "step": "0.5",
+  "provider": "codex",
+  "owner": "phase05-builder",
+  "check_id": "claude-artifacts",
+  "command": [
+    "/Users/camiloavila/Documents/qa-workspace/.venv/bin/python",
+    "harness/scripts/validate_adapters.py"
+  ],
+  "cwd": "/Users/camiloavila/Documents/qa-workspace",
+  "started_at": "2026-11-16T12:26:39.628010+00:00",
+  "finished_at": "2026-11-16T12:26:39.735775+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "log": "harness/evidence/claude-artifacts-0646e3b5f6854d0f91c47e6c2ba3b238.log",
+  "log_sha256": "094089c1af3ac741f0401bc01682c16f55a91d4097cf1b5e8f9f36bc1956efc4",
+  "source_sha256": "7d56ad71094bea4171e58be882019321a562a0dd8fee4ce55caa7d27af99b70b",
+  "git": {},
+  "instrumentation": "subprocess-capture",
+  "signature": "d43516996f8c9b859c9dd0b58e7f588fb69f59c5c0c58e23fabac3077f5b8e23"
+}

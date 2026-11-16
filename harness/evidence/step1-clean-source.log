@@ -1,0 +1,103 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "check": "openapi",
+      "status": "PASS",
+      "details": {
+        "operations": 3,
+        "expectations": 5
+      }
+    },
+    {
+      "check": "hurl",
+      "status": "PASS",
+      "details": {
+        "entries": 7,
+        "commands": [
+          {
+            "command": [
+              "hurlfmt",
+              "--check",
+              "/private/var/folders/_3/10m7xtq97r916_mrqdcv241h0000gn/T/qa-step1-clean-source-ypdf88f_/qa-features/api/auth.hurl"
+            ],
+            "exit_code": 0
+          },
+          {
+            "command": [
+              "hurlfmt",
+              "--out",
+              "json",
+              "/private/var/folders/_3/10m7xtq97r916_mrqdcv241h0000gn/T/qa-step1-clean-source-ypdf88f_/qa-features/api/auth.hurl"
+            ],
+            "exit_code": 0
+          }
+        ],
+        "live_http_execution": "NOT RUN"
+      }
+    },
+    {
+      "check": "gherkin",
+      "status": "PASS",
+      "details": {
+        "story": "SEED-1",
+        "scenarios": 3,
+        "mapping_status": "draft-unapproved"
+      }
+    },
+    {
+      "check": "selectors",
+      "status": "PASS",
+      "details": {
+        "covered_selectors": 10
+      }
+    },
+    {
+      "check": "baseline",
+      "status": "PASS",
+      "details": {
+        "immutable_users": 1,
+        "registration_uniqueness": "fresh UUID v4 per attempt"
+      }
+    },
+    {
+      "check": "json-schemas",
+      "status": "PASS",
+      "details": {
+        "positive_fixtures": 4,
+        "negative_fixtures": 17,
+        "rejected": [
+          "observer-partial",
+          "observer-unavailable",
+          "observer-error",
+          "observer-invented",
+          "missing-scenario",
+          "duplicate-ac",
+          "missing-artifacts",
+          "unknown-field",
+          "nonmatching-status",
+          "backwards-time",
+          "absolute-artifact",
+          "traversal-artifact",
+          "missing-slot",
+          "duplicate-slot",
+          "nested-slot-mismatch",
+          "nested-campaign-mismatch",
+          "false-campaign-pass"
+        ],
+        "fixtures_are_execution_evidence": false
+      }
+    },
+    {
+      "check": "governance",
+      "status": "PASS",
+      "details": {
+        "generated_files": 56,
+        "preserved_files": 72,
+        "claude_live": "NOT RUN (approved exception)"
+      }
+    }
+  ]
+}
+
+STDERR:

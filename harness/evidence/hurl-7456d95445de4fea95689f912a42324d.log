@@ -1,0 +1,34 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "check": "hurl",
+      "status": "PASS",
+      "details": {
+        "entries": 7,
+        "commands": [
+          {
+            "command": [
+              "hurlfmt",
+              "--check",
+              "/Users/camiloavila/Documents/qa-workspace/qa-features/api/auth.hurl"
+            ],
+            "exit_code": 0
+          },
+          {
+            "command": [
+              "hurlfmt",
+              "--out",
+              "json",
+              "/Users/camiloavila/Documents/qa-workspace/qa-features/api/auth.hurl"
+            ],
+            "exit_code": 0
+          }
+        ],
+        "live_http_execution": "NOT RUN"
+      }
+    }
+  ]
+}
+
+STDERR:

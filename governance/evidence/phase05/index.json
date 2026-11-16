@@ -1,0 +1,14 @@
+{
+  "phase": "0.5",
+  "profile": "claude-artifacts-only",
+  "source_archive_sha256": "2d5a8033e2e0374f5242c47e6059583b856ae6966d9ca1d47506591efa52b5a4",
+  "checks": {
+    "adapters": "PASS",
+    "evals": "PASS",
+    "codex-native": "PASS",
+    "antigravity-native": "PASS",
+    "native-cycle": "PASS",
+    "claude-artifacts": "PASS"
+  },
+  "claude_live": "NOT RUN; approved user exception"
+}

@@ -1,0 +1,14 @@
+{
+  "command": [
+    "/Users/camiloavila/Documents/qa-workspace/qa-features/.venv/bin/python",
+    "-B",
+    "tools/validate/validate.py",
+    "--check",
+    "all"
+  ],
+  "cwd": "/var/folders/_3/10m7xtq97r916_mrqdcv241h0000gn/T/qa-step1-clean-source-ypdf88f_/qa-features",
+  "exit_code": 0,
+  "scope": "Source-only independent extraction, using the already verified isolated interpreter; dependency installation separately performed from the committed requirements",
+  "no_parent_files": true,
+  "no_symlinks": true
+}

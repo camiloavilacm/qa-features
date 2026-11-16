@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "check": "baseline",
+      "status": "PASS",
+      "details": {
+        "immutable_users": 1,
+        "registration_uniqueness": "fresh UUID v4 per attempt"
+      }
+    }
+  ]
+}
+
+STDERR:

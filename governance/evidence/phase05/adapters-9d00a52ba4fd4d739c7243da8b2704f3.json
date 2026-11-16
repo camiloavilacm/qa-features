@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "step": "0.5",
+  "provider": "codex",
+  "owner": "phase05-builder",
+  "check_id": "adapters",
+  "command": [
+    "/Users/camiloavila/Documents/qa-workspace/.venv/bin/python",
+    "harness/scripts/validate_adapters.py"
+  ],
+  "cwd": "/Users/camiloavila/Documents/qa-workspace",
+  "started_at": "2026-11-16T12:26:33.907094+00:00",
+  "finished_at": "2026-11-16T12:26:34.017618+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "log": "harness/evidence/adapters-9d00a52ba4fd4d739c7243da8b2704f3.log",
+  "log_sha256": "094089c1af3ac741f0401bc01682c16f55a91d4097cf1b5e8f9f36bc1956efc4",
+  "source_sha256": "7d56ad71094bea4171e58be882019321a562a0dd8fee4ce55caa7d27af99b70b",
+  "git": {},
+  "instrumentation": "subprocess-capture",
+  "signature": "364150187e9fbe5c763d87e5106c200332ffb255e10b1bc06bd11e9c0fcf1e62"
+}

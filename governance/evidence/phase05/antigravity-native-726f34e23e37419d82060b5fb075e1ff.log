@@ -1,0 +1,26 @@
+{
+  "provider": "antigravity",
+  "static_native_checks": [
+    {
+      "command": [
+        "agy",
+        "plugin",
+        "validate",
+        "/var/folders/_3/10m7xtq97r916_mrqdcv241h0000gn/T/qa-agy-parser-rge38xl2",
+        "--strict",
+        "--json"
+      ],
+      "exit_code": 0,
+      "output": "{\n  \"dir\": \"/var/folders/_3/10m7xtq97r916_mrqdcv241h0000gn/T/qa-agy-parser-rge38xl2\",\n  \"manifest\": \".antigravity-plugin/plugin.json\",\n  \"name\": \"qa-harness-evaluation\",\n  \"agentPluginsSpec\": false,\n  \"components\": {\n    \"agents\": 0,\n    \"hooks\": 1,\n    \"mcpServers\": 0,\n    \"rules\": 1,\n    \"sidecars\": 0,\n    \"skills\": 4\n  },\n  \"findings\": [\n    {\n      \"severity\": \"note\",\n      \"file\": \".antigravity-plugin/plugin.json\",\n      \"message\": \"no logo: the plugin shows a generic icon. Add \\\"logo\\\": \\\"assets/logo.svg\\\" (a .png, .svg, .jpg, .jpeg or .webp file inside the plugin)\"\n    }\n  ]\n}\n",
+      "stderr": "",
+      "scope": "disposable plugin parser, not project discovery"
+    }
+  ],
+  "live_discovery": "NOT RUN",
+  "live_enforcement": "NOT RUN",
+  "fresh_session_handoff": "NOT RUN",
+  "status": "PASS",
+  "scope": "native parser/discovery checks only; native-cycle separately gates live acceptance"
+}
+
+STDERR:
