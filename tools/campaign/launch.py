@@ -9,7 +9,7 @@ def gh(*args):
  return p.stdout
 
 def api(route):return json.loads(gh('api',route))
-def dispatch(fault,record,issue=0):
+def dispatch(fault,record,issue=1):
  prior={r['id']for r in api(f'repos/{REPO}/actions/workflows/campaign.yml/runs?per_page=50')['workflow_runs']}
  gh('workflow','run','campaign.yml','--repo',REPO,'--ref','main','-f','observer_fault='+fault,'-f','report_issue='+str(issue))
  for _ in range(20):
@@ -36,7 +36,7 @@ def download(record,output):
  artifacts=api(f'repos/{REPO}/actions/runs/{run}/artifacts?per_page=100');write(output/'github-artifacts.json',artifacts)
  print('Archived attempt',output)
 if __name__=='__main__':
- p=argparse.ArgumentParser();p.add_argument('action',choices=['dispatch','wait','download','rerun']);p.add_argument('--record',type=Path,required=True);p.add_argument('--fault',choices=['none','unavailable'],default='none');p.add_argument('--attempt',type=int,default=1);p.add_argument('--report-issue',type=int,default=0);p.add_argument('--output',type=Path);a=p.parse_args()
+ p=argparse.ArgumentParser();p.add_argument('action',choices=['dispatch','wait','download','rerun']);p.add_argument('--record',type=Path,required=True);p.add_argument('--fault',choices=['none','unavailable'],default='none');p.add_argument('--attempt',type=int,default=1);p.add_argument('--report-issue',type=int,default=1);p.add_argument('--output',type=Path);a=p.parse_args()
  try:
   if a.action=='dispatch':dispatch(a.fault,a.record,a.report_issue)
   elif a.action=='wait':wait(a.record,a.attempt)

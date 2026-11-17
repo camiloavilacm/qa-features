@@ -6,7 +6,7 @@ name: SEED-1 campaign
         description: Existing private qa-features issue number; 0 renders artifacts only
         required: false
         type: number
-        default: 0
+        default: 1
       observer_fault:
         description: Development failure-path validation
         required: true

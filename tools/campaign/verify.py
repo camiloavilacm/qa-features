@@ -30,6 +30,8 @@ def single_report():
   p,value,expected,run,jobs=item;reports=[j for j in jobs if j['name']=='One campaign report'];assert len(reports)==1 and reports[0]['conclusion']=='success'
   artifacts=json.loads((p/'github-artifacts.json').read_text())['artifacts'];assert sum(a['name']==f'campaign-{run["id"]}-{expected["attempt"]}'for a in artifacts)==1
   publication=json.loads((p/'publication.json').read_text());assert publication['issue_fields_unchanged'];ids.append(publication['comment_id'])
+  assert expected['report_issue']>0 and publication['comment_url'].startswith(f'https://github.com/{expected["report_repository"]}/issues/{expected["report_issue"]}#')
+  publishing=[s for s in reports[0]['steps']if s['name']=='Publish selected private issue comment'];assert len(publishing)==1 and publishing[0]['conclusion']=='success'
  assert len(set(ids))==1
  print('PASS: one always-running report job/artifact per attempt, same campaign and one verified issue comment across rerun')
 
