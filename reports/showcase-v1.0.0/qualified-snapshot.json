@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "tooling_ref": "171f1aba25c0e413b18a726fa1e4627bdb161c4a",
+  "checks": [
+    "agent-outcomes",
+    "image-digests",
+    "reproduction",
+    "18-passes",
+    "rollback",
+    "failure-reporting"
+  ],
+  "scope_audits": 6,
+  "isolated_checkouts": 5,
+  "harness_tests": 60,
+  "outcome_tests": 22,
+  "claude_live": "NOT RUN: approved artifacts-only exception",
+  "boundary": "Agent-outcome governance maintenance complete; stop.",
+  "runs": {
+    "initial": {
+      "url": "https://github.com/camiloavilacm/qa-features/actions/runs/44108586904",
+      "attempt": 1,
+      "conclusion": "success"
+    },
+    "reproduction": {
+      "url": "https://github.com/camiloavilacm/qa-features/actions/runs/44109187867",
+      "attempt": 1,
+      "conclusion": "success"
+    },
+    "failure": {
+      "url": "https://github.com/camiloavilacm/qa-features/actions/runs/44108586904",
+      "attempt": 2,
+      "conclusion": "failure"
+    }
+  }
+}

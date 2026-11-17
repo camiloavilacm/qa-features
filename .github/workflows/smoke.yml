@@ -8,7 +8,7 @@ name: SEED-1 immutable smoke
         default: ''
         required: false
       report_issue:
-        description: Private smoke report issue
+        description: Smoke report issue
         type: number
         default: 2
         required: true
@@ -98,7 +98,6 @@ jobs:
       with:
         repository: camiloavilacm/sut-python
         ref: c8f0f1f84a32f3c0eae2a0779b216d73cd84bd76
-        ssh-key: ${{ secrets.SUT_PYTHON_SSH_KEY }}
         persist-credentials: false
         path: sut
     - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
@@ -106,7 +105,6 @@ jobs:
       with:
         repository: camiloavilacm/sut-node
         ref: a913cf1314ccec4c0517de6c23c495f1976cc662
-        ssh-key: ${{ secrets.SUT_NODE_SSH_KEY }}
         persist-credentials: false
         path: sut
     - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
@@ -114,7 +112,6 @@ jobs:
       with:
         repository: camiloavilacm/qa-python
         ref: 24a1373f1b3cc3f9a6b8443f34d47eadf68b4e6c
-        ssh-key: ${{ secrets.QA_PYTHON_SSH_KEY }}
         persist-credentials: false
         path: runner
     - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
@@ -122,7 +119,6 @@ jobs:
       with:
         repository: camiloavilacm/qa-typescript
         ref: cf8cf4744edda9665be731279bf213449c52c62a
-        ssh-key: ${{ secrets.QA_TYPESCRIPT_SSH_KEY }}
         persist-credentials: false
         path: runner
     - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
@@ -215,7 +211,6 @@ jobs:
       with:
         repository: camiloavilacm/sut-python
         ref: c8f0f1f84a32f3c0eae2a0779b216d73cd84bd76
-        ssh-key: ${{ secrets.SUT_PYTHON_SSH_KEY }}
         persist-credentials: false
         path: sut
     - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
@@ -223,7 +218,6 @@ jobs:
       with:
         repository: camiloavilacm/sut-node
         ref: a913cf1314ccec4c0517de6c23c495f1976cc662
-        ssh-key: ${{ secrets.SUT_NODE_SSH_KEY }}
         persist-credentials: false
         path: sut
     - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1

@@ -1,0 +1,47 @@
+name: Showcase checks
+'on':
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    steps:
+    - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      with:
+        fetch-depth: 0
+        persist-credentials: false
+    - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+      with:
+        python-version: '3.13'
+    - name: Install validation dependencies
+      run: python -m pip install -r tools/validate/requirements.txt
+    - name: Install checksum-verified Hurl
+      shell: bash
+      run: |
+        python - <<'PY'
+        import hashlib,json,os,pathlib,tarfile,urllib.request
+        asset=json.load(open('tools/release/assets.json'))['hurl']
+        directory=pathlib.Path(os.environ['RUNNER_TEMP'])/'review-hurl';directory.mkdir()
+        archive=directory/'hurl.tar.gz';urllib.request.urlretrieve(asset['url'],archive)
+        assert hashlib.sha256(archive.read_bytes()).hexdigest()==asset['sha256']
+        with tarfile.open(archive)as stream:stream.extractall(directory,filter='data')
+        binaries=list(directory.rglob('hurlfmt'));assert len(binaries)==1
+        with open(os.environ['GITHUB_PATH'],'a')as stream:stream.write(str(binaries[0].parent)+'\n')
+        PY
+    - name: Validate specifications and governance
+      run: python tools/validate/validate.py --check all
+    - name: Test shared controller and outcomes
+      run: python -m unittest discover -s harness/evals -p 'test_*.py' -v
+    - name: Test campaign, release and reporting integrity
+      run: |
+        python -m unittest discover -s tools/campaign -p 'test_*.py' -v
+        python -m unittest discover -s tools/release -p 'test_*.py' -v
+        python -m unittest discover -s tools/tracker -p 'test_*.py' -v
+    - name: Check reviewer CLI
+      run: python tools/review/verify.py --help

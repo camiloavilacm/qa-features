@@ -1,8 +1,12 @@
 # AI-Assisted Test Automation — A Development Showcase
 
+[![Showcase checks](https://github.com/camiloavilacm/qa-features/actions/workflows/checks.yml/badge.svg)](https://github.com/camiloavilacm/qa-features/actions/workflows/checks.yml)
+
 This project showcases how to design, build, and validate test automation frameworks with AI assistance, applying the four Ds: **Description, Delegation, Discernment, and Diligence**.
 
 Playwright, Selenium, and Cypress provide three example implementations of the same authentication specification. Readers can study and adapt the approach that fits their project. The combined test campaign verifies the showcase examples; using all three frameworks together is not an adoption requirement.
+
+[Reviewer guide](REVIEWER_GUIDE.md) · [Recorded results](reports/showcase-v1.0.0/README.md) · [First run](docs/first-run.md) · [MIT license](LICENSE)
 
 ## What you can learn
 
@@ -35,7 +39,7 @@ The Python and Node reference applications provide consistent targets for demons
 | [qa-python](https://github.com/camiloavilacm/qa-python) | Playwright and Selenium runners |
 | [qa-typescript](https://github.com/camiloavilacm/qa-typescript) | Cypress runner |
 
-All five repositories are private and independent; access is required to follow their links or execute hosted workflows.
+All five repositories are public and independent. Start with the [reviewer guide](REVIEWER_GUIDE.md) to inspect results or run one framework example. Full hosted workflows remain operator-managed.
 
 The diagram shows the showcase’s validation infrastructure. Its combined campaign checks all examples: **2 applications × 3 frameworks × 3 scenarios = 18 scenario results**.
 
@@ -49,7 +53,7 @@ flowchart TD
     T --> S2
     P --> A[qa-features: campaign aggregation]
     T --> A
-    A --> R[Private issue report and retained artifacts]
+    A --> R[Issue report and retained artifacts]
     A --> G[Smoke release verification]
     G --> B[Immutable bundle after QA and rollback pass]
 ```
@@ -95,9 +99,9 @@ python3 -m venv .venv
 
 This validates specification structure and fixtures. It does not execute either application or establish browser acceptance.
 
-### Validate all examples with a hosted campaign
+### Optional: validate all examples with a hosted campaign
 
-An operator needs authenticated GitHub CLI access to the private repository and workflows. The configured Actions environment also needs the documented read-only source deploy keys and package permissions. See the [campaign guide](tools/campaign/README.md) before dispatching:
+An operator needs GitHub workflow permissions and authenticated GitHub CLI access. Public source checkouts need no deploy keys. Full workflows still need the documented job-scoped package and issue permissions. See the [campaign guide](tools/campaign/README.md) before dispatching:
 
 ```sh
 .venv/bin/python tools/campaign/launch.py dispatch --record /absolute/path/to/campaign-run.json --report-issue 1
@@ -105,7 +109,7 @@ An operator needs authenticated GitHub CLI access to the private repository and 
 .venv/bin/python tools/campaign/launch.py download --record /absolute/path/to/campaign-run.json --output /absolute/path/to/new-campaign-archive
 ```
 
-The development campaign defaults to private issue #1; smoke reporting defaults to #2. A configured issue must already exist. Reruns update the same campaign comment without changing issue fields. Archive each attempt in a fresh directory.
+The development campaign defaults to issue #1; smoke reporting defaults to #2. These reports are public with the repositories. A configured issue must already exist. Reruns update the same campaign comment without changing issue fields. Archive each attempt in a fresh directory.
 
 ## What has been demonstrated
 

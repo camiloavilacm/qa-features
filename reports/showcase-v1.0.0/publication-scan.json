@@ -1,0 +1,157 @@
+{
+  "scanner": "gitleaks 8.30.1, checksum verified, redacted findings",
+  "history_findings": [
+    {
+      "repository": "sut-node",
+      "file": "contracts/provenance.json",
+      "commit": "a913cf1314ccec4c0517de6c23c495f1976cc662",
+      "line": 6,
+      "classification": "False positive: SHA-256 provenance/content fingerprint, not a credential"
+    },
+    {
+      "repository": "sut-node",
+      "file": "contracts/provenance.json",
+      "commit": "a913cf1314ccec4c0517de6c23c495f1976cc662",
+      "line": 8,
+      "classification": "False positive: SHA-256 provenance/content fingerprint, not a credential"
+    },
+    {
+      "repository": "sut-node",
+      "file": "contracts/provenance.json",
+      "commit": "a913cf1314ccec4c0517de6c23c495f1976cc662",
+      "line": 9,
+      "classification": "False positive: SHA-256 provenance/content fingerprint, not a credential"
+    },
+    {
+      "repository": "sut-python",
+      "file": "contracts/provenance.json",
+      "commit": "c8f0f1f84a32f3c0eae2a0779b216d73cd84bd76",
+      "line": 6,
+      "classification": "False positive: SHA-256 provenance/content fingerprint, not a credential"
+    },
+    {
+      "repository": "sut-python",
+      "file": "contracts/provenance.json",
+      "commit": "c8f0f1f84a32f3c0eae2a0779b216d73cd84bd76",
+      "line": 8,
+      "classification": "False positive: SHA-256 provenance/content fingerprint, not a credential"
+    },
+    {
+      "repository": "sut-python",
+      "file": "contracts/provenance.json",
+      "commit": "c8f0f1f84a32f3c0eae2a0779b216d73cd84bd76",
+      "line": 9,
+      "classification": "False positive: SHA-256 provenance/content fingerprint, not a credential"
+    },
+    {
+      "repository": "qa-features",
+      "file": "tools/release/candidate.json",
+      "commit": "7c8978806e53cc3f002c6022328dbbf5c590b957",
+      "line": 3,
+      "classification": "False positive: SHA-256 provenance/content fingerprint, not a credential"
+    },
+    {
+      "repository": "qa-features",
+      "file": "tools/release/candidate.json",
+      "commit": "7c8978806e53cc3f002c6022328dbbf5c590b957",
+      "line": 4,
+      "classification": "False positive: SHA-256 provenance/content fingerprint, not a credential"
+    },
+    {
+      "repository": "qa-features",
+      "file": "tools/release/candidate.json",
+      "commit": "7c8978806e53cc3f002c6022328dbbf5c590b957",
+      "line": 7,
+      "classification": "False positive: SHA-256 provenance/content fingerprint, not a credential"
+    },
+    {
+      "repository": "qa-features",
+      "file": "tools/release/baseline.json",
+      "commit": "7c8978806e53cc3f002c6022328dbbf5c590b957",
+      "line": 3,
+      "classification": "False positive: SHA-256 provenance/content fingerprint, not a credential"
+    },
+    {
+      "repository": "qa-features",
+      "file": "tools/release/baseline.json",
+      "commit": "7c8978806e53cc3f002c6022328dbbf5c590b957",
+      "line": 4,
+      "classification": "False positive: SHA-256 provenance/content fingerprint, not a credential"
+    },
+    {
+      "repository": "qa-features",
+      "file": "tools/release/baseline.json",
+      "commit": "7c8978806e53cc3f002c6022328dbbf5c590b957",
+      "line": 7,
+      "classification": "False positive: SHA-256 provenance/content fingerprint, not a credential"
+    },
+    {
+      "repository": "qa-features",
+      "file": "governance/approvals/seed-1-approved-v1.json",
+      "commit": "12a55fb4b9312303378af72f96a28734b6b9ec9a",
+      "line": 15,
+      "classification": "False positive: SHA-256 provenance/content fingerprint, not a credential"
+    },
+    {
+      "repository": "qa-features",
+      "file": "governance/approvals/seed-1-approved-v1.json",
+      "commit": "12a55fb4b9312303378af72f96a28734b6b9ec9a",
+      "line": 17,
+      "classification": "False positive: SHA-256 provenance/content fingerprint, not a credential"
+    },
+    {
+      "repository": "qa-features",
+      "file": "governance/approvals/seed-1-approved-v1.json",
+      "commit": "12a55fb4b9312303378af72f96a28734b6b9ec9a",
+      "line": 22,
+      "classification": "False positive: SHA-256 provenance/content fingerprint, not a credential"
+    },
+    {
+      "repository": "qa-features",
+      "file": "harness/evidence/step1-baseline.json",
+      "commit": "12a55fb4b9312303378af72f96a28734b6b9ec9a",
+      "line": 20,
+      "classification": "False positive: SHA-256 provenance/content fingerprint, not a credential"
+    },
+    {
+      "repository": "qa-features",
+      "file": "harness/evidence/step1-baseline.json",
+      "commit": "12a55fb4b9312303378af72f96a28734b6b9ec9a",
+      "line": 21,
+      "classification": "False positive: SHA-256 provenance/content fingerprint, not a credential"
+    },
+    {
+      "repository": "qa-features",
+      "file": "harness/evidence/step1-baseline.json",
+      "commit": "12a55fb4b9312303378af72f96a28734b6b9ec9a",
+      "line": 49,
+      "classification": "False positive: SHA-256 provenance/content fingerprint, not a credential"
+    },
+    {
+      "repository": "qa-features",
+      "file": "harness/evidence/step1-source-manifest.json",
+      "commit": "12a55fb4b9312303378af72f96a28734b6b9ec9a",
+      "line": 20,
+      "classification": "False positive: SHA-256 provenance/content fingerprint, not a credential"
+    },
+    {
+      "repository": "qa-features",
+      "file": "harness/evidence/step1-source-manifest.json",
+      "commit": "12a55fb4b9312303378af72f96a28734b6b9ec9a",
+      "line": 21,
+      "classification": "False positive: SHA-256 provenance/content fingerprint, not a credential"
+    },
+    {
+      "repository": "qa-features",
+      "file": "harness/evidence/step1-source-manifest.json",
+      "commit": "12a55fb4b9312303378af72f96a28734b6b9ec9a",
+      "line": 49,
+      "classification": "False positive: SHA-256 provenance/content fingerprint, not a credential"
+    }
+  ],
+  "credential_findings": 0,
+  "actions_log_findings": 0,
+  "actions_logs_downloaded": 22,
+  "actions_logs_unavailable": 1,
+  "limitations": "Pattern scanning is not a guarantee of absence. Expired/startup-failed run logs could not be downloaded. No real credential finding was identified in the reviewed reachable Git history and downloadable logs."
+}
