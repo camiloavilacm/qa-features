@@ -9,6 +9,9 @@ from common import ROOT, state, validate, preflight, now, digest, source_digest,
 
 def command(root, check_id):
     # One fixed registration table; arbitrary commands are never accepted.
+    if state(root)['authorized_step']=='5' and check_id in ('dry-run','sandbox-comment','idempotency','no-transition'):
+        if location(root).get('repository')!='qa-features':raise ValueError('Tracker checks require qa-features')
+        return [sys.executable,str(root/'tools/tracker/verify.py'),'--check',check_id]
     registrations = {
         '2': (('sut-python','sut-node'), ('hurl','seeds','ui-parity','digests')),
         '3': (('qa-python',), ('12-passes','observer-complete')),
@@ -38,8 +41,8 @@ def command(root, check_id):
 def run(root, check_id):
     s = state(root)
     preflight(root, s['authorized_step'], s['owner']['provider'], s['owner']['id'])
-    if s['authorized_step'] not in ('0.5', '1', '2', '3', '4'):
-        raise ValueError('Only registered Phase 0.5 and Steps 1–4 checks are implemented')
+    if s['authorized_step'] not in ('0.5', '1', '2', '3', '4', '5'):
+        raise ValueError('Only registered Phase 0.5 and Steps 1–5 checks are implemented')
     if check_id not in config(root, 'steps')['steps'][s['authorized_step']]['verification_checks']:
         raise ValueError('Check is outside the active step')
     args = command(root, check_id)
@@ -93,7 +96,7 @@ def validate_evidence(root, evidence):
 def gate(root):
     s = state(root)
     preflight(root, s['authorized_step'], s['owner']['provider'], s['owner']['id'])
-    if s['authorized_step'] not in ('0.5', '1', '2', '3', '4'):
+    if s['authorized_step'] not in ('0.5', '1', '2', '3', '4', '5'):
         raise ValueError('No product-step completion implementation')
     latest = {}
     for path in s['evidence']:
@@ -107,6 +110,9 @@ def gate(root):
         for name in config(root, 'steps')['steps']['1']['required_outputs']:
             if not (spec / name).exists():
                 failures.append('Missing required specification output: ' + name)
+    if s['authorized_step'] == '5':
+        for name in ('tools/tracker/tracker.py','tools/tracker/verify.py','tools/tracker/README.md'):
+            if not (root/name).is_file(): failures.append('Missing Step 5 output: '+name)
     if s['authorized_step'] == '2':
         for name in ('app.py' if location(root)['repository']=='sut-python' else 'app.js','compose.yaml','Dockerfile','db/schema.sql','frontend/manifest.json','contracts/provenance.json','tools/verify.py'):
             if not (root/name).is_file(): failures.append('Missing Step 2 output: '+name)

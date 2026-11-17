@@ -242,7 +242,13 @@
         "feature-approved"
       ],
       "allowed_paths": [
-        "qa-features/tools/"
+        "qa-features/tools/",
+        "qa-features/harness/",
+        "qa-features/governance/",
+        "qa-features/planning/",
+        "harness/config/steps.yaml",
+        "harness/scripts/verify_step.py",
+        "harness/evals/test_shared_controller.py"
       ],
       "allowed_repositories": [
         "qa-features"

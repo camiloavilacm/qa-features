@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "issue_id": "SEED-1",
+  "campaign_id": "step5-specification-fixture-v1",
+  "feature_ref": "12a55fb4b9312303378af72f96a28734b6b9ec9a",
+  "status": "incomplete",
+  "slots": [
+    {
+      "slot_id": "sut-python:playwright",
+      "state": "missing",
+      "result": null
+    },
+    {
+      "slot_id": "sut-python:selenium",
+      "state": "missing",
+      "result": null
+    },
+    {
+      "slot_id": "sut-python:cypress",
+      "state": "missing",
+      "result": null
+    },
+    {
+      "slot_id": "sut-node:playwright",
+      "state": "missing",
+      "result": null
+    },
+    {
+      "slot_id": "sut-node:selenium",
+      "state": "missing",
+      "result": null
+    },
+    {
+      "slot_id": "sut-node:cypress",
+      "state": "missing",
+      "result": null
+    }
+  ]
+}

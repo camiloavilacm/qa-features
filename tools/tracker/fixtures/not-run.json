@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0",
+  "issue_id": "SEED-1",
+  "campaign_id": "step5-specification-fixture-v1",
+  "feature_ref": "12a55fb4b9312303378af72f96a28734b6b9ec9a",
+  "status": "incomplete",
+  "slots": [
+    {
+      "slot_id": "sut-python:playwright",
+      "state": "complete",
+      "result": {
+        "schema_version": "1.0",
+        "issue_id": "SEED-1",
+        "campaign_id": "step5-specification-fixture-v1",
+        "execution_id": "specification-fixture-not-executed",
+        "feature_ref": "12a55fb4b9312303378af72f96a28734b6b9ec9a",
+        "tooling_ref": null,
+        "slot_id": "sut-python:playwright",
+        "sut_revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "runner_revision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "started_at": "2026-11-16T00:00:00Z",
+        "finished_at": "2026-11-16T00:00:00Z",
+        "status": "not_run",
+        "scenarios": [
+          {
+            "id": "AC-1",
+            "status": "not_run",
+            "duration_ms": 0,
+            "observer": {
+              "state": "unavailable",
+              "events": [],
+              "detail": "Specification fixture; not executed"
+            },
+            "artifacts": [],
+            "error": "Not executed"
+          },
+          {
+            "id": "AC-2",
+            "status": "not_run",
+            "duration_ms": 0,
+            "observer": {
+              "state": "unavailable",
+              "events": [],
+              "detail": "Specification fixture; not executed"
+            },
+            "artifacts": [],
+            "error": "Not executed"
+          },
+          {
+            "id": "AC-3",
+            "status": "not_run",
+            "duration_ms": 0,
+            "observer": {
+              "state": "unavailable",
+              "events": [],
+              "detail": "Specification fixture; not executed"
+            },
+            "artifacts": [],
+            "error": "Not executed"
+          }
+        ]
+      }
+    },
+    {
+      "slot_id": "sut-python:selenium",
+      "state": "missing",
+      "result": null
+    },
+    {
+      "slot_id": "sut-python:cypress",
+      "state": "missing",
+      "result": null
+    },
+    {
+      "slot_id": "sut-node:playwright",
+      "state": "missing",
+      "result": null
+    },
+    {
+      "slot_id": "sut-node:selenium",
+      "state": "missing",
+      "result": null
+    },
+    {
+      "slot_id": "sut-node:cypress",
+      "state": "missing",
+      "result": null
+    }
+  ]
+}

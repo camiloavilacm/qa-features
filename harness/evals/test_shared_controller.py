@@ -10,8 +10,8 @@ class SharedController(unittest.TestCase):
   with patch('verify_step.state',return_value={'authorized_step':'3'}),patch('verify_step.location',return_value={'repository':'qa-typescript'}):
    with self.assertRaises(ValueError):command(ROOT,'12-passes')
  def test_future_checks_are_not_registered(self):
-  with patch('verify_step.state',return_value={'authorized_step':'5'}):
-   with self.assertRaises(ValueError):command(ROOT,'sandbox-comment')
+  with patch('verify_step.state',return_value={'authorized_step':'6'}):
+   with self.assertRaises(ValueError):command(ROOT,'six-jobs')
  def test_arbitrary_command_is_rejected(self):
   with self.assertRaises(ValueError):command(ROOT,'python -c pass')
  def test_maintenance_cannot_modify_application_or_contract(self):
