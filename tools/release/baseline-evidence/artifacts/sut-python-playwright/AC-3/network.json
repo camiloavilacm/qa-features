@@ -1,0 +1,12 @@
+{
+  "state": "complete",
+  "events": [
+    {
+      "method": "POST",
+      "path": "/users/login",
+      "authorization_present": false,
+      "status": 422
+    }
+  ],
+  "detail": null
+}

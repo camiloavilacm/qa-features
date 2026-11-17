@@ -1,0 +1,30 @@
+{
+  "state": "complete",
+  "events": [
+    {
+      "method": "POST",
+      "path": "/users",
+      "authorization_present": false,
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/user",
+      "authorization_present": true,
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/user",
+      "authorization_present": true,
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/user",
+      "authorization_present": true,
+      "status": 200
+    }
+  ],
+  "detail": null
+}

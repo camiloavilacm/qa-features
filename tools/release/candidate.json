@@ -82,7 +82,7 @@
     "tooling_ref": "c8e60c7dd0c2adeb9857c518dd665c35dec85d84"
   },
   "platform": "linux/amd64",
-  "previous_manifest_sha256": "3d8b4e04166141630651706fe3d60202013d8de8968b782c42c4cdd56767d0a1",
+  "previous_manifest_sha256": "ca3a95672fa439fad4700b6e98ccc50533fedd7b738a26591d2b70906ac3de19",
   "qa_tooling_ref": "c8e60c7dd0c2adeb9857c518dd665c35dec85d84",
   "release_role": "candidate",
   "repositories": {

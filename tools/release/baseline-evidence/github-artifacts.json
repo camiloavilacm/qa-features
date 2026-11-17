@@ -1,0 +1,145 @@
+{
+  "total_count": 7,
+  "artifacts": [
+    {
+      "id": 14314295857,
+      "node_id": "MDg6QXJ0aWZhY3QxNDMxNDI5NTg1Nw==",
+      "name": "slot-1-sut-python-playwright",
+      "size_in_bytes": 3842,
+      "url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/artifacts/14314295857",
+      "archive_download_url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/artifacts/14314295857/zip",
+      "expired": false,
+      "digest": "sha256:0a1b34320bbb6414657705790fe29a2a2fd49e2169fb6e701cdd368671ef3127",
+      "created_at": "2026-11-17T09:00:54Z",
+      "updated_at": "2026-11-17T09:00:54Z",
+      "expires_at": "2026-12-01T09:00:53Z",
+      "workflow_run": {
+        "id": 44051378117,
+        "repository_id": 1461074056,
+        "head_repository_id": 1461074056,
+        "head_branch": "main",
+        "head_sha": "c8e60c7dd0c2adeb9857c518dd665c35dec85d84"
+      }
+    },
+    {
+      "id": 14314270975,
+      "node_id": "MDg6QXJ0aWZhY3QxNDMxNDI3MDk3NQ==",
+      "name": "slot-1-sut-node-selenium",
+      "size_in_bytes": 3813,
+      "url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/artifacts/14314270975",
+      "archive_download_url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/artifacts/14314270975/zip",
+      "expired": false,
+      "digest": "sha256:91bd74672b414d9440debdc3d6f370c1005d011a1b0a3e55553c1e7c7139ae51",
+      "created_at": "2026-11-17T09:00:54Z",
+      "updated_at": "2026-11-17T09:00:54Z",
+      "expires_at": "2026-12-01T09:00:54Z",
+      "workflow_run": {
+        "id": 44051378117,
+        "repository_id": 1461074056,
+        "head_repository_id": 1461074056,
+        "head_branch": "main",
+        "head_sha": "c8e60c7dd0c2adeb9857c518dd665c35dec85d84"
+      }
+    },
+    {
+      "id": 14313767180,
+      "node_id": "MDg6QXJ0aWZhY3QxNDMxMzc2NzE4MA==",
+      "name": "slot-1-sut-python-cypress",
+      "size_in_bytes": 4352,
+      "url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/artifacts/14313767180",
+      "archive_download_url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/artifacts/14313767180/zip",
+      "expired": false,
+      "digest": "sha256:dc2a8bf025a9fd78f1b3297979617694ac1c569894a1d45dc257089e4d2333e3",
+      "created_at": "2026-11-17T09:01:11Z",
+      "updated_at": "2026-11-17T09:01:11Z",
+      "expires_at": "2026-12-01T09:01:10Z",
+      "workflow_run": {
+        "id": 44051378117,
+        "repository_id": 1461074056,
+        "head_repository_id": 1461074056,
+        "head_branch": "main",
+        "head_sha": "c8e60c7dd0c2adeb9857c518dd665c35dec85d84"
+      }
+    },
+    {
+      "id": 14313757232,
+      "node_id": "MDg6QXJ0aWZhY3QxNDMxMzc1NzIzMg==",
+      "name": "campaign-44051378117-1",
+      "size_in_bytes": 19746,
+      "url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/artifacts/14313757232",
+      "archive_download_url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/artifacts/14313757232/zip",
+      "expired": false,
+      "digest": "sha256:4e50f677238f3bbe6ef4120b724ac26744bb9016ec092a7feb6561b2e5ab6bea",
+      "created_at": "2026-11-17T09:01:39Z",
+      "updated_at": "2026-11-17T09:01:39Z",
+      "expires_at": "2026-12-17T09:01:38Z",
+      "workflow_run": {
+        "id": 44051378117,
+        "repository_id": 1461074056,
+        "head_repository_id": 1461074056,
+        "head_branch": "main",
+        "head_sha": "c8e60c7dd0c2adeb9857c518dd665c35dec85d84"
+      }
+    },
+    {
+      "id": 14313622494,
+      "node_id": "MDg6QXJ0aWZhY3QxNDMxMzYyMjQ5NA==",
+      "name": "slot-1-sut-python-selenium",
+      "size_in_bytes": 3830,
+      "url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/artifacts/14313622494",
+      "archive_download_url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/artifacts/14313622494/zip",
+      "expired": false,
+      "digest": "sha256:c401e467edf97105df5de03221db67e11a659581a246aed859518caba18a1fb6",
+      "created_at": "2026-11-17T09:01:19Z",
+      "updated_at": "2026-11-17T09:01:19Z",
+      "expires_at": "2026-12-01T09:01:18Z",
+      "workflow_run": {
+        "id": 44051378117,
+        "repository_id": 1461074056,
+        "head_repository_id": 1461074056,
+        "head_branch": "main",
+        "head_sha": "c8e60c7dd0c2adeb9857c518dd665c35dec85d84"
+      }
+    },
+    {
+      "id": 14313398698,
+      "node_id": "MDg6QXJ0aWZhY3QxNDMxMzM5ODY5OA==",
+      "name": "slot-1-sut-node-cypress",
+      "size_in_bytes": 4337,
+      "url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/artifacts/14313398698",
+      "archive_download_url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/artifacts/14313398698/zip",
+      "expired": false,
+      "digest": "sha256:367270218df5306d581d18e58eab55120050ddd10143a98627bd55d4b85b9325",
+      "created_at": "2026-11-17T09:00:58Z",
+      "updated_at": "2026-11-17T09:00:58Z",
+      "expires_at": "2026-12-01T09:00:58Z",
+      "workflow_run": {
+        "id": 44051378117,
+        "repository_id": 1461074056,
+        "head_repository_id": 1461074056,
+        "head_branch": "main",
+        "head_sha": "c8e60c7dd0c2adeb9857c518dd665c35dec85d84"
+      }
+    },
+    {
+      "id": 14312904380,
+      "node_id": "MDg6QXJ0aWZhY3QxNDMxMjkwNDM4MA==",
+      "name": "slot-1-sut-node-playwright",
+      "size_in_bytes": 3830,
+      "url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/artifacts/14312904380",
+      "archive_download_url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/artifacts/14312904380/zip",
+      "expired": false,
+      "digest": "sha256:b1743573a64e1501fdf2729be88f6e5386856b3fbe4a81a9d23e2a8c94ff4c4a",
+      "created_at": "2026-11-17T09:01:06Z",
+      "updated_at": "2026-11-17T09:01:06Z",
+      "expires_at": "2026-12-01T09:01:05Z",
+      "workflow_run": {
+        "id": 44051378117,
+        "repository_id": 1461074056,
+        "head_repository_id": 1461074056,
+        "head_branch": "main",
+        "head_sha": "c8e60c7dd0c2adeb9857c518dd665c35dec85d84"
+      }
+    }
+  ]
+}

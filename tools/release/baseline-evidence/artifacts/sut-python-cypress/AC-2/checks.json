@@ -1,0 +1,16 @@
+{
+  "scenario": "AC-2",
+  "outcome": "passed",
+  "checks": [
+    "baseline-fixture-loaded",
+    "fresh-cookie-and-storage-context",
+    "baseline-login-response-contract",
+    "authenticated-current-user-and-storage",
+    "protected-identity"
+  ],
+  "identity_id": null,
+  "slot_id": "sut-python:cypress",
+  "execution_id": "0d372830-79f8-4ab7-9ab6-80b7bcb7c4d0",
+  "runner_revision": "e3bc3b4bfa4368a783b4e90a01112296c6635d5a5790e3fdf827639dcfa42a2d",
+  "sut_revision": "8507a11310fce779cbcf5c996be6cb4ff3fd6680b40d614c17f844391bd8b11f"
+}

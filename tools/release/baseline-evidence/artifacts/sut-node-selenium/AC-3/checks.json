@@ -1,0 +1,17 @@
+{
+  "scenario": "AC-3",
+  "outcome": "passed",
+  "checks": [
+    "baseline-fixture-loaded",
+    "fresh-cookie-and-storage-context",
+    "rejected-login-response-and-ui",
+    "rejection-no-browser-session",
+    "protected-route-denied",
+    "protected-identity-absent-and-storage-empty"
+  ],
+  "identity_id": null,
+  "slot_id": "sut-node:selenium",
+  "execution_id": "1358ba0515a1497b9a47936d3a2c9506",
+  "runner_revision": "91345e0923a656044b30c06f7cb02d408b89c0e8f5f5f8c02c6bbaa8782d2ad4",
+  "sut_revision": "479eb58e4fab1f91f4b3424efed03d30d770c6383506caffadfa5aa33adae717"
+}

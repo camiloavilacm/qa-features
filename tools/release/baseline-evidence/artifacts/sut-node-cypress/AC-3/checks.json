@@ -1,0 +1,17 @@
+{
+  "scenario": "AC-3",
+  "outcome": "passed",
+  "checks": [
+    "baseline-fixture-loaded",
+    "fresh-cookie-and-storage-context",
+    "rejected-login-response-and-ui",
+    "rejection-no-browser-session",
+    "protected-route-denied",
+    "protected-identity-absent-and-storage-empty"
+  ],
+  "identity_id": null,
+  "slot_id": "sut-node:cypress",
+  "execution_id": "09224985-8f3e-480d-ab98-ea4cea1fd9d2",
+  "runner_revision": "e3bc3b4bfa4368a783b4e90a01112296c6635d5a5790e3fdf827639dcfa42a2d",
+  "sut_revision": "479eb58e4fab1f91f4b3424efed03d30d770c6383506caffadfa5aa33adae717"
+}

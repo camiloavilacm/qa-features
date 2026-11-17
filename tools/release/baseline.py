@@ -13,7 +13,10 @@ with tempfile.TemporaryDirectory(prefix='establish-smoke-baseline-')as temp:
   assert sha(baseline/'baseline.json')==digest
   value=previous
  else:
-  evidence=payload/'evidence';subprocess.run(['gh','run','download',str(base['origin']['run_id']),'--repo',os.environ['GITHUB_REPOSITORY'],'--name',base['origin']['artifact'],'--dir',str(evidence)],check=True)
+  source=ROOT/'tools/release/baseline-evidence'
+  actual={str(p.relative_to(source)):sha(p)for p in source.rglob('*')if p.is_file()}
+  assert actual==base['origin']['retained_evidence_files']
+  evidence=payload/'evidence';shutil.copytree(source,evidence)
   campaign=json.loads((evidence/'campaign.json').read_text());expected=json.loads((evidence/'provenance.json').read_text())['expected'];assert campaign['status']=='passed'and expected['attempt']==base['origin']['attempt']and expected['tooling_ref']==base['origin']['tooling_ref']and expected['images']==base['images']
   validate_campaign(campaign,evidence/'artifacts',base['feature_ref']);shutil.copyfile(ROOT/'tools/release/baseline.json',payload/'baseline.json')
   value=publish_bundle(payload,'baseline',digest)

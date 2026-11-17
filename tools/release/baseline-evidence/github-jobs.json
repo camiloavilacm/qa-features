@@ -1,0 +1,1673 @@
+{
+  "total_count": 9,
+  "jobs": [
+    {
+      "id": 133929786564,
+      "run_id": 44051378117,
+      "workflow_name": "SEED-1 campaign",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/runs/44051378117",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVxY4iM8AAAAfLtZcxA",
+      "head_sha": "c8e60c7dd0c2adeb9857c518dd665c35dec85d84",
+      "url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/jobs/133929786564",
+      "html_url": "https://github.com/camiloavilacm/qa-features/actions/runs/44051378117/job/133929786564",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-17T08:59:01Z",
+      "started_at": "2026-11-17T08:59:03Z",
+      "completed_at": "2026-11-17T08:59:31Z",
+      "name": "Build sut-python",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-17T08:59:05Z",
+          "completed_at": "2026-11-17T08:59:05Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-17T08:59:05Z",
+          "completed_at": "2026-11-17T08:59:07Z"
+        },
+        {
+          "name": "Authenticate to private CI images",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-17T08:59:07Z",
+          "completed_at": "2026-11-17T08:59:08Z"
+        },
+        {
+          "name": "Build and pin image once",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-17T08:59:08Z",
+          "completed_at": "2026-11-17T08:59:28Z"
+        },
+        {
+          "name": "Remove registry credentials",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-17T08:59:28Z",
+          "completed_at": "2026-11-17T08:59:28Z"
+        },
+        {
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-11-17T08:59:28Z",
+          "completed_at": "2026-11-17T08:59:29Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-11-17T08:59:29Z",
+          "completed_at": "2026-11-17T08:59:29Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/camiloavilacm/qa-features/check-runs/133929786564",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000003183,
+      "runner_name": "GitHub Actions 1000003183",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 133929786955,
+      "run_id": 44051378117,
+      "workflow_name": "SEED-1 campaign",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/runs/44051378117",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVxY4iM8AAAAfLtZeSw",
+      "head_sha": "c8e60c7dd0c2adeb9857c518dd665c35dec85d84",
+      "url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/jobs/133929786955",
+      "html_url": "https://github.com/camiloavilacm/qa-features/actions/runs/44051378117/job/133929786955",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-17T08:59:01Z",
+      "started_at": "2026-11-17T08:59:03Z",
+      "completed_at": "2026-11-17T08:59:27Z",
+      "name": "Build sut-node",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-17T08:59:04Z",
+          "completed_at": "2026-11-17T08:59:04Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-17T08:59:04Z",
+          "completed_at": "2026-11-17T08:59:05Z"
+        },
+        {
+          "name": "Authenticate to private CI images",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-17T08:59:05Z",
+          "completed_at": "2026-11-17T08:59:06Z"
+        },
+        {
+          "name": "Build and pin image once",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-17T08:59:06Z",
+          "completed_at": "2026-11-17T08:59:25Z"
+        },
+        {
+          "name": "Remove registry credentials",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-17T08:59:25Z",
+          "completed_at": "2026-11-17T08:59:25Z"
+        },
+        {
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-11-17T08:59:25Z",
+          "completed_at": "2026-11-17T08:59:25Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-11-17T08:59:25Z",
+          "completed_at": "2026-11-17T08:59:25Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/camiloavilacm/qa-features/check-runs/133929786955",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000003184,
+      "runner_name": "GitHub Actions 1000003184",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 133930026083,
+      "run_id": 44051378117,
+      "workflow_name": "SEED-1 campaign",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/runs/44051378117",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVxY4iM8AAAAfLtoEYw",
+      "head_sha": "c8e60c7dd0c2adeb9857c518dd665c35dec85d84",
+      "url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/jobs/133930026083",
+      "html_url": "https://github.com/camiloavilacm/qa-features/actions/runs/44051378117/job/133930026083",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-17T08:59:31Z",
+      "started_at": "2026-11-17T08:59:33Z",
+      "completed_at": "2026-11-17T09:01:24Z",
+      "name": "QA sut-python / selenium",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-17T08:59:34Z",
+          "completed_at": "2026-11-17T08:59:35Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-17T08:59:35Z",
+          "completed_at": "2026-11-17T08:59:36Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-17T08:59:36Z",
+          "completed_at": "2026-11-17T08:59:37Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 4,
+          "started_at": "2026-11-17T08:59:37Z",
+          "completed_at": "2026-11-17T08:59:37Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-17T08:59:37Z",
+          "completed_at": "2026-11-17T08:59:38Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 6,
+          "started_at": "2026-11-17T08:59:38Z",
+          "completed_at": "2026-11-17T08:59:38Z"
+        },
+        {
+          "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-11-17T08:59:38Z",
+          "completed_at": "2026-11-17T08:59:38Z"
+        },
+        {
+          "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-11-17T08:59:38Z",
+          "completed_at": "2026-11-17T08:59:45Z"
+        },
+        {
+          "name": "Install reporting dependencies and initialize pinned feature",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-11-17T08:59:45Z",
+          "completed_at": "2026-11-17T08:59:51Z"
+        },
+        {
+          "name": "Install Python browser runner",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-11-17T08:59:51Z",
+          "completed_at": "2026-11-17T09:00:31Z"
+        },
+        {
+          "name": "Install Cypress runner",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 11,
+          "started_at": "2026-11-17T09:00:31Z",
+          "completed_at": "2026-11-17T09:00:31Z"
+        },
+        {
+          "name": "Authenticate to private CI images",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-11-17T09:00:31Z",
+          "completed_at": "2026-11-17T09:00:32Z"
+        },
+        {
+          "name": "Start verified pinned SUT",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-11-17T09:00:32Z",
+          "completed_at": "2026-11-17T09:00:59Z"
+        },
+        {
+          "name": "Execute approved scenarios",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-11-17T09:00:59Z",
+          "completed_at": "2026-11-17T09:01:18Z"
+        },
+        {
+          "name": "Collect actual image/source evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-11-17T09:01:18Z",
+          "completed_at": "2026-11-17T09:01:18Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-11-17T09:01:18Z",
+          "completed_at": "2026-11-17T09:01:19Z"
+        },
+        {
+          "name": "Remove disposable SUT data",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-11-17T09:01:19Z",
+          "completed_at": "2026-11-17T09:01:20Z"
+        },
+        {
+          "name": "Remove registry credentials",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-11-17T09:01:20Z",
+          "completed_at": "2026-11-17T09:01:20Z"
+        },
+        {
+          "name": "Require executed and verified slot",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-11-17T09:01:20Z",
+          "completed_at": "2026-11-17T09:01:20Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 34,
+          "started_at": "2026-11-17T09:01:20Z",
+          "completed_at": "2026-11-17T09:01:20Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 35,
+          "started_at": "2026-11-17T09:01:20Z",
+          "completed_at": "2026-11-17T09:01:20Z"
+        },
+        {
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 36,
+          "started_at": "2026-11-17T09:01:20Z",
+          "completed_at": "2026-11-17T09:01:21Z"
+        },
+        {
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 37,
+          "started_at": "2026-11-17T09:01:21Z",
+          "completed_at": "2026-11-17T09:01:21Z"
+        },
+        {
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 38,
+          "started_at": "2026-11-17T09:01:21Z",
+          "completed_at": "2026-11-17T09:01:21Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 39,
+          "started_at": "2026-11-17T09:01:21Z",
+          "completed_at": "2026-11-17T09:01:21Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/camiloavilacm/qa-features/check-runs/133930026083",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000003192,
+      "runner_name": "GitHub Actions 1000003192",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 133930026172,
+      "run_id": 44051378117,
+      "workflow_name": "SEED-1 campaign",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/runs/44051378117",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVxY4iM8AAAAfLtoEvA",
+      "head_sha": "c8e60c7dd0c2adeb9857c518dd665c35dec85d84",
+      "url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/jobs/133930026172",
+      "html_url": "https://github.com/camiloavilacm/qa-features/actions/runs/44051378117/job/133930026172",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-17T08:59:31Z",
+      "started_at": "2026-11-17T08:59:34Z",
+      "completed_at": "2026-11-17T09:01:18Z",
+      "name": "QA sut-python / cypress",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-17T08:59:35Z",
+          "completed_at": "2026-11-17T08:59:38Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-17T08:59:38Z",
+          "completed_at": "2026-11-17T08:59:42Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-17T08:59:42Z",
+          "completed_at": "2026-11-17T08:59:44Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 4,
+          "started_at": "2026-11-17T08:59:44Z",
+          "completed_at": "2026-11-17T08:59:44Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 5,
+          "started_at": "2026-11-17T08:59:44Z",
+          "completed_at": "2026-11-17T08:59:44Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-11-17T08:59:44Z",
+          "completed_at": "2026-11-17T08:59:45Z"
+        },
+        {
+          "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-11-17T08:59:45Z",
+          "completed_at": "2026-11-17T08:59:45Z"
+        },
+        {
+          "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-11-17T08:59:45Z",
+          "completed_at": "2026-11-17T08:59:50Z"
+        },
+        {
+          "name": "Install reporting dependencies and initialize pinned feature",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-11-17T08:59:50Z",
+          "completed_at": "2026-11-17T08:59:59Z"
+        },
+        {
+          "name": "Install Python browser runner",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 10,
+          "started_at": "2026-11-17T08:59:59Z",
+          "completed_at": "2026-11-17T08:59:59Z"
+        },
+        {
+          "name": "Install Cypress runner",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-11-17T08:59:59Z",
+          "completed_at": "2026-11-17T09:00:09Z"
+        },
+        {
+          "name": "Authenticate to private CI images",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-11-17T09:00:09Z",
+          "completed_at": "2026-11-17T09:00:12Z"
+        },
+        {
+          "name": "Start verified pinned SUT",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-11-17T09:00:12Z",
+          "completed_at": "2026-11-17T09:00:36Z"
+        },
+        {
+          "name": "Execute approved scenarios",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-11-17T09:00:36Z",
+          "completed_at": "2026-11-17T09:01:09Z"
+        },
+        {
+          "name": "Collect actual image/source evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-11-17T09:01:09Z",
+          "completed_at": "2026-11-17T09:01:09Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-11-17T09:01:09Z",
+          "completed_at": "2026-11-17T09:01:11Z"
+        },
+        {
+          "name": "Remove disposable SUT data",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-11-17T09:01:11Z",
+          "completed_at": "2026-11-17T09:01:12Z"
+        },
+        {
+          "name": "Remove registry credentials",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-11-17T09:01:12Z",
+          "completed_at": "2026-11-17T09:01:12Z"
+        },
+        {
+          "name": "Require executed and verified slot",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-11-17T09:01:12Z",
+          "completed_at": "2026-11-17T09:01:12Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 34,
+          "started_at": "2026-11-17T09:01:12Z",
+          "completed_at": "2026-11-17T09:01:12Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 35,
+          "started_at": "2026-11-17T09:01:12Z",
+          "completed_at": "2026-11-17T09:01:12Z"
+        },
+        {
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 36,
+          "started_at": "2026-11-17T09:01:12Z",
+          "completed_at": "2026-11-17T09:01:12Z"
+        },
+        {
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 37,
+          "started_at": "2026-11-17T09:01:12Z",
+          "completed_at": "2026-11-17T09:01:12Z"
+        },
+        {
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 38,
+          "started_at": "2026-11-17T09:01:12Z",
+          "completed_at": "2026-11-17T09:01:13Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 39,
+          "started_at": "2026-11-17T09:01:13Z",
+          "completed_at": "2026-11-17T09:01:13Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/camiloavilacm/qa-features/check-runs/133930026172",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000003188,
+      "runner_name": "GitHub Actions 1000003188",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 133930026183,
+      "run_id": 44051378117,
+      "workflow_name": "SEED-1 campaign",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/runs/44051378117",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVxY4iM8AAAAfLtoExw",
+      "head_sha": "c8e60c7dd0c2adeb9857c518dd665c35dec85d84",
+      "url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/jobs/133930026183",
+      "html_url": "https://github.com/camiloavilacm/qa-features/actions/runs/44051378117/job/133930026183",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-17T08:59:31Z",
+      "started_at": "2026-11-17T08:59:33Z",
+      "completed_at": "2026-11-17T09:01:01Z",
+      "name": "QA sut-python / playwright",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-17T08:59:34Z",
+          "completed_at": "2026-11-17T08:59:35Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-17T08:59:35Z",
+          "completed_at": "2026-11-17T08:59:37Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-17T08:59:37Z",
+          "completed_at": "2026-11-17T08:59:38Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 4,
+          "started_at": "2026-11-17T08:59:38Z",
+          "completed_at": "2026-11-17T08:59:38Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-17T08:59:38Z",
+          "completed_at": "2026-11-17T08:59:39Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 6,
+          "started_at": "2026-11-17T08:59:39Z",
+          "completed_at": "2026-11-17T08:59:39Z"
+        },
+        {
+          "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-11-17T08:59:39Z",
+          "completed_at": "2026-11-17T08:59:39Z"
+        },
+        {
+          "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-11-17T08:59:39Z",
+          "completed_at": "2026-11-17T08:59:47Z"
+        },
+        {
+          "name": "Install reporting dependencies and initialize pinned feature",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-11-17T08:59:47Z",
+          "completed_at": "2026-11-17T08:59:52Z"
+        },
+        {
+          "name": "Install Python browser runner",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-11-17T08:59:52Z",
+          "completed_at": "2026-11-17T09:00:23Z"
+        },
+        {
+          "name": "Install Cypress runner",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 11,
+          "started_at": "2026-11-17T09:00:23Z",
+          "completed_at": "2026-11-17T09:00:23Z"
+        },
+        {
+          "name": "Authenticate to private CI images",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-11-17T09:00:23Z",
+          "completed_at": "2026-11-17T09:00:25Z"
+        },
+        {
+          "name": "Start verified pinned SUT",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-11-17T09:00:25Z",
+          "completed_at": "2026-11-17T09:00:49Z"
+        },
+        {
+          "name": "Execute approved scenarios",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-11-17T09:00:49Z",
+          "completed_at": "2026-11-17T09:00:53Z"
+        },
+        {
+          "name": "Collect actual image/source evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-11-17T09:00:53Z",
+          "completed_at": "2026-11-17T09:00:53Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-11-17T09:00:53Z",
+          "completed_at": "2026-11-17T09:00:55Z"
+        },
+        {
+          "name": "Remove disposable SUT data",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-11-17T09:00:55Z",
+          "completed_at": "2026-11-17T09:00:55Z"
+        },
+        {
+          "name": "Remove registry credentials",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-11-17T09:00:55Z",
+          "completed_at": "2026-11-17T09:00:55Z"
+        },
+        {
+          "name": "Require executed and verified slot",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-11-17T09:00:55Z",
+          "completed_at": "2026-11-17T09:00:55Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 34,
+          "started_at": "2026-11-17T09:00:55Z",
+          "completed_at": "2026-11-17T09:00:56Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 35,
+          "started_at": "2026-11-17T09:00:56Z",
+          "completed_at": "2026-11-17T09:00:56Z"
+        },
+        {
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 36,
+          "started_at": "2026-11-17T09:00:56Z",
+          "completed_at": "2026-11-17T09:00:56Z"
+        },
+        {
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 37,
+          "started_at": "2026-11-17T09:00:56Z",
+          "completed_at": "2026-11-17T09:00:56Z"
+        },
+        {
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 38,
+          "started_at": "2026-11-17T09:00:56Z",
+          "completed_at": "2026-11-17T09:00:56Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 39,
+          "started_at": "2026-11-17T09:00:56Z",
+          "completed_at": "2026-11-17T09:00:56Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/camiloavilacm/qa-features/check-runs/133930026183",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000003187,
+      "runner_name": "GitHub Actions 1000003187",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 133930026250,
+      "run_id": 44051378117,
+      "workflow_name": "SEED-1 campaign",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/runs/44051378117",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVxY4iM8AAAAfLtoFCg",
+      "head_sha": "c8e60c7dd0c2adeb9857c518dd665c35dec85d84",
+      "url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/jobs/133930026250",
+      "html_url": "https://github.com/camiloavilacm/qa-features/actions/runs/44051378117/job/133930026250",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-17T08:59:31Z",
+      "started_at": "2026-11-17T08:59:33Z",
+      "completed_at": "2026-11-17T09:01:00Z",
+      "name": "QA sut-node / selenium",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-17T08:59:34Z",
+          "completed_at": "2026-11-17T08:59:36Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-17T08:59:36Z",
+          "completed_at": "2026-11-17T08:59:37Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 3,
+          "started_at": "2026-11-17T08:59:37Z",
+          "completed_at": "2026-11-17T08:59:37Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-17T08:59:37Z",
+          "completed_at": "2026-11-17T08:59:38Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-17T08:59:38Z",
+          "completed_at": "2026-11-17T08:59:40Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 6,
+          "started_at": "2026-11-17T08:59:40Z",
+          "completed_at": "2026-11-17T08:59:40Z"
+        },
+        {
+          "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-11-17T08:59:40Z",
+          "completed_at": "2026-11-17T08:59:40Z"
+        },
+        {
+          "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-11-17T08:59:40Z",
+          "completed_at": "2026-11-17T08:59:46Z"
+        },
+        {
+          "name": "Install reporting dependencies and initialize pinned feature",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-11-17T08:59:46Z",
+          "completed_at": "2026-11-17T08:59:51Z"
+        },
+        {
+          "name": "Install Python browser runner",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-11-17T08:59:51Z",
+          "completed_at": "2026-11-17T09:00:21Z"
+        },
+        {
+          "name": "Install Cypress runner",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 11,
+          "started_at": "2026-11-17T09:00:21Z",
+          "completed_at": "2026-11-17T09:00:21Z"
+        },
+        {
+          "name": "Authenticate to private CI images",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-11-17T09:00:21Z",
+          "completed_at": "2026-11-17T09:00:22Z"
+        },
+        {
+          "name": "Start verified pinned SUT",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-11-17T09:00:22Z",
+          "completed_at": "2026-11-17T09:00:48Z"
+        },
+        {
+          "name": "Execute approved scenarios",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-11-17T09:00:48Z",
+          "completed_at": "2026-11-17T09:00:53Z"
+        },
+        {
+          "name": "Collect actual image/source evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-11-17T09:00:53Z",
+          "completed_at": "2026-11-17T09:00:53Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-11-17T09:00:53Z",
+          "completed_at": "2026-11-17T09:00:55Z"
+        },
+        {
+          "name": "Remove disposable SUT data",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-11-17T09:00:55Z",
+          "completed_at": "2026-11-17T09:00:55Z"
+        },
+        {
+          "name": "Remove registry credentials",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-11-17T09:00:55Z",
+          "completed_at": "2026-11-17T09:00:55Z"
+        },
+        {
+          "name": "Require executed and verified slot",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-11-17T09:00:55Z",
+          "completed_at": "2026-11-17T09:00:55Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 34,
+          "started_at": "2026-11-17T09:00:55Z",
+          "completed_at": "2026-11-17T09:00:55Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 35,
+          "started_at": "2026-11-17T09:00:55Z",
+          "completed_at": "2026-11-17T09:00:56Z"
+        },
+        {
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 36,
+          "started_at": "2026-11-17T09:00:56Z",
+          "completed_at": "2026-11-17T09:00:56Z"
+        },
+        {
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 37,
+          "started_at": "2026-11-17T09:00:56Z",
+          "completed_at": "2026-11-17T09:00:56Z"
+        },
+        {
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 38,
+          "started_at": "2026-11-17T09:00:56Z",
+          "completed_at": "2026-11-17T09:00:56Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 39,
+          "started_at": "2026-11-17T09:00:56Z",
+          "completed_at": "2026-11-17T09:00:56Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/camiloavilacm/qa-features/check-runs/133930026250",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000003190,
+      "runner_name": "GitHub Actions 1000003190",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 133930026273,
+      "run_id": 44051378117,
+      "workflow_name": "SEED-1 campaign",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/runs/44051378117",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVxY4iM8AAAAfLtoFIQ",
+      "head_sha": "c8e60c7dd0c2adeb9857c518dd665c35dec85d84",
+      "url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/jobs/133930026273",
+      "html_url": "https://github.com/camiloavilacm/qa-features/actions/runs/44051378117/job/133930026273",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-17T08:59:31Z",
+      "started_at": "2026-11-17T08:59:33Z",
+      "completed_at": "2026-11-17T09:01:10Z",
+      "name": "QA sut-node / playwright",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-17T08:59:34Z",
+          "completed_at": "2026-11-17T08:59:37Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-17T08:59:37Z",
+          "completed_at": "2026-11-17T08:59:42Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 3,
+          "started_at": "2026-11-17T08:59:42Z",
+          "completed_at": "2026-11-17T08:59:42Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-17T08:59:42Z",
+          "completed_at": "2026-11-17T08:59:43Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-17T08:59:43Z",
+          "completed_at": "2026-11-17T08:59:43Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 6,
+          "started_at": "2026-11-17T08:59:43Z",
+          "completed_at": "2026-11-17T08:59:43Z"
+        },
+        {
+          "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-11-17T08:59:43Z",
+          "completed_at": "2026-11-17T08:59:44Z"
+        },
+        {
+          "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-11-17T08:59:44Z",
+          "completed_at": "2026-11-17T08:59:48Z"
+        },
+        {
+          "name": "Install reporting dependencies and initialize pinned feature",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-11-17T08:59:48Z",
+          "completed_at": "2026-11-17T08:59:55Z"
+        },
+        {
+          "name": "Install Python browser runner",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-11-17T08:59:55Z",
+          "completed_at": "2026-11-17T09:00:36Z"
+        },
+        {
+          "name": "Install Cypress runner",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 11,
+          "started_at": "2026-11-17T09:00:36Z",
+          "completed_at": "2026-11-17T09:00:36Z"
+        },
+        {
+          "name": "Authenticate to private CI images",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-11-17T09:00:36Z",
+          "completed_at": "2026-11-17T09:00:37Z"
+        },
+        {
+          "name": "Start verified pinned SUT",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-11-17T09:00:37Z",
+          "completed_at": "2026-11-17T09:00:58Z"
+        },
+        {
+          "name": "Execute approved scenarios",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-11-17T09:00:58Z",
+          "completed_at": "2026-11-17T09:01:05Z"
+        },
+        {
+          "name": "Collect actual image/source evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-11-17T09:01:05Z",
+          "completed_at": "2026-11-17T09:01:05Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-11-17T09:01:05Z",
+          "completed_at": "2026-11-17T09:01:06Z"
+        },
+        {
+          "name": "Remove disposable SUT data",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-11-17T09:01:06Z",
+          "completed_at": "2026-11-17T09:01:07Z"
+        },
+        {
+          "name": "Remove registry credentials",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-11-17T09:01:07Z",
+          "completed_at": "2026-11-17T09:01:07Z"
+        },
+        {
+          "name": "Require executed and verified slot",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-11-17T09:01:07Z",
+          "completed_at": "2026-11-17T09:01:07Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 34,
+          "started_at": "2026-11-17T09:01:07Z",
+          "completed_at": "2026-11-17T09:01:07Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 35,
+          "started_at": "2026-11-17T09:01:07Z",
+          "completed_at": "2026-11-17T09:01:07Z"
+        },
+        {
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 36,
+          "started_at": "2026-11-17T09:01:07Z",
+          "completed_at": "2026-11-17T09:01:07Z"
+        },
+        {
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 37,
+          "started_at": "2026-11-17T09:01:07Z",
+          "completed_at": "2026-11-17T09:01:07Z"
+        },
+        {
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 38,
+          "started_at": "2026-11-17T09:01:07Z",
+          "completed_at": "2026-11-17T09:01:08Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 39,
+          "started_at": "2026-11-17T09:01:08Z",
+          "completed_at": "2026-11-17T09:01:08Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/camiloavilacm/qa-features/check-runs/133930026273",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000003189,
+      "runner_name": "GitHub Actions 1000003189",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 133930026332,
+      "run_id": 44051378117,
+      "workflow_name": "SEED-1 campaign",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/runs/44051378117",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVxY4iM8AAAAfLtoFXA",
+      "head_sha": "c8e60c7dd0c2adeb9857c518dd665c35dec85d84",
+      "url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/jobs/133930026332",
+      "html_url": "https://github.com/camiloavilacm/qa-features/actions/runs/44051378117/job/133930026332",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-17T08:59:31Z",
+      "started_at": "2026-11-17T08:59:33Z",
+      "completed_at": "2026-11-17T09:01:05Z",
+      "name": "QA sut-node / cypress",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-17T08:59:34Z",
+          "completed_at": "2026-11-17T08:59:36Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-17T08:59:36Z",
+          "completed_at": "2026-11-17T08:59:38Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 3,
+          "started_at": "2026-11-17T08:59:38Z",
+          "completed_at": "2026-11-17T08:59:38Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-17T08:59:38Z",
+          "completed_at": "2026-11-17T08:59:39Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 5,
+          "started_at": "2026-11-17T08:59:39Z",
+          "completed_at": "2026-11-17T08:59:39Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-11-17T08:59:39Z",
+          "completed_at": "2026-11-17T08:59:41Z"
+        },
+        {
+          "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-11-17T08:59:41Z",
+          "completed_at": "2026-11-17T08:59:41Z"
+        },
+        {
+          "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-11-17T08:59:41Z",
+          "completed_at": "2026-11-17T08:59:49Z"
+        },
+        {
+          "name": "Install reporting dependencies and initialize pinned feature",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-11-17T08:59:49Z",
+          "completed_at": "2026-11-17T08:59:55Z"
+        },
+        {
+          "name": "Install Python browser runner",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 10,
+          "started_at": "2026-11-17T08:59:55Z",
+          "completed_at": "2026-11-17T08:59:55Z"
+        },
+        {
+          "name": "Install Cypress runner",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-11-17T08:59:55Z",
+          "completed_at": "2026-11-17T09:00:07Z"
+        },
+        {
+          "name": "Authenticate to private CI images",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-11-17T09:00:07Z",
+          "completed_at": "2026-11-17T09:00:08Z"
+        },
+        {
+          "name": "Start verified pinned SUT",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-11-17T09:00:08Z",
+          "completed_at": "2026-11-17T09:00:42Z"
+        },
+        {
+          "name": "Execute approved scenarios",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-11-17T09:00:42Z",
+          "completed_at": "2026-11-17T09:00:57Z"
+        },
+        {
+          "name": "Collect actual image/source evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-11-17T09:00:57Z",
+          "completed_at": "2026-11-17T09:00:57Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-11-17T09:00:57Z",
+          "completed_at": "2026-11-17T09:00:59Z"
+        },
+        {
+          "name": "Remove disposable SUT data",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-11-17T09:00:59Z",
+          "completed_at": "2026-11-17T09:00:59Z"
+        },
+        {
+          "name": "Remove registry credentials",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-11-17T09:00:59Z",
+          "completed_at": "2026-11-17T09:00:59Z"
+        },
+        {
+          "name": "Require executed and verified slot",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-11-17T09:00:59Z",
+          "completed_at": "2026-11-17T09:00:59Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 34,
+          "started_at": "2026-11-17T09:00:59Z",
+          "completed_at": "2026-11-17T09:01:00Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 35,
+          "started_at": "2026-11-17T09:01:00Z",
+          "completed_at": "2026-11-17T09:01:00Z"
+        },
+        {
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 36,
+          "started_at": "2026-11-17T09:01:00Z",
+          "completed_at": "2026-11-17T09:01:00Z"
+        },
+        {
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 37,
+          "started_at": "2026-11-17T09:01:00Z",
+          "completed_at": "2026-11-17T09:01:00Z"
+        },
+        {
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 38,
+          "started_at": "2026-11-17T09:01:00Z",
+          "completed_at": "2026-11-17T09:01:01Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 39,
+          "started_at": "2026-11-17T09:01:01Z",
+          "completed_at": "2026-11-17T09:01:01Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/camiloavilacm/qa-features/check-runs/133930026332",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000003191,
+      "runner_name": "GitHub Actions 1000003191",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 133930985528,
+      "run_id": 44051378117,
+      "workflow_name": "SEED-1 campaign",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/runs/44051378117",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVxY4iM8AAAAfLuioOA",
+      "head_sha": "c8e60c7dd0c2adeb9857c518dd665c35dec85d84",
+      "url": "https://api.github.com/repos/camiloavilacm/qa-features/actions/jobs/133930985528",
+      "html_url": "https://github.com/camiloavilacm/qa-features/actions/runs/44051378117/job/133930985528",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-17T09:01:24Z",
+      "started_at": "2026-11-17T09:01:26Z",
+      "completed_at": "2026-11-17T09:01:42Z",
+      "name": "One campaign report",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-17T09:01:27Z",
+          "completed_at": "2026-11-17T09:01:28Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-17T09:01:28Z",
+          "completed_at": "2026-11-17T09:01:29Z"
+        },
+        {
+          "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-17T09:01:29Z",
+          "completed_at": "2026-11-17T09:01:29Z"
+        },
+        {
+          "name": "Install validator and capture immutable context",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-17T09:01:29Z",
+          "completed_at": "2026-11-17T09:01:34Z"
+        },
+        {
+          "name": "Run actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-17T09:01:34Z",
+          "completed_at": "2026-11-17T09:01:35Z"
+        },
+        {
+          "name": "Aggregate current attempt",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-11-17T09:01:35Z",
+          "completed_at": "2026-11-17T09:01:35Z"
+        },
+        {
+          "name": "Publish selected private issue comment",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-11-17T09:01:35Z",
+          "completed_at": "2026-11-17T09:01:38Z"
+        },
+        {
+          "name": "Write campaign summary",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-11-17T09:01:38Z",
+          "completed_at": "2026-11-17T09:01:38Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-11-17T09:01:38Z",
+          "completed_at": "2026-11-17T09:01:39Z"
+        },
+        {
+          "name": "Require complete passing campaign",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-11-17T09:01:39Z",
+          "completed_at": "2026-11-17T09:01:39Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-11-17T09:01:39Z",
+          "completed_at": "2026-11-17T09:01:39Z"
+        },
+        {
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 20,
+          "started_at": "2026-11-17T09:01:39Z",
+          "completed_at": "2026-11-17T09:01:40Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 21,
+          "started_at": "2026-11-17T09:01:40Z",
+          "completed_at": "2026-11-17T09:01:40Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/camiloavilacm/qa-features/check-runs/133930985528",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000003199,
+      "runner_name": "GitHub Actions 1000003199",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}
