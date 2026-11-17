@@ -1,0 +1,109 @@
+{
+  "approved_contract_hashes": {
+    "api-expectations.yaml": "c9798589823204532bac7a64a392f9b20aab4fb581db222b73e235b0e462b216",
+    "api/auth.hurl": "519b5edefe9bdb61b5aac49ef54f6614e854fb033db34c6fd57723afe1824de3",
+    "data/baseline.json": "1aadda5bd94c4db891e4a999c07b38291abbbaaa485cc8abbf4f379a0c95b51f",
+    "features/auth/login.feature": "916baf659389700171aa1eac7fef318947de33ba0d6bbcf17a07af0e7fd1ff78",
+    "openapi.yml": "e9c156075729b65ea4e9d90d4e3203d3e6516a56b3f09d4c75d6255099a76470",
+    "schemas/campaign.schema.json": "9427ae5cf3248dabfd2f705bceb3fe0403553a928d1f2ff11b7b89de939f239b",
+    "schemas/results.schema.json": "2f2ba06c1e582173d143b25e1ab03a711ac7ee849525922ffef522aff42b5b06",
+    "selectors.json": "e16a07e6431eacba44ea9142415b548a1cfe0f31020f50a2594aa5a48486ae29"
+  },
+  "assets_sha256": "ddb17f6d9bd56864ce72ad1df3d5d7e90ecde5dae64f36d0ffedec48eecface1",
+  "configuration": {
+    "sut-node": {
+      "files": {
+        ".env.example": "415c685cad79b0eda98bac5e27c2222496b485536cb5e2558b2f5dd5842ced30",
+        "compose.yaml": "3bd7e8472def0f59fbeefc7236c6749dc1c5a92071fbffd210debd3124d9420d",
+        "contracts/data/baseline.json": "1aadda5bd94c4db891e4a999c07b38291abbbaaa485cc8abbf4f379a0c95b51f",
+        "db/schema.sql": "e34a29ad11efa28112281f63f9972abc70c9dd88c78c52f5bc120c6f3cd835e0",
+        "frontend/manifest.json": "39913807cd62d03e1e80cbd4e0b2fa8c5faeab802265974c7b4e4cf54328c505",
+        "images.lock.json": "fe6117b8d1127a8cf989d13b15f7f0c75214c77f3bfce58e2986749b787d0f4a",
+        "tools/configure.py": "184958c9cd9ad3f50a2a98b18423de5ce02f65ccd2b8dda6ade58d16d4e35429"
+      },
+      "frontend": {
+        "feature_ref": "12a55fb4b9312303378af72f96a28734b6b9ec9a",
+        "files": {
+          "assets/app.js": "60e4d6171ce0b2829436b9cb5bcc4171238f571806e7d1fb1823efc94528957e",
+          "assets/style.css": "14cf22e095fba1b3f91aede1d26fcce8b38bcbc0e180a8b7d053fb5d9976e694",
+          "index.html": "82009999fe9e852dbba88dfc99c75deccab1f784e0e35f1ee883b98b76031ef9"
+        },
+        "version": 1
+      },
+      "postgres": "postgres@sha256:a77aa70e641402a21411b92b721c58d10f23b50ae5fdd2333efd22d166e1e5f7",
+      "secret_policy": "Fresh generated synthetic credentials per clean environment; unchanged .env digest throughout rollback; secret values are not exported",
+      "source_ref": "a913cf1314ccec4c0517de6c23c495f1976cc662"
+    },
+    "sut-python": {
+      "files": {
+        ".env.example": "415c685cad79b0eda98bac5e27c2222496b485536cb5e2558b2f5dd5842ced30",
+        "compose.yaml": "f8a1237aea42570fbc1af1030fd87a09341338074b571659c0c1b1d69b4c2d67",
+        "contracts/data/baseline.json": "1aadda5bd94c4db891e4a999c07b38291abbbaaa485cc8abbf4f379a0c95b51f",
+        "db/schema.sql": "e34a29ad11efa28112281f63f9972abc70c9dd88c78c52f5bc120c6f3cd835e0",
+        "frontend/manifest.json": "39913807cd62d03e1e80cbd4e0b2fa8c5faeab802265974c7b4e4cf54328c505",
+        "images.lock.json": "472eed5f93ee7def96a61049a5ef898bbb7f912ee560a631df2f61299b7d6dcb",
+        "tools/configure.py": "f2c4d5bca28be91b0bc8711773695e5803f42cd03e909857727bbf18afdb73bf"
+      },
+      "frontend": {
+        "feature_ref": "12a55fb4b9312303378af72f96a28734b6b9ec9a",
+        "files": {
+          "assets/app.js": "60e4d6171ce0b2829436b9cb5bcc4171238f571806e7d1fb1823efc94528957e",
+          "assets/style.css": "14cf22e095fba1b3f91aede1d26fcce8b38bcbc0e180a8b7d053fb5d9976e694",
+          "index.html": "82009999fe9e852dbba88dfc99c75deccab1f784e0e35f1ee883b98b76031ef9"
+        },
+        "version": 1
+      },
+      "postgres": "postgres@sha256:a77aa70e641402a21411b92b721c58d10f23b50ae5fdd2333efd22d166e1e5f7",
+      "secret_policy": "Fresh generated synthetic credentials per clean environment; unchanged .env digest throughout rollback; secret values are not exported",
+      "source_ref": "c8f0f1f84a32f3c0eae2a0779b216d73cd84bd76"
+    }
+  },
+  "feature_ref": "12a55fb4b9312303378af72f96a28734b6b9ec9a",
+  "images": {
+    "sut-node": {
+      "config_id": "25e5c5bd5675b471ea597ffc638f058eb22a0cb45e7f15057a682b7a9fce1331",
+      "registry_digest": "ghcr.io/camiloavilacm/qa-campaign-sut-node@sha256:ffe8e8a67dc31b3a969bac4adc96bdc5b2c7a92dad5c79a6cbe5054e4503cf08"
+    },
+    "sut-python": {
+      "config_id": "ba550eda6f3d812de883dfd2c6f14b58cb6dc63a06860ea007f517d608dd8b16",
+      "registry_digest": "ghcr.io/camiloavilacm/qa-campaign-sut-python@sha256:88762c2e2330682e337c4c55d11e398eca36df6cc83b44f2d4d22b05ae4c85da"
+    }
+  },
+  "kind": "synthetic-smoke",
+  "lock_hashes": {
+    "tools/release/locks/features.txt": "4b4de01a7bdd54123d75abf19aeafd03762af7fe7d6294268c5b4e8cd16faabe",
+    "tools/release/locks/qa-python.txt": "ce5ec184851b361938d50cf05586aab24872d9fa99098e577b8f555c9cf76c0c"
+  },
+  "origin": {
+    "artifact": "campaign-44051378117-2",
+    "attempt": 2,
+    "basis": "Previously verified Step 6 artifact; baseline is established for this first smoke release, not claimed as a previous tagged/production release",
+    "run_id": 44051378117,
+    "tooling_ref": "c8e60c7dd0c2adeb9857c518dd665c35dec85d84"
+  },
+  "platform": "linux/amd64",
+  "previous_manifest_sha256": "3d8b4e04166141630651706fe3d60202013d8de8968b782c42c4cdd56767d0a1",
+  "qa_tooling_ref": "c8e60c7dd0c2adeb9857c518dd665c35dec85d84",
+  "release_role": "candidate",
+  "repositories": {
+    "qa-python": "24a1373f1b3cc3f9a6b8443f34d47eadf68b4e6c",
+    "qa-typescript": "cf8cf4744edda9665be731279bf213449c52c62a",
+    "sut-node": "a913cf1314ccec4c0517de6c23c495f1976cc662",
+    "sut-python": "c8f0f1f84a32f3c0eae2a0779b216d73cd84bd76"
+  },
+  "runner_fingerprints": {
+    "qa-python": "91345e0923a656044b30c06f7cb02d408b89c0e8f5f5f8c02c6bbaa8782d2ad4",
+    "qa-typescript": "e3bc3b4bfa4368a783b4e90a01112296c6635d5a5790e3fdf827639dcfa42a2d"
+  },
+  "schema_version": "1.0",
+  "toolchain": {
+    "cypress": "16.3.0",
+    "host": "ubuntu-24.04 linux-amd64",
+    "hurl": "8.1.0",
+    "node": "26.13.0",
+    "pip": "26.1",
+    "playwright_chromium": "159.0.8154.6",
+    "python": "3.13.18",
+    "selenium_chrome": "157.0.8103.78"
+  }
+}

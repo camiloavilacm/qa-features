@@ -1,0 +1,332 @@
+name: SEED-1 immutable smoke
+'on':
+  workflow_dispatch:
+    inputs:
+      reproduce_bundle:
+        description: Published immutable smoke bundle digest; empty creates the initial candidate
+        type: string
+        default: ''
+        required: false
+      report_issue:
+        description: Private smoke report issue
+        type: number
+        default: 2
+        required: true
+permissions:
+  contents: read
+concurrency:
+  group: smoke-${{ github.run_id }}
+  cancel-in-progress: false
+env:
+  QA_REPRODUCE_BUNDLE: ${{ inputs.reproduce_bundle }}
+  QA_REPORT_ISSUE: ${{ inputs.report_issue }}
+jobs:
+  baseline:
+    name: Establish immutable baseline
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      actions: read
+      packages: write
+    outputs:
+      bundle: ${{ steps.baseline.outputs.bundle }}
+    steps:
+    - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      with:
+        fetch-depth: 0
+        persist-credentials: false
+    - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+      with:
+        python-version: 3.13.18
+    - name: Install hash-locked tooling
+      run: |-
+        python -m venv .venv
+        .venv/bin/python -m pip install --no-cache-dir --only-binary=:all: --require-hashes -r tools/release/locks/features.txt
+    - name: Authenticate private packages
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+    - name: Verify and freeze baseline
+      id: baseline
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: .venv/bin/python tools/release/baseline.py --reproduce-bundle "$QA_REPRODUCE_BUNDLE" --output baseline-published.json
+    - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      with:
+        name: baseline-${{ github.run_id }}-${{ github.run_attempt }}
+        path: baseline-published.json
+        if-no-files-found: error
+    - if: always()
+      run: docker logout ghcr.io
+  qa:
+    name: QA ${{ matrix.sut }} / ${{ matrix.driver }}
+    needs:
+    - baseline
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: read
+    strategy:
+      fail-fast: false
+      matrix:
+        sut:
+        - sut-python
+        - sut-node
+        driver:
+        - playwright
+        - selenium
+        - cypress
+    env:
+      QA_SUT: ${{ matrix.sut }}
+      QA_DRIVER: ${{ matrix.driver }}
+      QA_CONTEXT: ${{ github.workspace }}/context.json
+      QA_BASELINE_BUNDLE: ${{ needs.baseline.outputs.bundle }}
+    steps:
+    - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      with:
+        fetch-depth: 0
+        persist-credentials: false
+    - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      if: matrix.sut == 'sut-python'
+      with:
+        repository: camiloavilacm/sut-python
+        ref: c8f0f1f84a32f3c0eae2a0779b216d73cd84bd76
+        ssh-key: ${{ secrets.SUT_PYTHON_SSH_KEY }}
+        persist-credentials: false
+        path: sut
+    - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      if: matrix.sut == 'sut-node'
+      with:
+        repository: camiloavilacm/sut-node
+        ref: a913cf1314ccec4c0517de6c23c495f1976cc662
+        ssh-key: ${{ secrets.SUT_NODE_SSH_KEY }}
+        persist-credentials: false
+        path: sut
+    - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      if: matrix.driver != 'cypress'
+      with:
+        repository: camiloavilacm/qa-python
+        ref: 24a1373f1b3cc3f9a6b8443f34d47eadf68b4e6c
+        ssh-key: ${{ secrets.QA_PYTHON_SSH_KEY }}
+        persist-credentials: false
+        path: runner
+    - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      if: matrix.driver == 'cypress'
+      with:
+        repository: camiloavilacm/qa-typescript
+        ref: cf8cf4744edda9665be731279bf213449c52c62a
+        ssh-key: ${{ secrets.QA_TYPESCRIPT_SSH_KEY }}
+        persist-credentials: false
+        path: runner
+    - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+      with:
+        python-version: 3.13.18
+    - name: Install hash-locked tooling
+      run: |-
+        python -m venv .venv
+        .venv/bin/python -m pip install --no-cache-dir --only-binary=:all: --require-hashes -r tools/release/locks/features.txt
+    - name: Authenticate private packages
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+    - name: Resolve frozen release context
+      run: |-
+        python runner/tools/bootstrap_features.py
+        .venv/bin/python tools/release/context.py --bundle "$QA_REPRODUCE_BUNDLE" --output context.json
+    - name: Install hash-locked Python runner
+      if: matrix.driver != 'cypress'
+      run: |-
+        python -m venv runner/.venv
+        runner/.venv/bin/python -m pip install --no-cache-dir --only-binary=:all: --require-hashes -r tools/release/locks/qa-python.txt
+    - name: Configure fresh browser caches
+      run: |
+        echo "PLAYWRIGHT_BROWSERS_PATH=$RUNNER_TEMP/frozen-playwright" >> "$GITHUB_ENV"
+        echo "CYPRESS_CACHE_FOLDER=$RUNNER_TEMP/frozen-cypress" >> "$GITHUB_ENV"
+    - name: Install and verify frozen QA toolchain
+      run: .venv/bin/python tools/release/install.py --driver "$QA_DRIVER" --runner runner --output "$RUNNER_TEMP/release-tools"
+    - name: Start verified pinned SUT
+      id: prepare
+      run: .venv/bin/python tools/campaign/slot.py prepare --context "$GITHUB_WORKSPACE/context.json" --sut-name "$QA_SUT" --sut "$GITHUB_WORKSPACE/sut"
+        --runner "$GITHUB_WORKSPACE/runner" --driver "$QA_DRIVER" --state "$RUNNER_TEMP/slot-state.json"
+    - name: Execute approved scenarios
+      id: execute
+      continue-on-error: true
+      run: .venv/bin/python tools/campaign/slot.py run --context "$GITHUB_WORKSPACE/context.json" --sut-name "$QA_SUT" --sut "$GITHUB_WORKSPACE/sut" --runner
+        "$GITHUB_WORKSPACE/runner" --driver "$QA_DRIVER" --state "$RUNNER_TEMP/slot-state.json"
+    - name: Collect actual image/source evidence
+      id: collect
+      if: always()
+      continue-on-error: true
+      run: |-
+        container="$(python -c 'import json,os;print(json.load(open(os.environ["RUNNER_TEMP"]+"/slot-state.json"))["container"])')"
+        .venv/bin/python tools/release/collect.py --context context.json --result runner/reports/slot --runner runner --sut sut --driver "$QA_DRIVER" --container "$container"
+    - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      if: always()
+      with:
+        name: slot-${{ github.run_attempt }}-${{ matrix.sut }}-${{ matrix.driver }}
+        path: runner/reports/slot
+        if-no-files-found: error
+        retention-days: 14
+    - name: Remove disposable SUT data
+      if: always()
+      run: .venv/bin/python tools/campaign/slot.py cleanup --context "$GITHUB_WORKSPACE/context.json" --sut-name "$QA_SUT" --sut "$GITHUB_WORKSPACE/sut"
+        --runner "$GITHUB_WORKSPACE/runner" --driver "$QA_DRIVER" --state "$RUNNER_TEMP/slot-state.json"
+    - name: Remove registry credentials
+      if: always()
+      run: docker logout ghcr.io
+    - name: Require executed and verified slot
+      if: always()
+      env:
+        EXECUTION: ${{ steps.execute.outcome }}
+        COLLECTION: ${{ steps.collect.outcome }}
+      run: test "$EXECUTION" = success && test "$COLLECTION" = success
+    timeout-minutes: 20
+  rollback:
+    name: Rollback ${{ matrix.sut }}
+    needs:
+    - baseline
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      packages: read
+    strategy:
+      fail-fast: false
+      matrix:
+        sut:
+        - sut-python
+        - sut-node
+    env:
+      QA_BASELINE_BUNDLE: ${{ needs.baseline.outputs.bundle }}
+    steps:
+    - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      with:
+        fetch-depth: 0
+        persist-credentials: false
+    - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      if: matrix.sut == 'sut-python'
+      with:
+        repository: camiloavilacm/sut-python
+        ref: c8f0f1f84a32f3c0eae2a0779b216d73cd84bd76
+        ssh-key: ${{ secrets.SUT_PYTHON_SSH_KEY }}
+        persist-credentials: false
+        path: sut
+    - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      if: matrix.sut == 'sut-node'
+      with:
+        repository: camiloavilacm/sut-node
+        ref: a913cf1314ccec4c0517de6c23c495f1976cc662
+        ssh-key: ${{ secrets.SUT_NODE_SSH_KEY }}
+        persist-credentials: false
+        path: sut
+    - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+      with:
+        python-version: 3.13.18
+    - name: Install hash-locked tooling
+      run: |-
+        python -m venv .venv
+        .venv/bin/python -m pip install --no-cache-dir --only-binary=:all: --require-hashes -r tools/release/locks/features.txt
+    - name: Authenticate private packages
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+    - name: Verify reproduced manifest
+      run: .venv/bin/python tools/release/context.py --bundle "$QA_REPRODUCE_BUNDLE" --output context.json
+    - name: Install verified API tool
+      run: .venv/bin/python tools/release/install.py --driver api --runner . --output "$RUNNER_TEMP/release-tools"
+    - name: Exercise real image rollback
+      env:
+        QA_SUT: ${{ matrix.sut }}
+      run: |-
+        mkdir -p rollback-evidence
+        .venv/bin/python tools/release/rollback.py --sut-name "$QA_SUT" --sut sut --output rollback-evidence/rollback.json
+    - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      if: always()
+      with:
+        name: rollback-${{ matrix.sut }}
+        path: rollback-evidence
+        if-no-files-found: error
+    - if: always()
+      run: docker logout ghcr.io
+  release:
+    name: Publish immutable smoke bundle
+    needs:
+    - baseline
+    - qa
+    - rollback
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      actions: read
+      packages: write
+      issues: write
+    env:
+      QA_BASELINE_BUNDLE: ${{ needs.baseline.outputs.bundle }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+    - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      with:
+        fetch-depth: 0
+        persist-credentials: false
+    - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+      with:
+        python-version: 3.13.18
+    - name: Install hash-locked tooling
+      run: |-
+        python -m venv .venv
+        .venv/bin/python -m pip install --no-cache-dir --only-binary=:all: --require-hashes -r tools/release/locks/features.txt
+    - name: Authenticate private packages
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+    - name: Resolve frozen release context
+      run: .venv/bin/python tools/release/context.py --bundle "$QA_REPRODUCE_BUNDLE" --output context.json
+    - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0
+      continue-on-error: true
+      with:
+        pattern: slot-${{ github.run_attempt }}-*
+        path: inbox
+        merge-multiple: false
+    - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0
+      continue-on-error: true
+      with:
+        pattern: rollback-*
+        path: rollback-input
+        merge-multiple: false
+    - name: Aggregate smoke results
+      run: .venv/bin/python tools/campaign/aggregate.py --inbox inbox --context context.json --output campaign
+    - name: Verify release before publication
+      id: verify
+      continue-on-error: true
+      run: .venv/bin/python tools/release/finalize.py --directory campaign --inbox inbox --rollback rollback-input --baseline "$QA_BASELINE_BUNDLE" --payload
+        "$RUNNER_TEMP/release-payload"
+    - name: Publish content-addressed bundle
+      id: publish
+      if: steps.verify.outcome == 'success'
+      run: .venv/bin/python tools/release/release_package.py --directory "$RUNNER_TEMP/release-payload" --role candidate --manifest-sha "$(python -c 'import
+        json;print(json.load(open("campaign/release-record.json"))["manifest_sha256"])')" --output campaign/published.json
+    - name: Publish private smoke report
+      if: steps.publish.outcome == 'success'
+      run: .venv/bin/python tools/release/publish.py --directory campaign
+    - name: Record smoke summary
+      if: always()
+      run: if test -f campaign/campaign.md; then cat campaign/campaign.md >> "$GITHUB_STEP_SUMMARY"; else echo "Release verification did not complete; no
+        passing release is claimed." >> "$GITHUB_STEP_SUMMARY"; fi
+    - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      if: always()
+      with:
+        name: smoke-${{ github.run_id }}-${{ github.run_attempt }}
+        path: campaign
+        if-no-files-found: error
+        retention-days: 90
+    - name: Enforce complete release verification
+      if: always()
+      env:
+        VERIFY: ${{ steps.verify.outcome }}
+        PUBLISH: ${{ steps.publish.outcome }}
+      run: test "$VERIFY" = success && test "$PUBLISH" = success
+    - if: always()
+      run: docker logout ghcr.io

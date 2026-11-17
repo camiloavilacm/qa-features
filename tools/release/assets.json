@@ -1,0 +1,44 @@
+{
+  "chrome": {
+    "binary": "chrome-linux64/chrome",
+    "binary_sha256": "f60cb86024464df9740504a1584b605c2b3cf107625ff11e1da22c875c1627e8",
+    "sha256": "9223832977a13db3646201b1341c1f9cf08afa3ceae92540116d7b0c062364fb",
+    "url": "https://storage.googleapis.com/chrome-for-testing-public/157.0.8103.78/linux64/chrome-linux64.zip"
+  },
+  "chromedriver": {
+    "binary": "chromedriver-linux64/chromedriver",
+    "binary_sha256": "758da273bc800d2c04f43f9ffe9a3e9f4288ea18cc0f8becfe1135e221853011",
+    "sha256": "0c27ff9aac902d3f7d2d01dde2235c1ff9c320bb8914b3624f4c79d52abacaea",
+    "url": "https://storage.googleapis.com/chrome-for-testing-public/157.0.8103.78/linux64/chromedriver-linux64.zip"
+  },
+  "cypress": {
+    "binary": "Cypress/Cypress",
+    "binary_sha256": "7c5ad67908926443a28ce43c64701a4ceb1bed7c4b4e6fee8a575e568dba128d",
+    "sha256": "b128f7f216224f8026e9bbab6fa7d3e1f38e3a9657f5e775e812c787231e69a5",
+    "url": "https://cdn.cypress.io/desktop/16.3.0/linux-x64/cypress.zip"
+  },
+  "hurl": {
+    "binary": "hurl-8.1.0-x86_64-unknown-linux-gnu/bin/hurl",
+    "binary_sha256": "c11a26fe3aab172aa10a5227a02fe01a6db9b5568b801f2fa9490e186ac8f729",
+    "sha256": "b497e7ab328100c507f1f3323ebe7cc5990d831ae4f9473b74d40b02971da4ca",
+    "url": "https://github.com/Orange-OpenSource/hurl/releases/download/8.1.0/hurl-8.1.0-x86_64-unknown-linux-gnu.tar.gz"
+  },
+  "node": {
+    "binary": "node-v26.13.0-linux-x64/bin/node",
+    "binary_sha256": "0adde40d1b7dfa57c8bc83cbc319758c3ec6ebba21363bb2fa752ea6b267ad1b",
+    "sha256": "d28a96af6c38596f6d9d97c0ee531c13d238d757742387d1928de822d959e997",
+    "url": "https://nodejs.org/dist/v26.13.0/node-v26.13.0-linux-x64.tar.xz"
+  },
+  "playwright-ffmpeg": {
+    "binary": "ffmpeg-linux",
+    "binary_sha256": "e829f7f8c497178109f4a388247b778a86637bf075d7bba5834c797a9d61a269",
+    "sha256": "ee986434d158f74fb5d9c5ff1092026ceedb63f324fe90b5be89460926b7b679",
+    "url": "https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1013/ffmpeg-linux.zip"
+  },
+  "playwright-shell": {
+    "binary": "chrome-headless-shell-linux64/chrome-headless-shell",
+    "binary_sha256": "24eb0a14de64ab0c9c2e283a5512ca817db64af8fd853cdb4d818f19a8e23b9b",
+    "sha256": "77a6442fd3c8acd3bef9e1067fc26f5ef464277d22f0e8cb58dc3e4077a3e458",
+    "url": "https://cdn.playwright.dev/builds/cft/159.0.8154.6/linux64/chrome-headless-shell-linux64.zip"
+  }
+}

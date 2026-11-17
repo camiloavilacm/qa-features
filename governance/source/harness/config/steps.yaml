@@ -322,7 +322,9 @@
         "sut-python/",
         "sut-node/",
         "qa-python/",
-        "qa-typescript/"
+        "qa-typescript/",
+        "harness/",
+        "planning/"
       ],
       "allowed_repositories": [
         "qa-features",
