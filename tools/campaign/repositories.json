@@ -4,10 +4,10 @@
     "sut-python": "c8f0f1f84a32f3c0eae2a0779b216d73cd84bd76",
     "sut-node": "a913cf1314ccec4c0517de6c23c495f1976cc662",
     "qa-python": "24a1373f1b3cc3f9a6b8443f34d47eadf68b4e6c",
-    "qa-typescript": "5d03cd69ca144ac4b9618c01b1e7f7de721220bf"
+    "qa-typescript": "cf8cf4744edda9665be731279bf213449c52c62a"
   },
   "runner_fingerprints": {
     "qa-python": "91345e0923a656044b30c06f7cb02d408b89c0e8f5f5f8c02c6bbaa8782d2ad4",
-    "qa-typescript": "35d8160301cfe9c9b8488a3ab506a2d7a881dd004969f50a549c1d4af0d92fd1"
+    "qa-typescript": "e3bc3b4bfa4368a783b4e90a01112296c6635d5a5790e3fdf827639dcfa42a2d"
   }
 }

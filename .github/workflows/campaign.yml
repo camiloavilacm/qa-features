@@ -160,7 +160,7 @@ jobs:
       if: matrix.driver == 'cypress'
       with:
         repository: camiloavilacm/qa-typescript
-        ref: 5d03cd69ca144ac4b9618c01b1e7f7de721220bf
+        ref: cf8cf4744edda9665be731279bf213449c52c62a
         ssh-key: ${{ secrets.QA_TYPESCRIPT_SSH_KEY }}
         persist-credentials: false
         path: runner
