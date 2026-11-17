@@ -1,42 +1,72 @@
-# Repository-local development harness
+# Development harness — current operating guide
 
-This harness governs coding-agent development; it is separate from QA execution runners. Read MASTER-CONTRACT.md and harness/state.json for authority, active step, owner, prerequisites and evidence. The user authorized Step 1 and has now approved its specification and assumptions. See governance/approvals/seed-1-approved-v1.json; later steps still require explicit authorization.
+This controller governs coding-agent development and is separate from QA execution CI. This guide is distributed as `qa-features/harness/README.md`; its links and commands refer to that distribution. The seven implementation steps are complete; current maintenance work still requires explicit user authorization. Read [MASTER-CONTRACT.md](../MASTER-CONTRACT.md), persisted `harness/state.json`, the matching external human receipt and `harness/config/steps.yaml` before writes. The committed state is a distribution snapshot; a fresh checkout requires operator provisioning of its own authorization, baseline, evidence recorder and owner. Never infer activation from a completed roadmap or an agent-edited state.
 
-## Standalone specification validation
+## Registered verification profiles
 
-From this independent repository root:
+| Profile | Execution repository | Required check IDs |
+|---|---|---|
+| Phase 0.5 readiness | Canonical development controller | adapters, evals, codex-native, claude-artifacts, antigravity-native, native-cycle |
+| Step 1 specification | qa-features | openapi, hurl, gherkin, selectors, baseline, json-schemas, governance |
+| Step 2 SUTs | Each SUT repository | hurl, seeds, ui-parity, digests |
+| Step 3 Python runner | qa-python | 12-passes, observer-complete |
+| Step 4 Cypress runner | qa-typescript | 6-passes, result-schema |
+| Step 5 tracker | qa-features | dry-run, sandbox-comment, idempotency, no-transition |
+| Step 6 campaign | qa-features | six-jobs, single-report, failure-paths, no-model-calls |
+| Step 7 smoke/maintenance | qa-features | image-digests, reproduction, 18-passes, rollback, failure-reporting |
+
+The executable registrations and active step policy are authoritative. Run a profile only from its registered repository under matching authorization. Repository-local adapters use their own persisted state/provenance; workspace-level scope auditing does not replace canonical qa-features acceptance. The workspace controller does not execute repository-only release checks.
+
+## Isolated local setup
+
+From qa-features, install the specification/controller dependencies in an isolated environment; provide Hurl/hurlfmt on PATH:
 
 ```sh
 python3 -m venv .venv
 .venv/bin/python -m pip install -r tools/validate/requirements.txt
 .venv/bin/python tools/validate/validate.py --check all
-.venv/bin/python -m unittest discover -s tools/validate -p 'test_*.py' -v
 .venv/bin/python -m unittest discover -s harness/evals -p 'test_*.py' -v
 ```
 
-These tests do not call models or a SUT. Step 1 registered checks are openapi, hurl, gherkin, selectors, baseline, json-schemas and governance. Framework-specific runner definitions, tracker tools, campaign aggregation and applications are not implemented here.
+These commands validate specifications and controller regressions. They do not provide actual SUT/browser acceptance. Campaign, tracker and release tooling now exist under `tools/`; framework-specific assertions stay in their runner repositories. See the [platform overview](../README.md), [campaign guide](../tools/campaign/README.md) and [release guide](../tools/release/README.md).
 
-## Controlled execution and evidence
+## Operator-controlled execution
 
-The operator supplies QA_AUTHORIZATION_FILE, an external record matching the persisted step authorization, and QA_EVIDENCE_KEY_FILE, an external random recorder key (at least 32 bytes; permissions 0600). Neither credentials nor recorder keys belong in Git. The current workstation records are outside this repository in qa-workspace-control; fresh checkouts require local operator provisioning. A state edit alone cannot grant authorization.
+`QA_AUTHORIZATION_FILE` must point to an external human receipt matching persisted authorization. `QA_EVIDENCE_KEY_FILE` must point to an external random recorder key of at least 32 bytes with permissions 0600. Neither value belongs in source control. Source/Git proofs, an original retained baseline and single writable ownership must also be valid before execution. Existing workstation records are operator-local and are not a fresh-checkout dependency.
+
+For an explicitly activated Step 7 maintenance session with owner `codex-step7`:
 
 ```sh
-.venv/bin/python harness/scripts/preflight.py --step 1 --provider codex --owner codex-step1
-.venv/bin/python harness/scripts/verify_step.py run --check openapi
+export QA_AUTHORIZATION_FILE=/absolute/operator/path/authorization.json
+export QA_EVIDENCE_KEY_FILE=/absolute/operator/path/evidence.key
+export QA_STEP7_RUNS_FILE=/absolute/operator/path/smoke-runs.json
+.venv/bin/python harness/scripts/preflight.py --step 7 --provider codex --owner codex-step7
+.venv/bin/python harness/scripts/verify_step.py run --check image-digests
+.venv/bin/python harness/scripts/verify_step.py run --check reproduction
+.venv/bin/python harness/scripts/verify_step.py run --check 18-passes
+.venv/bin/python harness/scripts/verify_step.py run --check rollback
+.venv/bin/python harness/scripts/verify_step.py run --check failure-reporting
 .venv/bin/python harness/scripts/verify_step.py validate
 .venv/bin/python harness/scripts/verify_step.py gate
 ```
 
-Use the actual owner and active step from state. Run all required check IDs, not just openapi, before the gate. The recorder captures exact commands, exit codes, logs, source fingerprints and signatures. Missing, modified or stale evidence cannot PASS. Checks currently support Phase 0.5 and Step 1; future step verification is added only when authorized. A passing technical gate does not approve business requirements, create a tag or authorize another step.
+Use the actual authorized step/provider/owner from activated state. `QA_STEP7_RUNS_FILE` maps `initial`, `reproduction` and `failure` to distinct retained archive directories below this repository's `harness/evidence/`. Each archive includes actual run/job/artifact metadata, campaign artifacts and publication receipts. The failure archive is a later attempt of the initial campaign that deliberately lacks rollback evidence. The successful archives include verified release records and immutable bundle digests. See `tools/release/launch.py` for dispatch, full rerun, bounded wait and archive download.
 
-## Boundaries and handoff
+Step 6 uses `QA_STEP6_RUNS_FILE` with its campaign archives. Other profiles have their own documented evidence prerequisites. Missing tools, observation or fresh execution evidence cannot PASS. The recorder captures commands, exit codes, logs and source fingerprints; signed validation checks artifact receipts again. A successful technical gate does not approve a business requirement, create a tag or authorize another step.
 
-Keep one writable owner. ownership.py release/claim creates and validates a structured handoff, source inventory and Git context. Unknown tool paths fail closed. Native hook wrappers retain distinct provider protocols. Antigravity shell execution requires externally scoped execution; Codex relies on sandbox/command rules plus explicit preflight/audit. Claude is artifacts-only and cannot claim writable ownership until its live profile is activated and validated. See .claude/ACTIVATION.md.
+## Scope, ownership and provenance
 
-The final scope audit compares a retained baseline with tracked/untracked paths, empty directories, symlinks and Git references. New unborn repository initialization is allowed during its authorized step; new commits/tags are flagged for human review. The workspace and approved repository-root .venv folders, Python caches and Git internals are excluded from content fingerprints; Git references/status and development evidence are checked separately. A final audit cannot detect transient reverted writes or arbitrary changes outside its inspected root. Native permissions and independent review remain necessary.
+Run the mandatory audit against the exact retained `state.baseline`:
 
-## Provenance
+```sh
+qa_baseline="$(.venv/bin/python -c 'import json;print(json.load(open("harness/state.json"))["baseline"])')"
+.venv/bin/python harness/scripts/scope_guard.py --baseline "$qa_baseline"
+```
 
-Canonical source is governance/source. Root native artifacts are generated copies checked by governance/manifest.json; operational state/evidence are excluded from copy equivalence. The original tested Phase 0.5 source archive and its evidence are preserved separately. package_governance.py exports self-contained source without inherited authorization or ownership, and excludes generated provenance from its own inputs. No parent untracked files or cross-repository symlinks are required.
+Auditing includes tracked/untracked files, empty directories, symlinks and Git references. It preserves the original content inventory; authorized source-reference checkpoints do not waive tag or unrelated-ref changes. A final audit cannot observe transient reverted writes or changes outside its inspected root.
 
-The Phase 0.5 native-cycle check runs real coding-agent sessions and may consume provider credits; it is development evaluation only and is not a Step 1 check or QA CI job. Current approved profile: Antigravity → Codex → Antigravity, with Claude artifacts statically validated and Claude live checks NOT RUN. Never report that exception as all three providers live-validated.
+Keep one writable owner. Use `ownership.py release/claim` and a structured handoff before a provider/owner transfer. Antigravity uses its scoped execution integration; Codex combines supported command rules with preflight/audits. These controls are not a universal filesystem sandbox. Claude remains artifacts-only and cannot become a writer until its live profile is explicitly activated and validated; see `.claude/ACTIVATION.md`.
+
+`governance/source` retains the canonical source distributed into qa-features native artifacts and the shared controller. Generated/preserved hashes are checked by `governance/manifest.json` and `harness/provenance.json`; operational state/evidence are outside copy equivalence. The original Phase 0.5 archive and the approved Step 1 history remain separate preserved records. No parent untracked files or cross-repository symlinks are required.
+
+Native-cycle checks can launch real provider sessions and consume credits; they are development readiness checks and are not part of QA execution CI. The approved profile retains Antigravity → Codex → Antigravity live evidence plus static Claude artifact validation. Live Claude is **NOT RUN**. Stop at the explicitly authorized development boundary after registered checks, signed validation/gate and the mandatory scope audit.

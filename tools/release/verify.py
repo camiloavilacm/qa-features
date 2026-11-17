@@ -3,6 +3,7 @@ import argparse,hashlib,json,os,subprocess,sys
 from pathlib import Path
 from release_core import ROOT,manifest,sha,governance
 from receipts import validate_rollback
+from publication_destination import validate_publication
 sys.path.insert(0,str(ROOT/'tools/tracker'))
 from tracker import validate_campaign
 
@@ -21,7 +22,7 @@ def load(label):
  assert publication['body_sha256']==sha(directory/'smoke-report.md') and json.loads((directory/'report-status.json').read_text())['release_status']=='verified'
  assert record['qa_campaign_sha256']==sha(directory/'campaign.json') and record['image_digests']==context['images']==m['images']
  assert record['development_harness']==governance() and not record['secret_values_exported']and not record['production_deployment']
- assert publication['issue_fields_unchanged'] and publication['comment_url'].startswith('https://github.com/camiloavilacm/qa-features/issues/2#')
+ validate_publication(publication,context,(directory/'smoke-report.md').read_text())
  assert len(jobs)==10 and all(j['conclusion']=='success'for j in jobs)
  assert len([j for j in jobs if j['name'].startswith('QA ')])==6
  return directory,campaign,context,record,published,run,jobs
@@ -70,7 +71,8 @@ def load_failure():
  assert run['head_sha']==report['tooling_ref']==context['tooling_ref']
  assert report['release_status']=='failed' and report['bundle']is None and report['upstream']['rollback']=='failure'
  assert not(directory/'published.json').exists() and not(directory/'release-record.json').exists()
- assert publication['issue_fields_unchanged'] and publication['body_sha256']==sha(directory/'smoke-report.md')
+ validate_publication(publication,context,(directory/'smoke-report.md').read_text())
+ assert publication['body_sha256']==sha(directory/'smoke-report.md')
  assert 'Release outcome: **failed**'in(directory/'smoke-report.md').read_text()
  return directory,campaign,context,report,publication,run,jobs
 
