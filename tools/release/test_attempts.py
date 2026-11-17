@@ -65,4 +65,15 @@ class AttemptReporting(unittest.TestCase):
     def test_failed_bundle_publication_cannot_reuse_earlier_success(self):
         self.env['QA_BUNDLE_PUBLICATION']='failure';_,body,status=build_report(self.directory,self.env);self.assertEqual(status['release_status'],'failed');self.assertNotIn('Verified immutable synthetic smoke bundle:',body)
 
+class HostedOutcomeSemantics(unittest.TestCase):
+    def test_continued_error_uses_outcome_instead_of_rest_conclusion(self):
+        import importlib.util
+        spec=importlib.util.spec_from_file_location('smoke_acceptance',ROOT/'tools/release/verify.py')
+        module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+        steps={'Verify release before publication':{'conclusion':'success'},'Publish content-addressed bundle':{'conclusion':'skipped'},'Publish private smoke report':{'conclusion':'success'}}
+        module.failed_release_steps(steps,{'verification':'failure'})
+        with self.assertRaises(AssertionError):module.failed_release_steps(steps,{'verification':'success'})
+        steps['Publish content-addressed bundle']['conclusion']='success'
+        with self.assertRaises(AssertionError):module.failed_release_steps(steps,{'verification':'failure'})
+
 if __name__=='__main__':unittest.main()

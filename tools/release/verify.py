@@ -74,6 +74,11 @@ def load_failure():
  assert 'Release outcome: **failed**'in(directory/'smoke-report.md').read_text()
  return directory,campaign,context,report,publication,run,jobs
 
+def failed_release_steps(steps,report):
+ # REST conclusion reflects continue-on-error; the report retains steps.verify.outcome.
+ assert 'Verify release before publication'in steps and report['verification']=='failure'
+ assert steps['Publish content-addressed bundle']['conclusion']=='skipped'and steps['Publish private smoke report']['conclusion']=='success'
+
 def failure_reporting():
  initial=load('initial');failure=load_failure()
  assert initial[5]['id']==failure[5]['id'] and initial[2]['attempt']<failure[2]['attempt']
@@ -83,7 +88,7 @@ def failure_reporting():
  qa=[j for j in failure[6]if j['name'].startswith('QA ')];rollbacks=[j for j in failure[6]if j['name'].startswith('Rollback ')]
  assert len(qa)==6 and all(j['conclusion']=='success'for j in qa)and len(rollbacks)==2 and all(j['conclusion']=='failure'for j in rollbacks)
  release=next(j for j in failure[6]if j['name']=='Publish immutable smoke bundle');steps={s['name']:s for s in release['steps']}
- assert steps['Verify release before publication']['conclusion']=='failure'and steps['Publish content-addressed bundle']['conclusion']=='skipped'and steps['Publish private smoke report']['conclusion']=='success'
+ failed_release_steps(steps,failure[3])
  assert subprocess.run([sys.executable,'-m','unittest','discover','-s','tools/release','-p','test_*.py','-v'],cwd=ROOT).returncode==0
  print('PASS: actual passing campaign rerun fails closed with unavailable current-attempt rollback, publishes no bundle, and updates the same private comment to failed')
 
