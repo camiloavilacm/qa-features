@@ -2,6 +2,7 @@
 import argparse,hashlib,json,os,subprocess,sys
 from pathlib import Path
 from release_core import ROOT,manifest,sha,governance
+from receipts import validate_rollback
 sys.path.insert(0,str(ROOT/'tools/tracker'))
 from tracker import validate_campaign
 
@@ -17,6 +18,7 @@ def load(label):
  m,digest=manifest();assert run['id']==record['run_id']==int(context['campaign_id'].split('-')[-1]) and run['run_attempt']==record['attempt']==context['attempt']
  assert run['head_sha']==record['release_tooling_ref']==context['tooling_ref'] and run['conclusion']=='success'
  assert record['release_status']=='verified' and record['manifest_sha256']==published['manifest_sha256']==context['release_manifest_sha256']==digest
+ assert publication['body_sha256']==sha(directory/'smoke-report.md') and json.loads((directory/'report-status.json').read_text())['release_status']=='verified'
  assert record['qa_campaign_sha256']==sha(directory/'campaign.json') and record['image_digests']==context['images']==m['images']
  assert record['development_harness']==governance() and not record['secret_values_exported']and not record['production_deployment']
  assert publication['issue_fields_unchanged'] and publication['comment_url'].startswith('https://github.com/camiloavilacm/qa-features/issues/2#')
@@ -46,13 +48,8 @@ def rollback():
  base,bsha=manifest('baseline');m,digest=manifest()
  for label in ('initial','reproduction'):
   r=load(label)[3];assert set(r['rollback'])=={'sut-python','sut-node'}
-  for sut,receipt in r['rollback'].items():
-   assert receipt['status']=='PASS'and receipt['baseline_manifest_sha256']==bsha and receipt['candidate_manifest_sha256']==digest
-   phases=receipt['phases'];assert [p['phase']for p in phases]==['baseline','candidate','rollback']
-   assert [p['image_id']for p in phases]==[base['images'][sut]['config_id'],m['images'][sut]['config_id'],base['images'][sut]['config_id']]
-   assert [p['registry_digest']for p in phases]==[base['images'][sut]['registry_digest'],m['images'][sut]['registry_digest'],base['images'][sut]['registry_digest']]
-   for field in ('runtime_config_sha256','baseline_row_sha256','database_container'):assert len({p[field]for p in phases})==1 and phases[0][field]
-   assert all(p['hurl_7_requests']==p['unauthenticated_user_401']==p['served_frontend_hashes']=='PASS'for p in phases)
+  context=load(label)[2]
+  for sut,receipt in r['rollback'].items():validate_rollback(receipt,sut,context,base,m,bsha,digest)
  print('PASS: actual baseline -> candidate -> baseline on both SUTs in both runs, unchanged database/config/baseline row')
 def reproduction():
  a=load('initial');b=load('reproduction');assert a[5]['id']!=b[5]['id'] and a[5]['head_sha']==b[5]['head_sha']
@@ -64,18 +61,44 @@ def reproduction():
   assert tool['fresh_tool_cache'] and other['fresh_tool_cache']
  assert subprocess.run([sys.executable,'-m','unittest','discover','-s','tools/release','-p','test_*.py','-v'],cwd=ROOT).returncode==0
  print('PASS: independently dispatched fresh machines reproduced the sealed OCI bundle with identical images/tools; tamper checks reject invalid payloads')
+def load_failure():
+ directory=Path(saved()['failure']).resolve();assert directory.is_relative_to(ROOT/'harness/evidence')
+ def read(name):return json.loads((directory/name).read_text())
+ campaign=read('campaign.json');context=read('provenance.json')['expected'];run=read('github-run.json');jobs=read('github-jobs.json')['jobs'];report=read('report-status.json');publication=read('publication.json')
+ validate_campaign(campaign,directory/'artifacts',context['feature_ref'])
+ assert run['id']==report['run_id']==context['run_id'] and run['run_attempt']==report['attempt']==context['attempt'] and run['conclusion']=='failure'
+ assert run['head_sha']==report['tooling_ref']==context['tooling_ref']
+ assert report['release_status']=='failed' and report['bundle']is None and report['upstream']['rollback']=='failure'
+ assert not(directory/'published.json').exists() and not(directory/'release-record.json').exists()
+ assert publication['issue_fields_unchanged'] and publication['body_sha256']==sha(directory/'smoke-report.md')
+ assert 'Release outcome: **failed**'in(directory/'smoke-report.md').read_text()
+ return directory,campaign,context,report,publication,run,jobs
+
+def failure_reporting():
+ initial=load('initial');failure=load_failure()
+ assert initial[5]['id']==failure[5]['id'] and initial[2]['attempt']<failure[2]['attempt']
+ initial_publication=json.loads((initial[0]/'publication.json').read_text())
+ assert failure[4]['comment_id']==initial_publication['comment_id'] and failure[4]['action']=='updated'
+ assert failure[1]['status']=='passed'and failure[3]['qa_status']=='passed'
+ qa=[j for j in failure[6]if j['name'].startswith('QA ')];rollbacks=[j for j in failure[6]if j['name'].startswith('Rollback ')]
+ assert len(qa)==6 and all(j['conclusion']=='success'for j in qa)and len(rollbacks)==2 and all(j['conclusion']=='failure'for j in rollbacks)
+ release=next(j for j in failure[6]if j['name']=='Publish immutable smoke bundle');steps={s['name']:s for s in release['steps']}
+ assert steps['Verify release before publication']['conclusion']=='failure'and steps['Publish content-addressed bundle']['conclusion']=='skipped'and steps['Publish private smoke report']['conclusion']=='success'
+ assert subprocess.run([sys.executable,'-m','unittest','discover','-s','tools/release','-p','test_*.py','-v'],cwd=ROOT).returncode==0
+ print('PASS: actual passing campaign rerun fails closed with unavailable current-attempt rollback, publishes no bundle, and updates the same private comment to failed')
+
 def verify_saved():
  head=subprocess.check_output(['git','-C',str(ROOT),'rev-parse','HEAD'],text=True).strip()
  paths=['.github','tools/release','tools/campaign','tools/tracker','harness/scripts','harness/config']
  subprocess.run(['git','-C',str(ROOT),'diff','--quiet','HEAD','--',*paths],check=True)
  assert not subprocess.check_output(['git','-C',str(ROOT),'ls-files','--others','--exclude-standard','--',*paths],text=True).strip()
  hashes={}
- for label in ('initial','reproduction'):
-  row=load(label);assert row[5]['head_sha']==head,'Hosted smoke evidence is stale for current tooling commit'
+ for label in ('initial','reproduction','failure'):
+  row=load_failure()if label=='failure'else load(label);assert row[5]['head_sha']==head,'Hosted smoke evidence is stale for current tooling commit'
   for path in sorted(row[0].rglob('*')):
    if path.is_file():assert not path.is_symlink();hashes[str(path.relative_to(ROOT))]=sha(path)
  receipt=hashlib.sha256(json.dumps(hashes,sort_keys=True).encode()).hexdigest();print('SMOKE_RECEIPT_SHA256',receipt);return receipt
 if __name__=='__main__':
- p=argparse.ArgumentParser();p.add_argument('--check',choices=['image-digests','reproduction','18-passes','rollback'],required=True);a=p.parse_args()
- try:{'image-digests':image_digests,'reproduction':reproduction,'18-passes':passes,'rollback':rollback}[a.check]();verify_saved()
+ p=argparse.ArgumentParser();p.add_argument('--check',choices=['image-digests','reproduction','18-passes','rollback','failure-reporting'],required=True);a=p.parse_args()
+ try:{'image-digests':image_digests,'reproduction':reproduction,'18-passes':passes,'rollback':rollback,'failure-reporting':failure_reporting}[a.check]();verify_saved()
  except Exception as e:print('FAIL:',type(e).__name__,str(e),file=sys.stderr);raise SystemExit(1)

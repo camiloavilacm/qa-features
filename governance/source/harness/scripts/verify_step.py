@@ -9,7 +9,7 @@ from common import ROOT, state, validate, preflight, now, digest, source_digest,
 
 def command(root, check_id):
     # One fixed registration table; arbitrary commands are never accepted.
-    if state(root)['authorized_step']=='7' and check_id in ('image-digests','reproduction','18-passes','rollback'):
+    if state(root)['authorized_step']=='7' and check_id in ('image-digests','reproduction','18-passes','rollback','failure-reporting'):
         if location(root).get('repository')!='qa-features':raise ValueError('Smoke release checks require qa-features')
         return [sys.executable,str(root/'tools/release/verify.py'),'--check',check_id]
     if state(root)['authorized_step']=='6' and check_id in ('six-jobs','single-report','failure-paths','no-model-calls'):

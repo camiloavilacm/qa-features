@@ -343,7 +343,8 @@
         "image-digests",
         "reproduction",
         "18-passes",
-        "rollback"
+        "rollback",
+        "failure-reporting"
       ],
       "prohibited_future_artifacts": [
         "later-step-implementation"

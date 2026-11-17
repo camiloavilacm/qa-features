@@ -12,6 +12,11 @@ name: SEED-1 immutable smoke
         type: number
         default: 2
         required: true
+      validation_failure_attempt:
+        description: 'Development negative check: make rollback unavailable on this attempt only; 0 disables'
+        type: number
+        default: 0
+        required: false
 permissions:
   contents: read
 concurrency:
@@ -20,6 +25,7 @@ concurrency:
 env:
   QA_REPRODUCE_BUNDLE: ${{ inputs.reproduce_bundle }}
   QA_REPORT_ISSUE: ${{ inputs.report_issue }}
+  QA_VALIDATION_FAILURE_ATTEMPT: ${{ inputs.validation_failure_attempt }}
 jobs:
   baseline:
     name: Establish immutable baseline
@@ -147,13 +153,13 @@ jobs:
       run: .venv/bin/python tools/release/install.py --driver "$QA_DRIVER" --runner runner --output "$RUNNER_TEMP/release-tools"
     - name: Start verified pinned SUT
       id: prepare
-      run: .venv/bin/python tools/campaign/slot.py prepare --context "$GITHUB_WORKSPACE/context.json" --sut-name "$QA_SUT" --sut "$GITHUB_WORKSPACE/sut"
-        --runner "$GITHUB_WORKSPACE/runner" --driver "$QA_DRIVER" --state "$RUNNER_TEMP/slot-state.json"
+      run: .venv/bin/python tools/campaign/slot.py prepare --context "$GITHUB_WORKSPACE/context.json" --sut-name "$QA_SUT" --sut "$GITHUB_WORKSPACE/sut" --runner
+        "$GITHUB_WORKSPACE/runner" --driver "$QA_DRIVER" --state "$RUNNER_TEMP/slot-state.json"
     - name: Execute approved scenarios
       id: execute
       continue-on-error: true
-      run: .venv/bin/python tools/campaign/slot.py run --context "$GITHUB_WORKSPACE/context.json" --sut-name "$QA_SUT" --sut "$GITHUB_WORKSPACE/sut" --runner
-        "$GITHUB_WORKSPACE/runner" --driver "$QA_DRIVER" --state "$RUNNER_TEMP/slot-state.json"
+      run: .venv/bin/python tools/campaign/slot.py run --context "$GITHUB_WORKSPACE/context.json" --sut-name "$QA_SUT" --sut "$GITHUB_WORKSPACE/sut" --runner "$GITHUB_WORKSPACE/runner"
+        --driver "$QA_DRIVER" --state "$RUNNER_TEMP/slot-state.json"
     - name: Collect actual image/source evidence
       id: collect
       if: always()
@@ -170,8 +176,8 @@ jobs:
         retention-days: 14
     - name: Remove disposable SUT data
       if: always()
-      run: .venv/bin/python tools/campaign/slot.py cleanup --context "$GITHUB_WORKSPACE/context.json" --sut-name "$QA_SUT" --sut "$GITHUB_WORKSPACE/sut"
-        --runner "$GITHUB_WORKSPACE/runner" --driver "$QA_DRIVER" --state "$RUNNER_TEMP/slot-state.json"
+      run: .venv/bin/python tools/campaign/slot.py cleanup --context "$GITHUB_WORKSPACE/context.json" --sut-name "$QA_SUT" --sut "$GITHUB_WORKSPACE/sut" --runner
+        "$GITHUB_WORKSPACE/runner" --driver "$QA_DRIVER" --state "$RUNNER_TEMP/slot-state.json"
     - name: Remove registry credentials
       if: always()
       run: docker logout ghcr.io
@@ -240,11 +246,15 @@ jobs:
         QA_SUT: ${{ matrix.sut }}
       run: |-
         mkdir -p rollback-evidence
+        if test "$QA_VALIDATION_FAILURE_ATTEMPT" != 0 && test "$GITHUB_RUN_ATTEMPT" = "$QA_VALIDATION_FAILURE_ATTEMPT"; then
+          echo "Intentional development negative check: current-attempt rollback evidence unavailable."
+          exit 3
+        fi
         .venv/bin/python tools/release/rollback.py --sut-name "$QA_SUT" --sut sut --output rollback-evidence/rollback.json
     - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
       if: always()
       with:
-        name: rollback-${{ matrix.sut }}
+        name: rollback-${{ github.run_attempt }}-${{ matrix.sut }}
         path: rollback-evidence
         if-no-files-found: error
     - if: always()
@@ -266,6 +276,9 @@ jobs:
     env:
       QA_BASELINE_BUNDLE: ${{ needs.baseline.outputs.bundle }}
       GH_TOKEN: ${{ github.token }}
+      QA_UPSTREAM_BASELINE: ${{ needs.baseline.result }}
+      QA_UPSTREAM_QA: ${{ needs.qa.result }}
+      QA_UPSTREAM_ROLLBACK: ${{ needs.rollback.result }}
     steps:
     - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
       with:
@@ -293,7 +306,7 @@ jobs:
     - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0
       continue-on-error: true
       with:
-        pattern: rollback-*
+        pattern: rollback-${{ github.run_attempt }}-*
         path: rollback-input
         merge-multiple: false
     - name: Aggregate smoke results
@@ -301,20 +314,23 @@ jobs:
     - name: Verify release before publication
       id: verify
       continue-on-error: true
-      run: .venv/bin/python tools/release/finalize.py --directory campaign --inbox inbox --rollback rollback-input --baseline "$QA_BASELINE_BUNDLE" --payload
-        "$RUNNER_TEMP/release-payload"
+      run: .venv/bin/python tools/release/finalize.py --directory campaign --inbox inbox --rollback rollback-input --baseline "$QA_BASELINE_BUNDLE" --payload "$RUNNER_TEMP/release-payload"
     - name: Publish content-addressed bundle
       id: publish
       if: steps.verify.outcome == 'success'
-      run: .venv/bin/python tools/release/release_package.py --directory "$RUNNER_TEMP/release-payload" --role candidate --manifest-sha "$(python -c 'import
-        json;print(json.load(open("campaign/release-record.json"))["manifest_sha256"])')" --output campaign/published.json
+      run: .venv/bin/python tools/release/release_package.py --directory "$RUNNER_TEMP/release-payload" --role candidate --manifest-sha "$(python -c 'import json;print(json.load(open("campaign/release-record.json"))["manifest_sha256"])')"
+        --output campaign/published.json
     - name: Publish private smoke report
-      if: steps.publish.outcome == 'success'
+      if: always()
       run: .venv/bin/python tools/release/publish.py --directory campaign
+      id: report
+      env:
+        QA_RELEASE_VERIFICATION: ${{ steps.verify.outcome }}
+        QA_BUNDLE_PUBLICATION: ${{ steps.publish.outcome }}
     - name: Record smoke summary
       if: always()
-      run: if test -f campaign/campaign.md; then cat campaign/campaign.md >> "$GITHUB_STEP_SUMMARY"; else echo "Release verification did not complete; no
-        passing release is claimed." >> "$GITHUB_STEP_SUMMARY"; fi
+      run: if test -f campaign/smoke-report.md; then cat campaign/smoke-report.md >> "$GITHUB_STEP_SUMMARY"; else echo "Smoke reporting did not complete; no verified
+        release is claimed." >> "$GITHUB_STEP_SUMMARY"; fi
     - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
       if: always()
       with:
@@ -327,6 +343,7 @@ jobs:
       env:
         VERIFY: ${{ steps.verify.outcome }}
         PUBLISH: ${{ steps.publish.outcome }}
-      run: test "$VERIFY" = success && test "$PUBLISH" = success
+        REPORT: ${{ steps.report.outcome }}
+      run: test "$VERIFY" = success && test "$PUBLISH" = success && test "$REPORT" = success
     - if: always()
       run: docker logout ghcr.io

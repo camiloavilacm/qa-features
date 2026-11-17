@@ -9,13 +9,13 @@ def gh(*args):
  return p.stdout
 
 def api(route):return json.loads(gh('api',route))
-def dispatch(bundle,record,issue=2,ref="main"):
+def dispatch(bundle,record,issue=2,ref="main",failure_attempt=0):
  prior={r['id']for r in api(f'repos/{REPO}/actions/workflows/smoke.yml/runs?per_page=50')['workflow_runs']}
- gh('workflow','run','smoke.yml','--repo',REPO,'--ref',ref,'-f','reproduce_bundle='+bundle,'-f','report_issue='+str(issue))
+ gh('workflow','run','smoke.yml','--repo',REPO,'--ref',ref,'-f','reproduce_bundle='+bundle,'-f','report_issue='+str(issue),'-f','validation_failure_attempt='+str(failure_attempt))
  for _ in range(20):
   runs=[r for r in api(f'repos/{REPO}/actions/workflows/smoke.yml/runs?per_page=50')['workflow_runs']if r['id']not in prior]
   if len(runs)==1:
-   r=runs[0];value={'repository':REPO,'run_id':r['id'],'tooling_ref':r['head_sha'],'run_url':r['html_url'],'reproduction_bundle':bundle,'report_issue':issue};write(record,value);print(json.dumps(value));return
+   r=runs[0];value={'repository':REPO,'run_id':r['id'],'tooling_ref':r['head_sha'],'run_url':r['html_url'],'reproduction_bundle':bundle,'report_issue':issue,'validation_failure_attempt':failure_attempt};write(record,value);print(json.dumps(value));return
   if len(runs)>1:raise RuntimeError('Ambiguous concurrent dispatches; refusing to select a run')
   time.sleep(2)
  raise RuntimeError('Dispatched workflow did not become observable')
@@ -36,9 +36,9 @@ def download(record,output):
  artifacts=api(f'repos/{REPO}/actions/runs/{run}/artifacts?per_page=100');write(output/'github-artifacts.json',artifacts)
  print('Archived attempt',output)
 if __name__=='__main__':
- p=argparse.ArgumentParser();p.add_argument('action',choices=['dispatch','wait','download','rerun']);p.add_argument('--record',type=Path,required=True);p.add_argument('--bundle',default='');p.add_argument('--ref',default='main');p.add_argument('--attempt',type=int,default=1);p.add_argument('--report-issue',type=int,default=2);p.add_argument('--output',type=Path);a=p.parse_args()
+ p=argparse.ArgumentParser();p.add_argument('action',choices=['dispatch','wait','download','rerun']);p.add_argument('--record',type=Path,required=True);p.add_argument('--bundle',default='');p.add_argument('--ref',default='main');p.add_argument('--failure-attempt',type=int,default=0);p.add_argument('--attempt',type=int,default=1);p.add_argument('--report-issue',type=int,default=2);p.add_argument('--output',type=Path);a=p.parse_args()
  try:
-  if a.action=='dispatch':dispatch(a.bundle,a.record,a.report_issue,a.ref)
+  if a.action=='dispatch':dispatch(a.bundle,a.record,a.report_issue,a.ref,a.failure_attempt)
   elif a.action=='wait':wait(a.record,a.attempt)
   elif a.action=='download':download(a.record,a.output)
   else:

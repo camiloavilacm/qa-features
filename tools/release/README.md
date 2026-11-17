@@ -13,3 +13,11 @@ To reproduce, dispatch smoke.yml at the release_record.release_tooling_ref commi
 Supported prerequisites are Linux/amd64 Docker/Compose, the pinned Python toolchain, private GitHub/package authorization and the documented Ubuntu system libraries. No production database is involved. The workflows create and remove only their disposable per-run database volumes. Registry artifacts remain subject to operator retention; immutable digests identify contents, not an availability guarantee.
 
 Four registered acceptance checks — image-digests, reproduction, 18-passes, rollback — require real hosted evidence from initial and bundle-reproduction runs. Deterministic fixture tests alone cannot complete the release gate. The approved feature remains seed-1-approved-v1 at 12a55fb4b9312303378af72f96a28734b6b9ec9a.
+
+## Scoped maintenance: architecture findings 1 and 2
+
+Rollback receipts bind campaign ID, numeric run ID/attempt, tooling commit and both manifest hashes. Both artifact upload/download names include the current attempt. Publication requires all upstream jobs to succeed; a matching receipt from another execution cannot substitute for a failed or missing rollback.
+
+The issue reporter runs independently of release publication and distinguishes QA outcome from release outcome. It updates the same campaign comment on failed/incomplete attempts, including when current-attempt evidence is unavailable or invalid. A failed attempt never inherits an earlier attempt's verified-release claim. Report snapshots and publication receipts are retained in each smoke artifact.
+
+For the explicit development negative check, dispatch with validation_failure_attempt=2 (normal default is 0). Attempt 1 exercises the full unchanged QA/rollback pipeline; a full rerun at attempt 2 deliberately makes both rollback jobs unavailable before they can write receipts. The QA matrix remains unchanged. The release gate must fail, publish no bundle, and update the same private comment to a failed release even if all 18 QA scenarios pass. No passing rollback is claimed for that intentional failure. Registered failure-reporting acceptance requires this actual hosted pass-to-failure transition in addition to fresh successful smoke and independent bundle reproduction.

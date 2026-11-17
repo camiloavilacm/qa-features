@@ -2,7 +2,9 @@
 import argparse,json,os,re,subprocess,sys,tempfile,urllib.request,uuid
 from pathlib import Path
 from release_core import ROOT,manifest,sha,write,load
-p=argparse.ArgumentParser();p.add_argument('--sut-name',choices=['sut-python','sut-node'],required=True);p.add_argument('--sut',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args();sut=a.sut.resolve();baseline,bsha=manifest('baseline');candidate,csha=manifest();name=a.sut_name
+from release_context import context
+from receipts import identity
+p=argparse.ArgumentParser();p.add_argument('--sut-name',choices=['sut-python','sut-node'],required=True);p.add_argument('--sut',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args();sut=a.sut.resolve();baseline,bsha=manifest('baseline');candidate,csha=manifest();name=a.sut_name;execution=identity(context(os.environ.get('QA_REPRODUCE_BUNDLE','')))
 project='rollback-'+name+'-'+os.environ['GITHUB_RUN_ID']+'-'+os.environ['GITHUB_RUN_ATTEMPT'];override=Path(os.environ['RUNNER_TEMP'])/'rollback-override.json';compose=['docker','compose','--project-name',project,'-f',str(sut/'compose.yaml'),'-f',str(override)]
 def run(args,**kw):return subprocess.run(args,cwd=sut,check=True,**kw)
 def capture(args):return subprocess.check_output(args,cwd=sut,text=True).strip()
@@ -35,7 +37,7 @@ try:
   assert api_contract()
   phases.append({'phase':phase,'registry_digest':image['registry_digest'],'image_id':actual,'app_container':app,'database_container':db,'baseline_row_sha256':row,'runtime_config_sha256':config,'hurl_7_requests':'PASS','unauthenticated_user_401':'PASS','served_frontend_hashes':'PASS'})
  assert phases[0]['image_id']!=phases[1]['image_id']and phases[2]['image_id']==phases[0]['image_id']
- write(a.output,{'status':'PASS','sut':name,'baseline_manifest_sha256':bsha,'candidate_manifest_sha256':csha,'phases':phases,'scope':'Image-artifact rollback against unchanged application schema; no schema-migration rollback is claimed'})
+ write(a.output,{**execution,'status':'PASS','sut':name,'baseline_manifest_sha256':bsha,'candidate_manifest_sha256':csha,'phases':phases,'scope':'Image-artifact rollback against unchanged application schema; no schema-migration rollback is claimed'})
  print('PASS: baseline -> candidate -> baseline, same database/baseline/config',name)
 finally:
  if override.exists():subprocess.run(compose+['down','--volumes','--remove-orphans'],cwd=sut,check=True)
