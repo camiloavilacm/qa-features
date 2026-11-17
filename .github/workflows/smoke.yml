@@ -133,7 +133,7 @@ jobs:
     - name: Resolve frozen release context
       run: |-
         python runner/tools/bootstrap_features.py
-        .venv/bin/python tools/release/context.py --bundle "$QA_REPRODUCE_BUNDLE" --output context.json
+        .venv/bin/python tools/release/release_context.py --bundle "$QA_REPRODUCE_BUNDLE" --output context.json
     - name: Install hash-locked Python runner
       if: matrix.driver != 'cypress'
       run: |-
@@ -232,7 +232,7 @@ jobs:
         GH_TOKEN: ${{ github.token }}
       run: printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
     - name: Verify reproduced manifest
-      run: .venv/bin/python tools/release/context.py --bundle "$QA_REPRODUCE_BUNDLE" --output context.json
+      run: .venv/bin/python tools/release/release_context.py --bundle "$QA_REPRODUCE_BUNDLE" --output context.json
     - name: Install verified API tool
       run: .venv/bin/python tools/release/install.py --driver api --runner . --output "$RUNNER_TEMP/release-tools"
     - name: Exercise real image rollback
@@ -283,7 +283,7 @@ jobs:
         GH_TOKEN: ${{ github.token }}
       run: printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
     - name: Resolve frozen release context
-      run: .venv/bin/python tools/release/context.py --bundle "$QA_REPRODUCE_BUNDLE" --output context.json
+      run: .venv/bin/python tools/release/release_context.py --bundle "$QA_REPRODUCE_BUNDLE" --output context.json
     - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0
       continue-on-error: true
       with:
