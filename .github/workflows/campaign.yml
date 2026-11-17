@@ -1,0 +1,290 @@
+name: SEED-1 campaign
+'on':
+  workflow_dispatch:
+    inputs:
+      report_issue:
+        description: Existing private qa-features issue number; 0 renders artifacts only
+        required: false
+        type: number
+        default: 0
+      observer_fault:
+        description: Development failure-path validation
+        required: true
+        type: choice
+        options:
+        - none
+        - unavailable
+        default: none
+permissions:
+  contents: read
+concurrency:
+  group: campaign-${{ github.run_id }}
+  cancel-in-progress: false
+env:
+  QA_REPORT_ISSUE: ${{ inputs.report_issue || 0 }}
+  QA_OBSERVER_VALIDATION: ${{ inputs.observer_fault }}
+jobs:
+  build_python:
+    name: Build sut-python
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      image: ${{ steps.image.outputs.image }}
+      config: ${{ steps.image.outputs.config }}
+    steps:
+    - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      with:
+        repository: camiloavilacm/sut-python
+        ref: c8f0f1f84a32f3c0eae2a0779b216d73cd84bd76
+        ssh-key: ${{ secrets.SUT_PYTHON_SSH_KEY }}
+        persist-credentials: false
+        path: sut
+    - name: Authenticate to private CI images
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+    - name: Build and pin image once
+      id: image
+      run: |
+        set -euo pipefail
+        owner="${GITHUB_REPOSITORY_OWNER,,}"
+        tag="ghcr.io/$owner/qa-campaign-sut-python:run-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+        docker build --label "org.opencontainers.image.source=https://github.com/$GITHUB_REPOSITORY" --label "org.opencontainers.image.revision=c8f0f1f84a32f3c0eae2a0779b216d73cd84bd76" --label "io.qa.sut.source=https://github.com/$GITHUB_REPOSITORY_OWNER/sut-python" --tag "$tag" sut
+        docker push "$tag"
+        image="$(docker image inspect --format '{{index .RepoDigests 0}}' "$tag")"
+        config="$(docker image inspect --format '{{.Id}}' "$tag")"
+        printf 'image=%s
+        config=%s
+        ' "$image" "${config#sha256:}" >> "$GITHUB_OUTPUT"
+    - name: Remove registry credentials
+      if: always()
+      run: docker logout ghcr.io
+  build_node:
+    name: Build sut-node
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      image: ${{ steps.image.outputs.image }}
+      config: ${{ steps.image.outputs.config }}
+    steps:
+    - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      with:
+        repository: camiloavilacm/sut-node
+        ref: a913cf1314ccec4c0517de6c23c495f1976cc662
+        ssh-key: ${{ secrets.SUT_NODE_SSH_KEY }}
+        persist-credentials: false
+        path: sut
+    - name: Authenticate to private CI images
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+    - name: Build and pin image once
+      id: image
+      run: |
+        set -euo pipefail
+        owner="${GITHUB_REPOSITORY_OWNER,,}"
+        tag="ghcr.io/$owner/qa-campaign-sut-node:run-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+        docker build --label "org.opencontainers.image.source=https://github.com/$GITHUB_REPOSITORY" --label "org.opencontainers.image.revision=a913cf1314ccec4c0517de6c23c495f1976cc662" --label "io.qa.sut.source=https://github.com/$GITHUB_REPOSITORY_OWNER/sut-node" --tag "$tag" sut
+        docker push "$tag"
+        image="$(docker image inspect --format '{{index .RepoDigests 0}}' "$tag")"
+        config="$(docker image inspect --format '{{.Id}}' "$tag")"
+        printf 'image=%s
+        config=%s
+        ' "$image" "${config#sha256:}" >> "$GITHUB_OUTPUT"
+    - name: Remove registry credentials
+      if: always()
+      run: docker logout ghcr.io
+  qa:
+    name: QA ${{ matrix.sut }} / ${{ matrix.driver }}
+    needs:
+    - build_python
+    - build_node
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: read
+    strategy:
+      fail-fast: false
+      matrix:
+        sut:
+        - sut-python
+        - sut-node
+        driver:
+        - playwright
+        - selenium
+        - cypress
+    env:
+      QA_PYTHON_IMAGE: ${{ needs.build_python.outputs.image }}
+      QA_PYTHON_CONFIG: ${{ needs.build_python.outputs.config }}
+      QA_NODE_IMAGE: ${{ needs.build_node.outputs.image }}
+      QA_NODE_CONFIG: ${{ needs.build_node.outputs.config }}
+      QA_SUT: ${{ matrix.sut }}
+      QA_DRIVER: ${{ matrix.driver }}
+      QA_CONTEXT: ${{ github.workspace }}/context.json
+      QA_OBSERVER_FAULT: ${{ inputs.observer_fault == 'unavailable' && matrix.sut == 'sut-python' && matrix.driver == 'playwright' && 'unavailable'
+        || '' }}
+    steps:
+    - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      with:
+        fetch-depth: 0
+        persist-credentials: false
+    - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      if: matrix.sut == 'sut-python'
+      with:
+        repository: camiloavilacm/sut-python
+        ref: c8f0f1f84a32f3c0eae2a0779b216d73cd84bd76
+        ssh-key: ${{ secrets.SUT_PYTHON_SSH_KEY }}
+        persist-credentials: false
+        path: sut
+    - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      if: matrix.sut == 'sut-node'
+      with:
+        repository: camiloavilacm/sut-node
+        ref: a913cf1314ccec4c0517de6c23c495f1976cc662
+        ssh-key: ${{ secrets.SUT_NODE_SSH_KEY }}
+        persist-credentials: false
+        path: sut
+    - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      if: matrix.driver != 'cypress'
+      with:
+        repository: camiloavilacm/qa-python
+        ref: 24a1373f1b3cc3f9a6b8443f34d47eadf68b4e6c
+        ssh-key: ${{ secrets.QA_PYTHON_SSH_KEY }}
+        persist-credentials: false
+        path: runner
+    - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      if: matrix.driver == 'cypress'
+      with:
+        repository: camiloavilacm/qa-typescript
+        ref: 5d03cd69ca144ac4b9618c01b1e7f7de721220bf
+        ssh-key: ${{ secrets.QA_TYPESCRIPT_SSH_KEY }}
+        persist-credentials: false
+        path: runner
+    - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+      with:
+        python-version: '3.13'
+    - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+      with:
+        node-version: '26'
+    - name: Install reporting dependencies and initialize pinned feature
+      run: |-
+        python -m venv .venv
+        .venv/bin/pip install -r tools/validate/requirements.txt
+        python runner/tools/bootstrap_features.py
+        .venv/bin/python tools/campaign/context.py
+    - name: Install Python browser runner
+      if: matrix.driver != 'cypress'
+      working-directory: runner
+      run: |-
+        python -m venv .venv
+        .venv/bin/pip install -r requirements.txt
+        .venv/bin/python -m playwright install --with-deps chromium
+    - name: Install Cypress runner
+      if: matrix.driver == 'cypress'
+      working-directory: runner
+      run: |-
+        npm ci --ignore-scripts
+        node node_modules/cypress/bin/cypress install
+        node tools/typecheck.cjs
+    - name: Authenticate to private CI images
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+    - name: Start verified pinned SUT
+      id: prepare
+      run: .venv/bin/python tools/campaign/slot.py prepare --context "$GITHUB_WORKSPACE/context.json" --sut-name "$QA_SUT" --sut "$GITHUB_WORKSPACE/sut"
+        --runner "$GITHUB_WORKSPACE/runner" --driver "$QA_DRIVER" --state "$RUNNER_TEMP/slot-state.json"
+    - name: Execute approved scenarios
+      id: execute
+      continue-on-error: true
+      run: .venv/bin/python tools/campaign/slot.py run --context "$GITHUB_WORKSPACE/context.json" --sut-name "$QA_SUT" --sut "$GITHUB_WORKSPACE/sut"
+        --runner "$GITHUB_WORKSPACE/runner" --driver "$QA_DRIVER" --state "$RUNNER_TEMP/slot-state.json"
+    - name: Collect actual image/source evidence
+      id: collect
+      if: always()
+      continue-on-error: true
+      run: |-
+        container="$(python -c 'import json,os;print(json.load(open(os.environ["RUNNER_TEMP"]+"/slot-state.json"))["container"])')"
+        .venv/bin/python tools/campaign/collect.py --context context.json --result runner/reports/slot --runner runner --sut sut --driver "$QA_DRIVER" --container "$container"
+    - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      if: always()
+      with:
+        name: slot-${{ github.run_attempt }}-${{ matrix.sut }}-${{ matrix.driver }}
+        path: runner/reports/slot
+        if-no-files-found: error
+        retention-days: 14
+    - name: Remove disposable SUT data
+      if: always()
+      run: .venv/bin/python tools/campaign/slot.py cleanup --context "$GITHUB_WORKSPACE/context.json" --sut-name "$QA_SUT" --sut "$GITHUB_WORKSPACE/sut"
+        --runner "$GITHUB_WORKSPACE/runner" --driver "$QA_DRIVER" --state "$RUNNER_TEMP/slot-state.json"
+    - name: Remove registry credentials
+      if: always()
+      run: docker logout ghcr.io
+    - name: Require executed and verified slot
+      if: always()
+      env:
+        EXECUTION: ${{ steps.execute.outcome }}
+        COLLECTION: ${{ steps.collect.outcome }}
+      run: test "$EXECUTION" = success && test "$COLLECTION" = success
+  report:
+    name: One campaign report
+    needs:
+    - build_python
+    - build_node
+    - qa
+    if: always()
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      actions: read
+      issues: write
+    env:
+      QA_PYTHON_IMAGE: ${{ needs.build_python.outputs.image }}
+      QA_PYTHON_CONFIG: ${{ needs.build_python.outputs.config }}
+      QA_NODE_IMAGE: ${{ needs.build_node.outputs.image }}
+      QA_NODE_CONFIG: ${{ needs.build_node.outputs.config }}
+      QA_CONTEXT: ${{ github.workspace }}/context.json
+      GH_TOKEN: ${{ github.token }}
+    steps:
+    - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      with:
+        fetch-depth: 0
+        persist-credentials: false
+    - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+      with:
+        python-version: '3.13'
+    - name: Install validator and capture immutable context
+      run: |-
+        python -m venv .venv
+        .venv/bin/pip install -r tools/validate/requirements.txt
+        .venv/bin/python tools/campaign/context.py
+    - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0
+      continue-on-error: true
+      with:
+        pattern: slot-${{ github.run_attempt }}-*
+        path: inbox
+        merge-multiple: false
+    - name: Aggregate current attempt
+      id: aggregate
+      run: .venv/bin/python tools/campaign/aggregate.py --inbox inbox --context context.json --output campaign
+    - name: Publish selected private issue comment
+      if: env.QA_REPORT_ISSUE != '0'
+      run: .venv/bin/python tools/campaign/publish.py --directory campaign --repository "$GITHUB_REPOSITORY" --issue "$QA_REPORT_ISSUE"
+    - name: Write campaign summary
+      if: always()
+      run: if test -f campaign/campaign.md; then cat campaign/campaign.md >> "$GITHUB_STEP_SUMMARY"; else echo "Campaign could not be validated;
+        no passing result is claimed." >> "$GITHUB_STEP_SUMMARY"; fi
+    - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      if: always()
+      with:
+        name: campaign-${{ github.run_id }}-${{ github.run_attempt }}
+        path: campaign
+        if-no-files-found: error
+        retention-days: 30
+    - name: Require complete passing campaign
+      if: always()
+      run: .venv/bin/python -c 'import json;v=json.load(open("campaign/campaign.json"));assert v["status"]=="passed", "Campaign did not pass"'

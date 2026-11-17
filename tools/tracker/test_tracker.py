@@ -81,6 +81,15 @@ class TrackerTests(unittest.TestCase):
         self.assertFalse(any(method!='GET'for method,_,_ in api.calls))
         api.rows=api.rows[:1];api.rows[0]['user']['id']=2
         with self.assertRaises(TrackerError):publish(self.value,'owner/repo',1,body,api)
+    def test_actions_installation_token_resolves_publisher_bot(self):
+        api=FakeAPI();original=api.request
+        def request(method,route,payload=None):
+            if route=='user':raise TrackerError('Installation token has no user endpoint')
+            if route=='users/github-actions%5Bbot%5D':return {'id':1}
+            return original(method,route,payload)
+        api.request=request
+        with patch.dict(os.environ,{'GITHUB_ACTIONS':'true'}):
+            self.assertEqual(publish(self.value,'owner/repo',1,render(self.value,'owner/repo',1,True),api)['action'],'created')
     def test_uncertain_create_is_reconciled_without_second_post(self):
         api=FakeAPI();api.uncertain=True;body=render(self.value,'owner/repo',1,True)
         self.assertEqual(publish(self.value,'owner/repo',1,body,api)['action'],'reconciled')

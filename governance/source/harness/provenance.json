@@ -24,7 +24,7 @@
     "harness/approved-exceptions.json": "dd81a53b8128c16b90826e32f1c00bf590b5ad8f839538f5ee95e69f6d7f6cbb",
     "harness/config/providers.yaml": "f468dbd36cb2e5bfc791664be1054b9c2071b5d379c1414f4221cbe8f92b30ee",
     "harness/config/scope-policy.yaml": "2a565481b166c410c29d012b75f5ab938998fcf345ba09ec13893c24d2f5977d",
-    "harness/config/steps.yaml": "41b918929fa6a04c6293b4011f4585c01c4e96a4a95318fefbadc245653e168b",
+    "harness/config/steps.yaml": "c516737e6d75950a2d8f0126d6f21cb5a3a0d6fe6ceb8655139ac3e8cf9d0664",
     "harness/decisions.md": "958d4e8d4420dca82026f9bee7e3fa9b0662d51b09a6c31b07e0d8f5da214b90",
     "harness/evals/cases.yaml": "334e87f567a83f8a5588cb99c4afac91750a3aae29781378f7fbee4153193963",
     "harness/evals/test_harness.py": "ce19298caf59db8871af0b169d0179750242a3b6105b066435ca015aeeec7b05",
@@ -47,7 +47,7 @@
     "harness/scripts/scope_guard.py": "4dc04d48d110b00f6012a29db9d2810f93649399ce04676b1d257b77e42a68b2",
     "harness/scripts/sync_skills.py": "95d1dffe1df353fdcc32eb5921a90db875566b3a85336b5c12e4eb0e139a7458",
     "harness/scripts/validate_adapters.py": "8b15e31142a388b227f7eb3be79a7b60f7c1dd13dc55d9060249912ca13b5f15",
-    "harness/scripts/verify_step.py": "bec999a51aa96c1bab00a51f67e50eef224d9fd5edc45a8cad1b1715eda28e45",
+    "harness/scripts/verify_step.py": "3a74e7c65949fc9c4e84b5911d9175e7aeb5d12fa401449d92fa7f58d060526d",
     "harness/state.json": "46dce9da627b3016ed71dd1f417359c5ba67ccf1edb6ac887a128ab9c4e1fee1",
     "planning/decisions.md": "089441b2c845d57f0005586a8f5ab61a0d52f17bee938c64410519e71b395620",
     "planning/development-plan.md": "11b9b48eaa7191b766a8f36ffe94c279a40198bf14e51732112cfb80cc8f076d",
@@ -59,7 +59,7 @@
     "planning/phase-05-report.md": "f00f3e68eff6f4cb789b287cd9e19cb41602bbed494c2ee1ebda602045d98916",
     "planning/readiness.md": "f7bb142d5b8e474fccba51c2f1a476355af550349acd95f1a1051bef024ba738",
     "planning/verification-plan.md": "fbcca549a38fa283f5eebc4286406af95eb94e72bb631dcc112a8e065d547efe",
-    "harness/evals/test_shared_controller.py": "cabade5354378a557a8228c7737583b069227987941af60e8e8dba5a53dfad20",
+    "harness/evals/test_shared_controller.py": "1bfc41e2f6ecf8ed5982048d72fd7a542e2296d90d85bc58c09db6bb5e234cc4",
     "planning/assumptions-checkpoint.md": "ce3ad8e78c1094d9a6bc3edc11c9754a684745de5b20fb087048437bf43b4cfd"
   }
 }

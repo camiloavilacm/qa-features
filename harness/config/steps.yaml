@@ -281,7 +281,9 @@
       "allowed_paths": [
         "qa-features/",
         "qa-python/",
-        "qa-typescript/"
+        "qa-typescript/",
+        "harness/",
+        "planning/"
       ],
       "allowed_repositories": [
         "qa-features",

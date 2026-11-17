@@ -95,7 +95,10 @@ def snapshot(issue):
     return {key:issue.get(key) for key in ('title','body','state','state_reason','labels','assignees','milestone','locked')}
 def publish(campaign,repo,issue,body,api):
     key=marker(repo,issue,campaign['campaign_id'])
-    actor=api.request('GET','user')['id']
+    try:actor=api.request('GET','user')['id']
+    except TrackerError:
+        if os.environ.get('GITHUB_ACTIONS')!='true':raise
+        actor=api.request('GET','users/github-actions%5Bbot%5D')['id']
     before=snapshot(api.request('GET',f'repos/{repo}/issues/{issue}'))
     def find():
         matches=[c for c in api.comments(repo,issue) if c.get('body','').splitlines()[:1]==[key]]

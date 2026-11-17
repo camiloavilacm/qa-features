@@ -9,6 +9,9 @@ from common import ROOT, state, validate, preflight, now, digest, source_digest,
 
 def command(root, check_id):
     # One fixed registration table; arbitrary commands are never accepted.
+    if state(root)['authorized_step']=='6' and check_id in ('six-jobs','single-report','failure-paths','no-model-calls'):
+        if location(root).get('repository')!='qa-features':raise ValueError('Campaign checks require qa-features')
+        return [sys.executable,str(root/'tools/campaign/verify.py'),'--check',check_id]
     if state(root)['authorized_step']=='5' and check_id in ('dry-run','sandbox-comment','idempotency','no-transition'):
         if location(root).get('repository')!='qa-features':raise ValueError('Tracker checks require qa-features')
         return [sys.executable,str(root/'tools/tracker/verify.py'),'--check',check_id]
@@ -41,8 +44,8 @@ def command(root, check_id):
 def run(root, check_id):
     s = state(root)
     preflight(root, s['authorized_step'], s['owner']['provider'], s['owner']['id'])
-    if s['authorized_step'] not in ('0.5', '1', '2', '3', '4', '5'):
-        raise ValueError('Only registered Phase 0.5 and Steps 1–5 checks are implemented')
+    if s['authorized_step'] not in ('0.5', '1', '2', '3', '4', '5', '6'):
+        raise ValueError('Only registered Phase 0.5 and Steps 1–6 checks are implemented')
     if check_id not in config(root, 'steps')['steps'][s['authorized_step']]['verification_checks']:
         raise ValueError('Check is outside the active step')
     args = command(root, check_id)
@@ -91,12 +94,19 @@ def validate_evidence(root, evidence):
         receipt_digest=digest((root/'reports/latest.json').read_bytes())
         if ('RESULT_RECEIPT_SHA256 '+receipt_digest) not in log.read_text():
             raise ValueError('Execution results differ from the signed receipt')
+    if evidence['step']=='6':
+        import importlib.util
+        sys.path.insert(0,str(root/'tools/campaign'))
+        spec=importlib.util.spec_from_file_location('campaign_verifier',root/'tools/campaign/verify.py')
+        verifier=importlib.util.module_from_spec(spec);spec.loader.exec_module(verifier)
+        receipt=verifier.verify_saved()
+        if ('CAMPAIGN_RECEIPT_SHA256 '+receipt) not in log.read_text():raise ValueError('Campaign evidence differs from its signed receipt')
     return evidence['status']
 
 def gate(root):
     s = state(root)
     preflight(root, s['authorized_step'], s['owner']['provider'], s['owner']['id'])
-    if s['authorized_step'] not in ('0.5', '1', '2', '3', '4', '5'):
+    if s['authorized_step'] not in ('0.5', '1', '2', '3', '4', '5', '6'):
         raise ValueError('No product-step completion implementation')
     latest = {}
     for path in s['evidence']:
@@ -110,6 +120,9 @@ def gate(root):
         for name in config(root, 'steps')['steps']['1']['required_outputs']:
             if not (spec / name).exists():
                 failures.append('Missing required specification output: ' + name)
+    if s['authorized_step'] == '6':
+        for name in ('.github/workflows/campaign.yml','tools/campaign/aggregate.py','tools/campaign/README.md'):
+            if not (root/name).is_file():failures.append('Missing Step 6 output: '+name)
     if s['authorized_step'] == '5':
         for name in ('tools/tracker/tracker.py','tools/tracker/verify.py','tools/tracker/README.md'):
             if not (root/name).is_file(): failures.append('Missing Step 5 output: '+name)
