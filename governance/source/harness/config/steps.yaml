@@ -30,7 +30,8 @@
         "codex-native",
         "claude-artifacts",
         "antigravity-native",
-        "native-cycle"
+        "native-cycle",
+        "agent-outcomes"
       ],
       "prohibited_future_artifacts": [
         "all-product-directories"
@@ -84,7 +85,8 @@
         "selectors",
         "baseline",
         "json-schemas",
-        "governance"
+        "governance",
+        "agent-outcomes"
       ],
       "prohibited_future_artifacts": [
         "later-step-implementation"
@@ -121,7 +123,8 @@
         "hurl",
         "seeds",
         "ui-parity",
-        "digests"
+        "digests",
+        "agent-outcomes"
       ],
       "prohibited_future_artifacts": [
         "later-step-implementation"
@@ -150,7 +153,8 @@
       ],
       "verification_checks": [
         "12-passes",
-        "observer-complete"
+        "observer-complete",
+        "agent-outcomes"
       ],
       "prohibited_future_artifacts": [
         "later-step-implementation"
@@ -226,7 +230,8 @@
       ],
       "verification_checks": [
         "6-passes",
-        "result-schema"
+        "result-schema",
+        "agent-outcomes"
       ],
       "prohibited_future_artifacts": [
         "later-step-implementation"
@@ -263,7 +268,8 @@
         "dry-run",
         "sandbox-comment",
         "idempotency",
-        "no-transition"
+        "no-transition",
+        "agent-outcomes"
       ],
       "prohibited_future_artifacts": [
         "later-step-implementation"
@@ -302,7 +308,8 @@
         "six-jobs",
         "single-report",
         "failure-paths",
-        "no-model-calls"
+        "no-model-calls",
+        "agent-outcomes"
       ],
       "prohibited_future_artifacts": [
         "later-step-implementation"
@@ -324,7 +331,11 @@
         "qa-python/",
         "qa-typescript/",
         "harness/",
-        "planning/"
+        "planning/",
+        "MASTER-CONTRACT.md",
+        "AGENTS.md",
+        ".agents/skills/",
+        ".claude/skills/"
       ],
       "allowed_repositories": [
         "qa-features",
@@ -344,7 +355,8 @@
         "reproduction",
         "18-passes",
         "rollback",
-        "failure-reporting"
+        "failure-reporting",
+        "agent-outcomes"
       ],
       "prohibited_future_artifacts": [
         "later-step-implementation"

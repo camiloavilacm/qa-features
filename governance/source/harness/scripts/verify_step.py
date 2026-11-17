@@ -8,6 +8,8 @@ import uuid
 from common import ROOT, state, validate, preflight, now, digest, source_digest, git_context, write, read, safe_relative, cli_error, audit, sign_evidence, verify_signature, config, location
 
 def command(root, check_id):
+    if check_id == 'agent-outcomes':
+        return [sys.executable, '-m', 'unittest', 'discover', '-s', 'harness/evals', '-p', 'test_agent_outcome.py', '-v']
     # One fixed registration table; arbitrary commands are never accepted.
     if state(root)['authorized_step']=='7' and check_id in ('image-digests','reproduction','18-passes','rollback','failure-reporting'):
         if location(root).get('repository')!='qa-features':raise ValueError('Smoke release checks require qa-features')
@@ -157,6 +159,11 @@ def gate(root):
     baseline = safe_relative(root, s['baseline'])
     if not baseline.exists() or audit(root, read(baseline))['status'] != 'PASS':
         failures.append('Mandatory scope audit missing/failed')
+    try:
+        from agent_outcome import require_outcomes
+        require_outcomes(root, completed=True)
+    except Exception as exc:
+        failures.append('Agent outcomes: ' + str(exc))
     return failures
 
 def main():
