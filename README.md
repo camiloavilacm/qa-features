@@ -1,22 +1,31 @@
-# QA Automation Platform
+# AI-Assisted Test Automation — A Development Showcase
 
-One approved specification, two reference applications, three browser automation frameworks, and evidence you can inspect.
+This project showcases how to design, build, and validate test automation frameworks with AI assistance, applying the four Ds: **Description, Delegation, Discernment, and Diligence**.
 
-This project demonstrates how to develop a QA platform with AI assistance while keeping acceptance decisions grounded in repeatable tests and human accountability. Its first feature, **SEED-1**, covers registration, successful login, and rejected login.
+Playwright, Selenium, and Cypress provide three example implementations of the same authentication specification. Readers can study and adapt the approach that fits their project. The combined test campaign verifies the showcase examples; using all three frameworks together is not an adoption requirement.
 
-## What you can do
+## What you can learn
 
-- Validate a shared authentication specification independently of a test framework.
-- Test Python and Node applications with Playwright, Selenium, and Cypress.
-- Aggregate six execution slots into one campaign: **2 applications × 3 frameworks × 3 scenarios = 18 scenario results**.
-- Maintain one private issue comment per campaign, including failed reruns.
-- Reproduce a synthetic smoke release using immutable image references and verify image rollback.
+- Define shared acceptance criteria independently of a test framework.
+- Build test automation frameworks using Playwright, Selenium, or Cypress.
+- Capture observations and distinguish verified outcomes from missing evidence.
+- Develop reporting that handles failures and reruns responsibly.
+- Validate implementations with repeatable execution, reproduction, and rollback evidence.
 
-AI assists development. The QA workflows execute deterministic tests without runtime model calls or auto-healing.
+AI assists development. The QA workflows execute deterministic tests without runtime model calls or auto-healing. The example feature, **SEED-1**, covers registration, successful login, and rejected login.
 
-## How the pieces fit
+## Choose an example to explore
 
-A **system under test (SUT)** is the application being tested. Each repository has one responsibility:
+| Interest | Start here |
+|---|---|
+| Playwright or Selenium implementation | [Python automation examples](https://github.com/camiloavilacm/qa-python) |
+| Cypress implementation | [TypeScript automation example](https://github.com/camiloavilacm/qa-typescript) |
+| Shared specification and acceptance criteria | [Authentication scenarios](features/auth/login.feature) and [API contract](openapi.yml) |
+| Human–AI development practices | [The four Ds](#how-we-work-with-ai-the-four-ds) and [development harness](harness/README.md) |
+
+## How the showcase is validated
+
+The Python and Node reference applications provide consistent targets for demonstrating the example frameworks against the same contract. A **system under test (SUT)** is the application being tested. Each repository has one responsibility:
 
 | Repository | Responsibility |
 |---|---|
@@ -27,6 +36,8 @@ A **system under test (SUT)** is the application being tested. Each repository h
 | [qa-typescript](https://github.com/camiloavilacm/qa-typescript) | Cypress runner |
 
 All five repositories are private and independent; access is required to follow their links or execute hosted workflows.
+
+The diagram shows the showcase’s validation infrastructure. Its combined campaign checks all examples: **2 applications × 3 frameworks × 3 scenarios = 18 scenario results**.
 
 ```mermaid
 flowchart TD
@@ -84,7 +95,7 @@ python3 -m venv .venv
 
 This validates specification structure and fixtures. It does not execute either application or establish browser acceptance.
 
-### Run a hosted campaign
+### Validate all examples with a hosted campaign
 
 An operator needs authenticated GitHub CLI access to the private repository and workflows. The configured Actions environment also needs the documented read-only source deploy keys and package permissions. See the [campaign guide](tools/campaign/README.md) before dispatching:
 
@@ -98,7 +109,7 @@ The development campaign defaults to private issue #1; smoke reporting defaults 
 
 ## What has been demonstrated
 
-The seven implementation steps and four subsequent architecture fixes established real hosted execution of all 18 scenarios, failed-rerun reporting, configured report destinations, independent bundle reproduction, and baseline → candidate → baseline rollback on both applications.
+Validation of the showcase across seven implementation steps and four subsequent architecture fixes established real hosted execution of all 18 scenarios, failed-rerun reporting, configured report destinations, independent bundle reproduction, and baseline → candidate → baseline rollback on both applications.
 
 Acceptance checks inspect source and image provenance, complete observations, and actual outcomes. The [release guide](tools/release/README.md) describes the evidence and reproduction procedure. Historical results apply to their recorded revisions; they are not a guarantee about every future change.
 
